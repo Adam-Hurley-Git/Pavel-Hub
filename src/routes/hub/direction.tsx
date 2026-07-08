@@ -108,27 +108,47 @@ function DirectionPage() {
 
       <div style={{ background: "#0f2b1f", borderRadius: 16, padding: 28, textAlign: "center" }}>
         <p style={{ color: "#f6f0e6", fontSize: 15, marginBottom: 16 }}>
-          <span className="cs">Chcete to vidět v praxi? Otevřete živý web a klikněte na <strong>📍 Zanechat komentář</strong>, abyste mohli okomentovat cokoliv — nadpis, fotku nebo sekci — přímo tam, kde se na stránce zobrazuje.</span>
-          <span className="en">Ready to see it in action? Open the live site and click <strong>📍 Leave feedback</strong> to
+          <span className="cs">Chcete to vidět v praxi? Otevřete živý web níže, nebo rovnou v Pastelu, a okomentujte cokoliv — nadpis, fotku nebo sekci — přímo tam, kde se na stránce zobrazuje.</span>
+          <span className="en">Ready to see it in action? Open the live site below, or straight in Pastel, and
           comment on anything — a headline, a photo, a section — right where it appears on the page.</span>
         </p>
-        <a
-          href="https://cistesachty-website-one.vercel.app/"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: "inline-block",
-            background: "#00C9A7",
-            color: "#0f2b1f",
-            fontWeight: 700,
-            fontSize: 14,
-            padding: "12px 22px",
-            borderRadius: 999,
-            textDecoration: "none",
-          }}
-        >
-          <HubText cs="Zkontrolovat živý web →" en="Review the live site →" />
-        </a>
+        <div style={{ display: "inline-flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
+          <a
+            href="https://cistesachty-website-one.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-block",
+              background: "#00C9A7",
+              color: "#0f2b1f",
+              fontWeight: 700,
+              fontSize: 14,
+              padding: "12px 22px",
+              borderRadius: 999,
+              textDecoration: "none",
+            }}
+          >
+            <HubText cs="Zkontrolovat živý web →" en="Review the live site →" />
+          </a>
+          <a
+            href="https://usepastel.com/link/o8m7rg13/"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-block",
+              background: "rgba(255,255,255,0.1)",
+              border: "1px solid rgba(255,255,255,0.3)",
+              color: "#f6f0e6",
+              fontWeight: 700,
+              fontSize: 14,
+              padding: "12px 22px",
+              borderRadius: 999,
+              textDecoration: "none",
+            }}
+          >
+            <HubText cs="📍 Okomentovat v Pastelu →" en="📍 Annotate in Pastel →" />
+          </a>
+        </div>
       </div>
     </HubShell>
   );
