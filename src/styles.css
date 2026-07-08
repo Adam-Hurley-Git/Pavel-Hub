@@ -1,0 +1,186 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-forest: var(--forest);
+  --color-forest-light: var(--forest-light);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-sand: var(--sand);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Brand palette — forest green / cream / deep ink */
+  --forest: oklch(0.38 0.07 154);          /* #22563d */
+  --forest-light: oklch(0.62 0.11 154);    /* #4a9b70 */
+  --cream: oklch(0.96 0.025 80);           /* #f6f0e6 */
+  --sand: oklch(0.92 0.03 80);
+  --ink: oklch(0.18 0.03 154);             /* #0f2b1f */
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--ink);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--ink);
+  --primary: var(--forest);
+  --primary-foreground: var(--cream);
+  --secondary: oklch(0.93 0.02 80);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.015 80);
+  --muted-foreground: oklch(0.45 0.02 154);
+  --accent: var(--forest-light);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.86 0.015 80);
+  --input: oklch(0.88 0.015 80);
+  --ring: var(--forest-light);
+
+  --gradient-hero: radial-gradient(120% 80% at 20% 0%, oklch(0.45 0.08 154) 0%, var(--ink) 70%);
+  --gradient-leaf: linear-gradient(135deg, var(--forest), var(--forest-light));
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 10px 30px -12px oklch(0.18 0.03 154 / 0.18);
+  --shadow-deep: 0 30px 60px -20px oklch(0.18 0.03 154 / 0.35);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+}
+
+@utility container-x {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--gradient-leaf);
+  color: var(--cream);
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover { transform: translateY(-2px); box-shadow: var(--shadow-deep); }
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid color-mix(in oklab, var(--cream) 30%, transparent);
+  color: var(--cream);
+  transition: background 0.2s;
+  &:hover { background: color-mix(in oklab, var(--cream) 12%, transparent); }
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--forest-light);
+}
+
+@utility card-soft {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-soft);
+}
+
+@media (max-width: 760px) {
+  .hub-shell-header-inner {
+    gap: 12px !important;
+  }
+
+  .hub-shell-logo {
+    order: 1;
+  }
+
+  .hub-shell-live-link {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .hub-shell-nav {
+    order: 3;
+    width: 100%;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    scrollbar-width: none;
+  }
+
+  .hub-shell-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hub-shell-nav a {
+    flex: 0 0 auto;
+  }
+}

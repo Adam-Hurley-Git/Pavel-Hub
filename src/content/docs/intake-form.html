@@ -1,0 +1,1278 @@
+<style>
+
+    :root {
+      --forest: #22563d;
+      --forest-light: #4a9b70;
+      --cream: #f6f0e6;
+      --sand: #ebe2d2;
+      --ink: #0f2b1f;
+      --muted: #5c6d63;
+      --card: rgba(255, 255, 255, 0.94);
+      --border: rgba(34, 86, 61, 0.14);
+      --hero: radial-gradient(circle at top left, #427a5d 0%, #163327 45%, #0f2b1f 100%);
+      --leaf: linear-gradient(135deg, #22563d 0%, #4a9b70 100%);
+      --shadow: 0 14px 40px rgba(15, 43, 31, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --page-width: 1100px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top, rgba(74, 155, 112, 0.14), transparent 24%),
+        linear-gradient(180deg, #f9f5ef 0%, var(--cream) 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: clamp(18px, 3vw, 34px) clamp(16px, 2.4vw, 24px) clamp(88px, 10vw, 120px);
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: clamp(28px, 4vw, 42px);
+      color: var(--cream);
+      background: var(--hero);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      gap: clamp(22px, 3vw, 34px);
+      grid-template-columns: minmax(0, 1.18fr) minmax(280px, 0.72fr);
+      align-items: stretch;
+    }
+
+    .hero-grid > div:first-child {
+      display: grid;
+      align-content: start;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9bd0b3;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Fraunces", Georgia, serif;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      margin-top: 10px;
+      font-size: clamp(2.55rem, 4.8vw, 4.9rem);
+      line-height: 0.96;
+      max-width: 9ch;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 58ch;
+      font-size: 1.05rem;
+      line-height: 1.72;
+      color: rgba(246, 240, 230, 0.8);
+    }
+
+    .hero-card {
+      position: relative;
+      align-self: end;
+      justify-self: end;
+      max-width: 360px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(246, 240, 230, 0.08);
+      border: 1px solid rgba(246, 240, 230, 0.12);
+      backdrop-filter: blur(10px);
+      display: grid;
+      gap: 14px;
+    }
+
+    .hero-card h2 {
+      font-size: 1.6rem;
+      color: var(--cream);
+    }
+
+    .hero-card ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      color: rgba(246, 240, 230, 0.82);
+      font-size: 0.95rem;
+    }
+
+    .hero-card li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .hero-card li::before {
+      content: "•";
+      color: #9bd0b3;
+      font-weight: 700;
+    }
+
+    .meta-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .meta-box {
+      display: grid;
+      gap: 10px;
+      border-radius: 20px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(15, 43, 31, 0.08);
+    }
+
+    .meta-box label,
+    .label {
+      display: block;
+      margin-bottom: 0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 18px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(246, 240, 230, 0.92);
+      border: 1px solid rgba(34, 86, 61, 0.12);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(15, 43, 31, 0.08);
+    }
+
+    .toolbar-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .toolbar-links a,
+    .chip {
+      text-decoration: none;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--forest);
+      background: rgba(74, 155, 112, 0.08);
+      border: 1px solid rgba(74, 155, 112, 0.14);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-left: auto;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: var(--cream);
+      background: var(--leaf);
+      box-shadow: 0 10px 28px rgba(34, 86, 61, 0.24);
+    }
+
+    .btn-secondary {
+      color: var(--forest);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(34, 86, 61, 0.14);
+    }
+
+    .btn-ghost {
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid rgba(34, 86, 61, 0.12);
+    }
+
+    form {
+      display: grid;
+      gap: 22px;
+    }
+
+    .section {
+      padding: clamp(24px, 3vw, 34px);
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 90px;
+    }
+
+    .section > :not(.section-head) + :not(.section-head) {
+      margin-top: 30px;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 12px;
+      padding-bottom: 20px;
+      margin-bottom: 26px;
+      border-bottom: 1px solid rgba(34, 86, 61, 0.08);
+    }
+
+    .section-kicker {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--forest-light);
+      line-height: 1.4;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.9rem, 3vw, 2.9rem);
+      line-height: 1.05;
+      max-width: 18ch;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 70ch;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .subgrid-2,
+    .subgrid-3 {
+      display: grid;
+      column-gap: 22px;
+      row-gap: 30px;
+    }
+
+    .subgrid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .subgrid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .field,
+    .group {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .field label {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      font-size: 0.94rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .hint {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="url"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(34, 86, 61, 0.14);
+      border-radius: 14px;
+      padding: 14px 16px;
+      min-height: 54px;
+      font: inherit;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.96);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    textarea {
+      min-height: 146px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: rgba(74, 155, 112, 0.5);
+      box-shadow: 0 0 0 4px rgba(74, 155, 112, 0.12);
+    }
+
+    .chips-grid,
+    .checks-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .check-card {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 14px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(34, 86, 61, 0.12);
+    }
+
+    .check-card input {
+      margin-top: 3px;
+      accent-color: var(--forest);
+    }
+
+    .check-card span {
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .callout {
+      margin-top: 20px;
+      padding: 20px 22px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(74, 155, 112, 0.09), rgba(74, 155, 112, 0.04));
+      border: 1px solid rgba(74, 155, 112, 0.12);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .footer-note {
+      margin-top: 4px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-left: 0;
+      vertical-align: middle;
+    }
+
+    .status-have { background: rgba(74, 155, 112, 0.14); color: var(--forest); }
+    .status-partial { background: rgba(214, 158, 46, 0.16); color: #8a6100; }
+    .status-need { background: rgba(214, 72, 59, 0.14); color: #a4291b; }
+
+    .progress-summary {
+      padding: clamp(24px, 3vw, 32px);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .progress-summary h2 {
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .progress-summary p.lead {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .progress-grid {
+      display: grid;
+      gap: clamp(18px, 3vw, 30px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .progress-col {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .progress-col h3 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .progress-col ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .progress-col li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 1120px) {
+      .meta-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .subgrid-2,
+      .subgrid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        justify-self: stretch;
+        max-width: none;
+      }
+
+      .progress-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head h2 {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 16px 12px 72px;
+      }
+
+      .hero,
+      .progress-summary,
+      .section,
+      .meta-box,
+      .toolbar {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.15rem, 13vw, 3.5rem);
+        max-width: none;
+      }
+
+      .hero-card {
+        padding: 20px;
+      }
+
+      .toolbar {
+        position: static;
+      }
+
+      .section > :not(.section-head) + :not(.section-head) {
+        margin-top: 26px;
+      }
+
+      .subgrid-2,
+      .subgrid-3 {
+        row-gap: 26px;
+      }
+
+      .toolbar-links,
+      .toolbar-actions {
+        width: 100%;
+      }
+
+      .toolbar-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .toolbar-links a {
+        text-align: center;
+      }
+
+      .btn {
+        flex: 1 1 160px;
+      }
+
+      .section-head h2 {
+        font-size: clamp(1.7rem, 8vw, 2.3rem);
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+      }
+
+      .hero,
+      .section,
+      .meta-box {
+        box-shadow: none;
+      }
+
+      .toolbar,
+      .footer-note {
+        display: none;
+      }
+    }
+
+</style>
+
+  <div class="page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Čisté šachty · podklady pro web</div>
+          <h1>Doplňte, co ještě chybí</h1>
+          <p>
+            Web pro <strong>Čisté šachty</strong> je hotový a spuštěný v testovací verzi — texty,
+            fotky, kalkulačka i poptávkový formulář už na něm jsou. Tenhle formulář slouží k tomu,
+            abyste doplnil pár tvrdých údajů, které si nemůžeme domyslet (telefon, e-mail, IČO,
+            reference), a potvrdil nebo opravil to, co jsme za vás předběžně napsali.
+          </p>
+        </div>
+        <aside class="hero-card">
+          <h2>Jak formulář číst</h2>
+          <ul>
+            <li><strong>✅ Zelené sekce</strong> — máme návrh, jen prosím zkontrolujte a opravte</li>
+            <li><strong>🟡 Žluté sekce</strong> — částečně hotovo, chybí pár konkrétních věcí</li>
+            <li><strong>🔴 Červené sekce</strong> — bez tohoto web nemůžeme spustit naostro</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="progress-summary">
+      <h2>Co už máme vs. co ještě potřebujeme</h2>
+      <p class="lead">Stručný přehled, než se pustíte do celého formuláře níže.</p>
+      <div class="progress-grid">
+        <div class="progress-col">
+          <h3>✅ Už hotovo / máme</h3>
+          <ul>
+            <li>✅ Logo, vizuální styl a celý web (9 stran) v testovací verzi</li>
+            <li>✅ Reálné fotky a videa ze zakázek (šachty, kamera, dezinfekce, pěnování)</li>
+            <li>✅ Portrét Filipa Tučka na stránce O nás</li>
+            <li>✅ Návrh všech textů, FAQ, postupu práce a výstupů</li>
+            <li>✅ Kalkulačka i poptávkový formulář — pole jsou navržená (potvrďte)</li>
+            <li>✅ Koncept garance nejlepší ceny</li>
+            <li>✅ Obsluhované oblasti — Hodonín, Kyjov, Veselí n. M., Strážnice, Rohatec, Dubňany, Bzenec</li>
+            <li>✅ Doména cistesachty.cz — vyřešeno</li>
+          </ul>
+        </div>
+        <div class="progress-col">
+          <h3>🔴 Chybí — potřebujeme od vás</h3>
+          <ul>
+            <li>🔴 Telefon a veřejný e-mail</li>
+            <li>🔴 IČO, právní forma a sídlo / provozní adresa</li>
+            <li>🔴 Roky praxe a krátké představení Filipa</li>
+            <li>🔴 Aspoň 1 skutečná reference se souhlasem se zveřejněním</li>
+            <li>🔴 Reálné foto „před / po" z konkrétního domu</li>
+            <li>🔴 Potvrzení garance nejlepší ceny (chcete ji veřejně nabízet?)</li>
+            <li>🔴 Finální právní texty (ochrana soukromí, cookies)</li>
+            <li>🟡 Stav Google firemního profilu (existuje / přístup)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="meta-bar">
+      <div class="meta-box field">
+        <label for="client-name">Firma / projekt</label>
+        <input id="client-name" name="Firma / projekt" type="text" value="Čisté šachty" />
+      </div>
+      <div class="meta-box field">
+        <label for="contact-name">Osoba na webu</label>
+        <input id="contact-name" name="Osoba na webu" type="text" value="Filip Tuček" />
+      </div>
+      <div class="meta-box field">
+        <label for="fill-date">Datum vyplnění</label>
+        <input id="fill-date" name="Datum vyplnění" type="date" />
+      </div>
+      <div class="meta-box field">
+        <label for="filled-by">Vyplnil</label>
+        <input id="filled-by" name="Vyplnil" type="text" placeholder="Filip / Pavel" />
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-links">
+        <a href="#kontakt-firma">Kontakt & firma</a>
+        <a href="#o-filipovi">O Filipovi</a>
+        <a href="#sluzby">Služby</a>
+        <a href="#formulare">Formuláře</a>
+        <a href="#garance">Garance</a>
+        <a href="#reference">Reference</a>
+        <a href="#gbp">Google profil</a>
+        <a href="#pravni">Právní texty</a>
+        <a href="#oblast">Oblast & poznámky</a>
+      </div>
+      <div class="toolbar-actions">
+        <button class="btn btn-secondary" type="button" onclick="downloadSummary()">Stáhnout odpovědi</button>
+        <button class="btn btn-secondary" type="button" onclick="window.print()">Tisk / PDF</button>
+        <button class="btn btn-ghost" type="button" onclick="clearForm()">Vymazat</button>
+      </div>
+    </div>
+
+    <form id="intake-form">
+      <!-- 01 · Kontakt a firma -->
+      <section class="section" id="kontakt-firma">
+        <div class="section-head">
+          <div class="section-kicker">01 · Kontaktní a firemní údaje <span class="status-badge status-need">🔴 Potřebujeme od vás</span></div>
+          <h2>Tvrdá fakta, která si nemůžeme domyslet</h2>
+          <p>
+            Bez těchto údajů nejde dokončit patička webu, kontaktní stránka ani právní texty. Telefon
+            a e-mail jsou zatím na webu skryté a nahrazené náhradním textem — jakmile je doplníte,
+            zobrazí se všude (web, Google profil, katalogy) ve stejné podobě.
+          </p>
+        </div>
+
+        <div class="subgrid-3">
+          <div class="field">
+            <label for="phone">Telefon (veřejný) <span class="status-badge status-need">chybí</span></label>
+            <input id="phone" name="Telefon" type="tel" placeholder="+420 ..." />
+          </div>
+          <div class="field">
+            <label for="email">Veřejný e-mail <span class="status-badge status-have">✅ návrh</span></label>
+            <input id="email" name="Veřejný e-mail" type="email" value="info@cistesachty.cz" placeholder="info@cistesachty.cz" />
+          </div>
+          <div class="field">
+            <label for="hours">Kdy jste dostupní <span class="status-badge status-need">chybí</span></label>
+            <input id="hours" name="Dostupnost" type="text" placeholder="např. Po–Pá 8:00–17:00" />
+          </div>
+        </div>
+
+        <div class="subgrid-2">
+          <div class="field">
+            <label for="ico">IČO <span class="status-badge status-have">✅ máme</span></label>
+            <input id="ico" name="IČO" type="text" value="22553614" />
+          </div>
+          <div class="field">
+            <label for="legal-form">Právní forma <span class="status-badge status-have">✅ návrh</span></label>
+            <select id="legal-form" name="Právní forma">
+              <option value="">Vyberte</option>
+              <option selected>OSVČ (živnostník)</option>
+              <option>s.r.o.</option>
+              <option>Jiné</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="address">Sídlo / provozní adresa <span class="status-badge status-need">chybí</span></label>
+          <textarea id="address" name="Sídlo / provozní adresa"></textarea>
+        </div>
+      </section>
+
+      <!-- 02 · O Filipovi -->
+      <section class="section" id="o-filipovi">
+        <div class="section-head">
+          <div class="section-kicker">02 · O Filipovi (stránka O nás) <span class="status-badge status-partial">🟡 Rámec máme, chybí detaily</span></div>
+          <h2>Pár údajů o vás pro stránku „O nás"</h2>
+          <p>
+            Stránka „O nás" je postavená kolem vás a vaší fotky. Boardy SVJ a správci chtějí vědět,
+            koho si pouští do domu, takže pár reálných detailů tady hodně zvýší důvěru.
+          </p>
+        </div>
+
+        <div class="subgrid-2">
+          <div class="field">
+            <label for="years">Jak dlouho tuto službu děláte <span class="status-badge status-need">chybí</span></label>
+            <input id="years" name="Roky praxe" type="text" placeholder="např. 1 rok" />
+          </div>
+          <div class="field">
+            <label for="photo-ok">Portrét na webu je v pořádku? <span class="status-badge status-have">✅ máme fotku</span></label>
+            <select id="photo-ok" name="Portrét OK">
+              <option value="">Vyberte</option>
+              <option selected>Ano, použijte stávající</option>
+              <option>Použijte původní fotku, ne AI upravenou</option>
+              <option>Pošlu lepší fotku</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="bio">Krátké představení — jak jste se ke službě dostal, čím jste jiný <span class="status-badge status-need">chybí</span></label>
+          <textarea
+            id="bio"
+            name="Krátké představení"
+            placeholder="Pár vět vlastními slovy. Např. proč právě šachty bytových domů, co vás na tom baví, na čem si zakládáte. Text vám učešeme, stačí obsah."
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- 03 · Služby -->
+      <section class="section" id="sluzby">
+        <div class="section-head">
+          <div class="section-kicker">03 · Služby a postup <span class="status-badge status-have">✅ Návrh hotový — zkontrolujte</span></div>
+          <h2>Sedí to, co web o vašich službách tvrdí?</h2>
+          <p>
+            Tohle je už napsané a na webu živé. Projděte prosím a opravte jen to, co neodpovídá
+            realitě.
+          </p>
+        </div>
+
+        <div class="group">
+          <span class="label">Služby, které web uvádí <span class="status-badge status-have">✅ předvyplněno</span> — odškrtněte, co ve skutečnosti neděláte</span>
+          <div class="checks-grid">
+            <label class="check-card"><input type="checkbox" name="Služba: čištění šachet" checked /><span>Čištění vzduchových šachet (hlavní)</span></label>
+            <label class="check-card"><input type="checkbox" name="Služba: kontrola kamerou" checked /><span>Kontrola kamerou</span></label>
+            <label class="check-card"><input type="checkbox" name="Služba: dezinfekce" checked /><span>Dezinfekce</span></label>
+            <label class="check-card"><input type="checkbox" name="Služba: pěnové čištění" checked /><span>Pěnové čištění</span></label>
+            <label class="check-card"><input type="checkbox" name="Služba: fotodokumentace a protokol" checked /><span>Fotodokumentace a protokol</span></label>
+            <label class="check-card"><input type="checkbox" name="Služba: doporučení údržby" checked /><span>Doporučení další údržby</span></label>
+          </div>
+        </div>
+
+        <div class="subgrid-2" style="margin-top:16px;">
+          <div class="field">
+            <label for="services-add">Nabízíte i něco, co v seznamu není? <span class="status-badge status-need">chybí</span></label>
+            <textarea id="services-add" name="Další služby" placeholder="Cokoli navíc, co bychom měli na web přidat."></textarea>
+          </div>
+          <div class="field">
+            <label for="not-provided">Co naopak neděláte nebo nechcete slibovat <span class="status-badge status-need">chybí</span></label>
+            <textarea
+              id="not-provided"
+              name="Co neposkytujete"
+              placeholder="např. revize klapek bez certifikace, rodinné domy, běžné bytové rozvody — ať web nikoho neuvede v omyl."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="process-during">Jak práce na místě reálně probíhá <span class="status-badge status-have">✅ návrh</span></label>
+          <textarea
+            id="process-during"
+            name="Průběh realizace"
+          >Práce probíhá ze střechy nebo ze společných prostor — ve většině případů bez nutnosti vstupu do jednotlivých bytů.</textarea>
+        </div>
+
+        <div class="callout">
+          <strong>Protokol a dokumentace — zatím to spolu dolaďujeme</strong>
+          <p>
+            Právě zjišťujeme, jestli vám pomůžeme s vytvořením <strong>šablony protokolu a předávané
+            dokumentace</strong>. Jestli do toho půjdeme, se teprve rozhoduje — a podle toho se
+            případně doladí texty na webu, protože protokol a dokumentace jsou teď jedním z hlavních
+            témat webu. Žádný stres: pokud šablonu nakonec nedodáme a vy si ji neuděláte sami, texty
+            na webu snadno upravíme. Web se dá kdykoli přizpůsobit, ať to dopadne jakkoli.
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="protocol-emphasis">Web teď hodně staví na dokumentaci a protokolu (bereme to jako výhodu pro SVJ a správce). Chtěl byste tohoto tématu na webu spíš méně — bez ohledu na to, jak nakonec dopadne protokol? <span class="status-badge status-partial">🟡 vaše volba</span></label>
+          <select id="protocol-emphasis" name="Důraz na protokol na webu">
+            <option value="">Vyberte</option>
+            <option>Ne — nechte protokol jako hlavní téma</option>
+            <option>Ano — ubrat důraz na protokol</option>
+            <option>Je mi to jedno, nechám na vás</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="process-after">Co konkrétně chcete, aby klient po dokončení dostával? <span class="status-badge status-partial">🟡 k upřesnění</span></label>
+          <textarea
+            id="process-after"
+            name="Výstupy po dokončení"
+            placeholder="Zatím k určení — uvítáme jakékoli návrhy. Možný návrh: fotodokumentace, protokol o provedených pracích a doporučení další údržby."
+          ></textarea>
+        </div>
+
+        <div class="callout">
+          <strong>Co ovlivňuje cenu — sedí to?</strong>
+          <p>
+            Web záměrně neuvádí pevný ceník. Místo toho vysvětluje, že cenu určuje rozsah objektu
+            (počet šachet, výška), technické podmínky (přístup na střechu, míra zanesení) a doplňkové
+            práce (kamera, dezinfekce, rozsah dokumentace). Pokud rozhoduje ještě něco dalšího,
+            napište to do poznámek v poslední sekci.
+          </p>
+        </div>
+      </section>
+
+      <!-- 05 · Formuláře na webu -->
+      <section class="section" id="formulare">
+        <div class="section-head">
+          <div class="section-kicker">04 · Formuláře na webu <span class="status-badge status-partial">🟡 Navrženo — potvrďte pole</span></div>
+          <h2>Co se má návštěvníka ptát kalkulačka a poptávkový formulář</h2>
+          <p>
+            Na webu jsou dva formuláře. Ani jeden nic sám nepočítá — <strong>vyplněná poptávka i
+            „kalkulačka" se pošlou vám</strong> a vy na ně odpovíte s cenou nebo termínem kontroly.
+            Níže jsou <strong>pole, která na webu právě teď jsou</strong> (zaškrtnutá). Nemusí být
+            konečná — klidně některé odškrtněte, a co chybí, dopište do políčka pod seznamem. Můžete
+            si je namíchat, jak potřebujete.
+          </p>
+        </div>
+
+        <div class="group">
+          <span class="label">Kalkulačka ceny čištění — pole teď na webu <span class="status-badge status-have">✅ aktuální stav</span></span>
+          <div class="checks-grid">
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: počet šachet" checked /><span>Počet šachet v domě</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: počet podlaží" checked /><span>Počet podlaží</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: přístup na střechu" checked /><span>Přístup na střechu (Snadný / Běžný / Náročný)</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: kontrola kamerou" checked /><span>Doplněk: kontrola kamerou</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: dezinfekce" checked /><span>Doplněk: dezinfekce</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: pěnové čištění" checked /><span>Doplněk: pěnové čištění</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: jméno" checked /><span>Jméno a příjmení</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: telefon" checked /><span>Telefon</span></label>
+            <label class="check-card"><input type="checkbox" name="Kalkulačka: e-mail" checked /><span>E-mail pro zaslání odhadu</span></label>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:14px;">
+          <label for="calc-changes">Kalkulačka — co přidat nebo odebrat? <span class="status-badge status-need">volitelné</span></label>
+          <textarea
+            id="calc-changes"
+            name="Úpravy kalkulačky"
+            placeholder="např. přidat výběr typu objektu, odebrat pěnové čištění, jiné pojmenování… Pokud je to takhle v pořádku, nechte prázdné."
+          ></textarea>
+        </div>
+
+        <div class="group" style="margin-top:6px;">
+          <span class="label">Poptávka bezplatné kontroly — pole teď na webu <span class="status-badge status-have">✅ aktuální stav</span></span>
+          <div class="checks-grid">
+            <label class="check-card"><input type="checkbox" name="Poptávka: jméno" checked /><span>Jméno a příjmení</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: telefon" checked /><span>Telefon</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: e-mail" checked /><span>E-mail</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: město" checked /><span>Město / lokalita</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: typ objektu" checked /><span>Typ objektu (SVJ / BD / správce)</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: název SVJ" checked /><span>Název SVJ / správce</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: adresa domu" checked /><span>Adresa domu</span></label>
+            <label class="check-card"><input type="checkbox" name="Poptávka: popis situace" checked /><span>Popis situace</span></label>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:14px;">
+          <label for="form-changes">Poptávka — co přidat nebo odebrat? <span class="status-badge status-need">volitelné</span></label>
+          <textarea
+            id="form-changes"
+            name="Úpravy poptávky"
+            placeholder="např. přidat počet šachet, preferovaný termín… Pokud je to v pořádku, nechte prázdné."
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- 06 · Garance -->
+      <section class="section" id="garance">
+        <div class="section-head">
+          <div class="section-kicker">05 · Garance nejlepší ceny <span class="status-badge status-need">🔴 Potřebujeme potvrdit</span></div>
+          <h2>Chcete veřejně slíbit, že porazíte každou ověřenou nabídku?</h2>
+          <p>
+            Na webu je připravená „Garance nejlepší ceny" — pošle-li vám zákazník písemnou,
+            ověřitelnou a srovnatelnou nabídku konkurence, vy ji porazíte. Je to silný prvek, ale
+            veřejně vás zavazuje, proto to od vás potřebujeme jasně potvrdit.
+          </p>
+        </div>
+
+        <div class="subgrid-2">
+          <div class="field">
+            <label for="guarantee">Chcete garanci nejlepší ceny na webu mít? <span class="status-badge status-need">chybí</span></label>
+            <select id="guarantee" name="Garance nejlepší ceny">
+              <option value="">Vyberte</option>
+              <option>Ano — nechte ji tam</option>
+              <option>Ano, ale s úpravou podmínek (viz níže)</option>
+              <option>Ne — raději odstranit</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="guarantee-note">Podmínky nebo limity garance <span class="status-badge status-need">volitelné</span></label>
+            <textarea
+              id="guarantee-note"
+              name="Podmínky garance"
+              placeholder="např. jen pro srovnatelný objekt a stejný rozsah, do určité vzdálenosti… Necháme-li výchozí podmínky, nechte prázdné."
+            ></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · Reference a fotky -->
+      <section class="section" id="reference">
+        <div class="section-head">
+          <div class="section-kicker">06 · Reference a fotky <span class="status-badge status-need">🔴 Nahradit vzorové</span></div>
+          <h2>Sem patří skutečné důkazy — teď jsou na webu jen vzorové</h2>
+          <p>
+            Reference i sekce „před / po" jsou zatím jen ukázkové placeholdery (na webu označené jako
+            „Ukázková reference"). Potřebujeme aspoň jednu <strong>skutečnou</strong> referenci a
+            ideálně reálné foto z konkrétního domu, abychom vzorové mohli nahradit.
+          </p>
+        </div>
+
+        <div class="callout" style="margin-top:0;">
+          <strong>Reference sesbíráte od 3 posledních klientů</strong>
+          <p>
+            Nemusíte je mít teď. Oslovte svoje <strong>3 poslední klienty</strong> a u každého si
+            zjistěte: jméno domu / SVJ nebo lokalitu, kdo referenci dává (např. předseda SVJ nebo
+            správce), co jste u nich řešili — a hlavně jestli ji smíme zveřejnit. Až je budete mít,
+            zapište je do tří políček níže.
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="ref1">Reference 1 — poslední klient <span class="status-badge status-need">doplní se</span></label>
+          <textarea id="ref1" name="Reference 1" placeholder="Jméno domu / SVJ / lokalita · kdo ji dává · co jste řešili · souhlas se zveřejněním (ano/ne)"></textarea>
+        </div>
+        <div class="field">
+          <label for="ref2">Reference 2 <span class="status-badge status-need">doplní se</span></label>
+          <textarea id="ref2" name="Reference 2" placeholder="Jméno domu / SVJ / lokalita · kdo ji dává · co jste řešili · souhlas se zveřejněním (ano/ne)"></textarea>
+        </div>
+        <div class="field">
+          <label for="ref3">Reference 3 <span class="status-badge status-need">doplní se</span></label>
+          <textarea id="ref3" name="Reference 3" placeholder="Jméno domu / SVJ / lokalita · kdo ji dává · co jste řešili · souhlas se zveřejněním (ano/ne)"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="beforeafter">Můžete dodat pár fotek „před a po" z konkrétní zakázky, které bych mohl použít? <span class="status-badge status-need">chybí</span></label>
+          <select id="beforeafter" name="Fotky před a po">
+            <option value="">Vyberte</option>
+            <option>Ano</option>
+            <option>Ne</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="trust-claims">Co konkrétně můžete o zkušenostech doložit <span class="status-badge status-need">chybí</span></label>
+          <textarea
+            id="trust-claims"
+            name="Co lze doložit"
+            placeholder="např. počet dokončených zakázek, roky v regionu, typy domů — jen to, co je pravdivé a doložitelné."
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- 08 · Google firemní profil -->
+      <section class="section" id="gbp">
+        <div class="section-head">
+          <div class="section-kicker">07 · Google firemní profil <span class="status-badge status-partial">🟡 Součást dodávky — potřebujeme přístup</span></div>
+          <h2>Nastavení profilu na Google (Mapy a místní vyhledávání)</h2>
+          <p>
+            Součástí dodávky je jednorázové založení a optimalizace vašeho Google firemního profilu.
+            Abychom to mohli udělat, potřebujeme vědět, jak na tom teď jste.
+          </p>
+        </div>
+
+        <div class="subgrid-2">
+          <div class="field">
+            <label for="gbp-exists">Máte už firmu na Google / Mapách? <span class="status-badge status-need">chybí</span></label>
+            <select id="gbp-exists" name="Google profil existuje">
+              <option value="">Vyberte</option>
+              <option>Ne / nevím</option>
+              <option>Ano, mám k němu přístup</option>
+              <option>Existuje, ale nemám přístup</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gbp-access">Můžete nám dát přístup k založení / ověření? <span class="status-badge status-need">chybí</span></label>
+            <select id="gbp-access" name="Přístup k profilu">
+              <option value="">Vyberte</option>
+              <option>Ano</option>
+              <option>Potřebuji poradit jak</option>
+              <option>Ne</option>
+            </select>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 08 · Právní texty -->
+      <section class="section" id="pravni">
+        <div class="section-head">
+          <div class="section-kicker">08 · Právní texty <span class="status-badge status-need">🔴 Potřebujeme od vás</span></div>
+          <h2>Ochrana osobních údajů a cookies</h2>
+          <p>
+            Web sbírá data z formulářů, takže musí mít stránky o ochraně osobních údajů a cookies.
+            Teď jsou to jen placeholdery. Můžeme je za vás připravit — potřebujeme jen, kdo je
+            správcem údajů a jak vás lidé v této věci mohou kontaktovat.
+          </p>
+        </div>
+
+        <div class="subgrid-2">
+          <div class="field">
+            <label for="privacy-same">Kdo je správcem osobních údajů? <span class="status-badge status-need">chybí</span></label>
+            <select id="privacy-same" name="Správce údajů — zdroj">
+              <option value="">Vyberte</option>
+              <option>Stejné jako firemní údaje v sekci 01</option>
+              <option>Jiné — napíšu níže</option>
+            </select>
+            <textarea id="privacy-controller" name="Správce osobních údajů (pokud jiné)" placeholder="Vyplňte jen tehdy, pokud se liší od firemních údajů z první sekce."></textarea>
+          </div>
+          <div class="field">
+            <label for="privacy-contact">Kontakt pro ochranu údajů (pokud se liší od veřejného e-mailu) <span class="status-badge status-need">volitelné</span></label>
+            <textarea id="privacy-contact" name="Kontakt pro soukromí"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="legal-note">Chcete texty připravit za vás, nebo je dodáte? <span class="status-badge status-need">chybí</span></label>
+          <select id="legal-note" name="Právní texty — postup">
+            <option value="">Vyberte</option>
+            <option>Připravte je za mě</option>
+            <option>Dodám vlastní texty</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- 10 · Oblast a poznámky -->
+      <section class="section" id="oblast">
+        <div class="section-head">
+          <div class="section-kicker">09 · Oblast působení a poznámky <span class="status-badge status-have">✅ Návrh — zkontrolujte</span></div>
+          <h2>Kde působíte a cokoli dalšího, co má web zohlednit</h2>
+          <p>
+            Oblast působení už na webu je. Opravte ji, pokud nesedí, a dole máte prostor na cokoli
+            dalšího.
+          </p>
+        </div>
+
+        <div class="field">
+          <label for="service-area">Kde reálně obsluhujete zakázky <span class="status-badge status-have">✅ návrh</span></label>
+          <textarea
+            id="service-area"
+            name="Oblast působení"
+          >Hodonín, Kyjov, Veselí nad Moravou, Strážnice, Rohatec, Dubňany, Bzenec — případně celý Hodonínský okres a Jihomoravský kraj.</textarea>
+        </div>
+
+        <div class="subgrid-2">
+          <div class="field">
+            <label for="phrases-avoid">Slova nebo sliby, kterým se na webu vyhnout <span class="status-badge status-need">volitelné</span></label>
+            <textarea
+              id="phrases-avoid"
+              name="Čemu se vyhnout"
+              placeholder="např. termíny, které nechcete používat, sliby, které nechcete dávat."
+            ></textarea>
+          </div>
+          <div class="field">
+            <label for="notes">Další poznámky pro finální podobu webu <span class="status-badge status-need">volitelné</span></label>
+            <textarea
+              id="notes"
+              name="Další poznámky"
+              placeholder="Cokoli dalšího, co by mělo zaznít, nebo co naopak na webu otevírat nechcete."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Až budete hotov</strong>
+          <p>
+            Klikněte nahoře na <em>Stáhnout odpovědi</em> nebo <em>Tisk / PDF</em>. Vznikne přehledný
+            podklad, ze kterého doplníme zbytek webu bez dalšího dohledávání.
+          </p>
+        </div>
+      </section>
+    </form>
+
+    <p class="footer-note">
+      Formulář se průběžně ukládá v prohlížeči tohoto zařízení. Pro předání dál použijte export nebo PDF.
+    </p>
+  </div>
+
+  <script>
+    const form = document.getElementById("intake-form");
+    const storageKey = "ciste-sachty-client-intake-v2";
+
+    function setToday() {
+      const dateInput = document.getElementById("fill-date");
+      if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split("T")[0];
+      }
+    }
+
+    function getFields() {
+      return Array.from(document.querySelectorAll("input, textarea, select"));
+    }
+
+    function saveDraft() {
+      const data = {};
+      getFields().forEach((field) => {
+        if (!field.name) return;
+        if (field.type === "checkbox") {
+          data[field.name] = field.checked;
+          return;
+        }
+        data[field.name] = field.value;
+      });
+      localStorage.setItem(storageKey, JSON.stringify(data));
+    }
+
+    function restoreDraft() {
+      const raw = localStorage.getItem(storageKey);
+      if (!raw) return;
+
+      try {
+        const data = JSON.parse(raw);
+        getFields().forEach((field) => {
+          if (!field.name || !(field.name in data)) return;
+          if (field.type === "checkbox") {
+            field.checked = Boolean(data[field.name]);
+            return;
+          }
+          field.value = data[field.name];
+        });
+      } catch (error) {
+        console.error("Nepodařilo se obnovit uložený formulář.", error);
+      }
+    }
+
+    function buildSummary() {
+      const lines = [];
+      lines.push("Podkladový dotazník - Čisté šachty");
+      lines.push("");
+
+      document.querySelectorAll(".section").forEach((section) => {
+        const title = section.querySelector("h2")?.textContent?.trim();
+        if (title) {
+          lines.push(title);
+          lines.push("-".repeat(title.length));
+        }
+
+        section.querySelectorAll("input, textarea, select").forEach((field) => {
+          if (!field.name) return;
+          if (field.type === "checkbox" && !field.checked) return;
+
+          let value = "";
+          if (field.type === "checkbox") {
+            value = "Ano";
+          } else {
+            value = field.value.trim();
+          }
+
+          if (!value) return;
+          lines.push(field.name + ": " + value);
+        });
+
+        lines.push("");
+      });
+
+      return lines.join("\n");
+    }
+
+    function downloadSummary() {
+      const content = buildSummary();
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "ciste-sachty-podklady.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearForm() {
+      const confirmed = window.confirm("Vymazat všechny odpovědi v tomto formuláři?");
+      if (!confirmed) return;
+
+      getFields().forEach((field) => {
+        if (field.type === "checkbox") {
+          field.checked = false;
+          return;
+        }
+        field.value = "";
+      });
+
+      localStorage.removeItem(storageKey);
+      setToday();
+    }
+
+    setToday();
+    restoreDraft();
+    form.addEventListener("input", saveDraft);
+    window.downloadSummary = downloadSummary;
+    window.clearForm = clearForm;
+  </script>

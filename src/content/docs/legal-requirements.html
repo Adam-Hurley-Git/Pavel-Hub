@@ -1,0 +1,1499 @@
+<style>
+
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3348;
+    --accent: #4f8ef7;
+    --accent3: #f7c948;
+    --red: #f76060;
+    --orange: #f7944a;
+    --text: #e2e6f0;
+    --muted: #8892a4;
+    --green: #38d9a9;
+    --purple: #a777f7;
+    --nav-h: 52px;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px;
+  }
+
+  /* ── LANGUAGE SWITCHING ── */
+  .en { display: none !important; }
+  body.lang-en .cs { display: none !important; }
+  body.lang-en div.en  { display: block !important; }
+  body.lang-en span.en { display: inline !important; }
+  body.lang-en li.en   { display: flex !important; }
+  body.lang-en a.en    { display: flex !important; }
+  body.lang-en td.en   { display: table-cell !important; }
+  body.lang-en th.en   { display: table-cell !important; }
+  body.lang-en h4.en   { display: block !important; }
+  body.lang-en p.en    { display: block !important; }
+  body.lang-en h3.en   { display: block !important; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,17,23,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    display: flex; align-items: center; gap: 0;
+    height: var(--nav-h); overflow-x: auto; white-space: nowrap;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .nav-brand {
+    font-weight: 700; color: var(--accent); font-size: 14px;
+    margin-right: 8px; padding-right: 16px;
+    border-right: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .nav-links { display: flex; align-items: center; flex: 1; overflow-x: auto; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  nav a.nav-link {
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    padding: 0 12px; height: var(--nav-h);
+    display: flex; align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+    flex-shrink: 0;
+  }
+  nav a.nav-link:hover { color: var(--text); }
+  nav a.nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; flex-shrink: 0; padding-left: 12px; }
+  .lang-btn {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--muted); padding: 5px 12px; border-radius: 6px;
+    font-size: 12px; font-weight: 700; cursor: pointer; letter-spacing: .5px;
+    transition: all .15s;
+  }
+  .lang-btn:hover { color: var(--text); border-color: var(--accent); }
+  .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .print-btn {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted); padding: 5px 12px; border-radius: 6px;
+    font-size: 12px; cursor: pointer; transition: all .15s;
+  }
+  .print-btn:hover { color: var(--text); border-color: var(--muted); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #131827 0%, #1a2640 50%, #131827 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 2rem 50px; text-align: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(79,142,247,.15); border: 1px solid rgba(79,142,247,.3);
+    color: var(--accent); font-size: 12px; padding: 4px 14px;
+    border-radius: 100px; margin-bottom: 20px; letter-spacing: .5px;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 12px; }
+  .hero h1 span { color: var(--accent); }
+  .hero .sub { color: var(--muted); font-size: 15px; max-width: 620px; margin: 0 auto 28px; }
+  .hero-meta { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 32px; }
+  .section-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .icon-blue   { background: rgba(79,142,247,.15); }
+  .icon-green  { background: rgba(56,217,169,.15); }
+  .icon-orange { background: rgba(247,148,74,.15); }
+  .icon-yellow { background: rgba(247,201,72,.15); }
+  .icon-red    { background: rgba(247,96,96,.15); }
+  .icon-purple { background: rgba(167,119,247,.15); }
+  .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+  .section-desc { color: var(--muted); font-size: 14px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+  }
+  .card-title { font-weight: 700; font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .card-red { border-color: rgba(247,96,96,.35); background: rgba(247,96,96,.04); }
+  .card-orange { border-color: rgba(247,148,74,.35); background: rgba(247,148,74,.04); }
+  .card-green { border-color: rgba(56,217,169,.35); background: rgba(56,217,169,.04); }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-flex; align-items: center; padding: 3px 10px;
+    border-radius: 100px; font-size: 11px; font-weight: 700; white-space: nowrap;
+  }
+  .badge-required    { background: rgba(247,96,96,.15);  color: var(--red);    border: 1px solid rgba(247,96,96,.25); }
+  .badge-recommended { background: rgba(247,201,72,.15); color: var(--accent3); border: 1px solid rgba(247,201,72,.25); }
+  .badge-optional    { background: rgba(56,217,169,.15); color: var(--green);  border: 1px solid rgba(56,217,169,.25); }
+  .badge-info        { background: rgba(79,142,247,.15); color: var(--accent);  border: 1px solid rgba(79,142,247,.25); }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: var(--surface2); padding: 11px 16px; text-align: left;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--muted); border-bottom: 1px solid var(--border);
+  }
+  td { padding: 13px 16px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  /* ── STEPS ── */
+  .step {
+    display: flex; gap: 16px; margin-bottom: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px;
+  }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0; margin-top: 2px;
+  }
+  .step-body h4 { font-weight: 700; margin-bottom: 4px; font-size: 15px; }
+  .step-body p { color: var(--muted); font-size: 14px; }
+  .step-body .detail { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.7; }
+
+  /* ── CALLOUTS ── */
+  .callout {
+    border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+    display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.65;
+  }
+  .callout-blue   { background: rgba(79,142,247,.08);  border: 1px solid rgba(79,142,247,.2); }
+  .callout-green  { background: rgba(56,217,169,.08);  border: 1px solid rgba(56,217,169,.2); }
+  .callout-orange { background: rgba(247,148,74,.08);  border: 1px solid rgba(247,148,74,.2); }
+  .callout-red    { background: rgba(247,96,96,.08);   border: 1px solid rgba(247,96,96,.2); }
+  .callout-purple { background: rgba(167,119,247,.08); border: 1px solid rgba(167,119,247,.2); }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .callout strong { color: var(--text); }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .chk  { color: var(--green); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .crs  { color: var(--red);   font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── FINE BOX ── */
+  .fine-box {
+    background: rgba(247,96,96,.06); border: 1px solid rgba(247,96,96,.25);
+    border-radius: 12px; padding: 20px 24px; margin: 16px 0;
+  }
+  .fine-box h4 { color: var(--red); font-size: 13px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; font-weight: 700; }
+  .fine-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(247,96,96,.1); font-size: 14px; }
+  .fine-row:last-child { border-bottom: none; }
+  .fine-amount { font-weight: 700; color: var(--red); font-size: 15px; }
+
+  /* ── COMPARE TABLE ── */
+  .compare-win { color: var(--green); font-weight: 600; }
+  .compare-lose { color: var(--red); }
+  .compare-mid { color: var(--accent3); }
+
+  /* ── MISC ── */
+  ul.plain { list-style: none; }
+  ul.plain li { padding: 5px 0; color: var(--muted); font-size: 14px; }
+  ul.plain li::before { content: "→ "; color: var(--accent); }
+  .highlight { color: var(--accent); font-weight: 600; }
+  .highlight-red { color: var(--red); font-weight: 600; }
+  .highlight-green { color: var(--green); font-weight: 600; }
+  .highlight-orange { color: var(--orange); font-weight: 600; }
+  .subhead { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 14px; font-weight: 700; }
+  .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 20px 0; }
+  .stat-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 20px; flex: 1; min-width: 160px;
+  }
+  .stat-box .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 6px; }
+  .stat-box .stat-value { font-size: 1.4rem; font-weight: 800; color: var(--text); }
+  .stat-box .stat-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  h3.subsec { font-size: 1rem; font-weight: 700; margin: 28px 0 14px; border-left: 3px solid var(--accent); padding-left: 12px; }
+  h3.subsec-red { border-left-color: var(--red); }
+  h3.subsec-green { border-left-color: var(--green); }
+  h3.subsec-orange { border-left-color: var(--orange); }
+  h3.subsec-purple { border-left-color: var(--purple); }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; color: #111; }
+    nav, .nav-actions { display: none; }
+    .hero { background: #f0f4ff; padding: 30px; }
+    .hero h1 { color: #1a2a6c; } .hero h1 span { color: #1a2a6c; }
+    .card, .step { background: #f8f8f8; border: 1px solid #ddd; }
+    .callout-blue { background: #eef3ff; border-color: #c0d0ff; }
+    .callout-green { background: #effffa; border-color: #b0ffe0; }
+    .callout-orange { background: #fff8ee; border-color: #ffd0a0; }
+    .callout-red { background: #fff0f0; border-color: #ffb0b0; }
+    th { background: #eee; } .badge-required { background: #ffe0e0; color: #c00; }
+    .badge-recommended { background: #fff8cc; color: #a07000; }
+    --muted: #555; --text: #111; --border: #ddd;
+  }
+
+</style>
+
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="main-nav">
+  <span class="nav-brand">🔧 Pavel</span>
+  <div class="nav-links">
+    <a class="nav-link cs" href="#zivnost">Živnost</a>
+    <a class="nav-link en" href="#zivnost">Trade Licence</a>
+    <a class="nav-link cs" href="#svj">Povinnosti SVJ</a>
+    <a class="nav-link en" href="#svj">SVJ Obligations</a>
+    <a class="nav-link cs" href="#normy">Normy</a>
+    <a class="nav-link en" href="#normy">Standards</a>
+    <a class="nav-link cs" href="#ozo">Požární ochrana</a>
+    <a class="nav-link en" href="#ozo">Fire Safety</a>
+    <a class="nav-link cs" href="#bozp">BOZP</a>
+    <a class="nav-link en" href="#bozp">H&amp;S</a>
+    <a class="nav-link cs" href="#biocidy">Dezinfekce</a>
+    <a class="nav-link en" href="#biocidy">Disinfection</a>
+    <a class="nav-link cs" href="#finance">Finance</a>
+    <a class="nav-link en" href="#finance">Finance</a>
+    <a class="nav-link cs" href="#pojisteni">Pojištění</a>
+    <a class="nav-link en" href="#pojisteni">Insurance</a>
+    <a class="nav-link cs" href="#checklist">Checklist</a>
+    <a class="nav-link en" href="#checklist">Checklist</a>
+  </div>
+  <div class="nav-actions">
+    <button class="lang-btn active" id="btn-cs" onclick="setLang('cs')">CZ</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="print-btn" onclick="window.print()"><span class="cs">🖨 Tisk</span><span class="en">🖨 Print</span></button>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">
+      <span class="cs">Právní průvodce pro podnikatele</span>
+      <span class="en">Legal Guide for Business Owners</span>
+    </div>
+    <h1>
+      <span class="cs">Co potřebuje <span>čistič šachet</span><br>ke splnění zákona</span>
+      <span class="en">What a <span>ventilation shaft cleaner</span><br>needs to operate legally</span>
+    </h1>
+    <p class="sub">
+      <span class="cs">Kompletní přehled licencí, norem, daní a povinností SVJ — pro OSVČ provozující čištění odvětrávacích šachet v České republice.</span>
+      <span class="en">Complete overview of licences, standards, taxes and SVJ obligations — for sole traders running a ventilation shaft cleaning business in the Czech Republic.</span>
+    </p>
+    <div class="hero-meta">
+      <span>📅 <span class="cs">Stav k červnu 2026</span><span class="en">Current: June 2026</span></span>
+      <span>🇨🇿 <span class="cs">Česká republika</span><span class="en">Czech Republic</span></span>
+      <span>🏢 OSVČ / s.r.o.</span>
+      <span>🔍 <span class="cs">Čištění VZT šachet</span><span class="en">Ventilation Shaft Cleaning</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════
+     1. ŽIVNOSTENSKÝ LIST / TRADE LICENCE
+     ═══════════════════════════════════════════ -->
+<section class="section" id="zivnost">
+  <div class="section-header">
+    <div class="section-icon icon-blue">📋</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Živnostenské oprávnění</span>
+        <span class="en">Trade Licence</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Jaký typ živnosti potřebujete a co to obnáší</span>
+        <span class="en">Which licence type you need and what it involves</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">✅</div>
+    <div>
+      <div class="cs"><p><strong>Dobrá zpráva:</strong> Čištění odvětrávacích šachet a vzduchotechniky je <strong>volná živnost</strong> — nevyžaduje žádné odborné vzdělání ani zkoušky. Stačí splnit obecné podmínky živnostenského zákona (zákon č. 455/1991 Sb.).</p></div>
+      <div class="en"><p><strong>Good news:</strong> Cleaning ventilation shafts and HVAC systems is classified as a <strong>free trade (volná živnost)</strong> — no professional qualifications or exams required. You just need to meet the general conditions of the Trade Licensing Act (Act No. 455/1991 Sb.).</p></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📌 <span class="cs">Kategorie živnosti</span><span class="en">Trade Category</span></div>
+      <div class="cs"><p>Volná živnost — <strong>Skupina 58</strong> (Výroba, obchod a služby neuvedené v přílohách 1 až 3) a/nebo <strong>Skupina 76</strong> (Průmyslové čištění). Při čistě zakázkových službách postačí Skupina 58.</p></div>
+      <div class="en"><p>Free trade — <strong>Group 58</strong> (Production, trade and services not listed in Annexes 1–3) and/or <strong>Group 76</strong> (Industrial Cleaning). Group 58 alone suffices for pure service work.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚖️ <span class="cs">Obecné podmínky (§ 6 ŽZ)</span><span class="en">General Conditions (§ 6 TLA)</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Minimální věk 18 let</li>
+        <li>Způsobilost k právním úkonům</li>
+        <li>Bezúhonnost (výpis z RT)</li>
+        <li>Bezdlužnost vůči státu</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Minimum age 18</li>
+        <li>Legal capacity</li>
+        <li>Clean criminal record</li>
+        <li>No outstanding state debts</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">ℹ️</div>
+    <div>
+      <div class="cs"><p><strong>Odpovědný zástupce:</strong> Pokud provozujete s.r.o. a jednatel nesplňuje některou podmínku, lze ustanovit odpovědného zástupce (fyzickou osobu splňující podmínky ŽZ).</p></div>
+      <div class="en"><p><strong>Responsible representative:</strong> If running an s.r.o. and the director doesn't meet all conditions, a responsible representative (a natural person who does) can be appointed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     2. POVINNOSTI SVJ — KLÍČOVÁ SEKCE
+     ═══════════════════════════════════════════ -->
+<section class="section" id="svj">
+  <div class="section-header">
+    <div class="section-icon icon-red">🏢</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Zákonné povinnosti SVJ</span>
+        <span class="en">SVJ Legal Obligations</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Co musí SVJ a bytová družstva ze zákona zajistit — a co riskují, když to zanedbají</span>
+        <span class="en">What housing associations (SVJ) and co-operatives are legally required to do — and what they risk if they neglect it</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <div class="cs"><p><strong>Žádný zákon to nenazve přímo „čištění šachet" — povinnost vyplývá z kombinace čtyř právních předpisů.</strong> Přesně to je důvod, proč mnoho SVJ o svých povinnostech neví. Níže je přehled všech relevantních zákonů a co z nich vyplývá.</p></div>
+      <div class="en"><p><strong>No single law explicitly names "shaft cleaning" — the obligation arises from the combination of four legal instruments.</strong> This is exactly why many SVJ boards are unaware of their duties. Below is a breakdown of all relevant legislation and what it requires.</p></div>
+    </div>
+  </div>
+
+  <!-- Legal basis table -->
+  <h3 class="subsec cs">Právní základ povinností SVJ</h3>
+  <h3 class="subsec en">Legal Basis of SVJ Obligations</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cs">Předpis</th><th class="en">Legislation</th>
+          <th class="cs">Povinnost</th><th class="en">Obligation</th>
+          <th class="cs">Periodicita</th><th class="en">Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Zákon č. 133/1985 Sb.</strong><br><span style="color:var(--muted);font-size:12px">Zákon o požární ochraně</span></td>
+          <td><strong>Act No. 133/1985 Sb.</strong><br><span style="color:var(--muted);font-size:12px">Fire Protection Act</span></td>
+          <td class="cs">Zajistit funkčnost a pravidelnou revizi požárních klapek ve vzduchotechnických rozvodech</td>
+          <td class="en">Ensure the operability and regular inspection of fire dampers in HVAC distribution systems</td>
+          <td><span class="badge badge-required cs">Ročně</span><span class="badge badge-required en">Annually</span></td>
+        </tr>
+        <tr>
+          <td><strong>Vyhláška č. 246/2001 Sb., § 7</strong><br><span style="color:var(--muted);font-size:12px">O požární prevenci</span></td>
+          <td><strong>Decree No. 246/2001 Sb., § 7</strong><br><span style="color:var(--muted);font-size:12px">On fire prevention</span></td>
+          <td class="cs">Provádět kontroly a revize požárních klapek, vést záznamy (kniha požárních klapek)</td>
+          <td class="en">Perform checks and inspections of fire dampers, maintain records (fire damper log book)</td>
+          <td><span class="badge badge-required cs">1× ročně min.</span><span class="badge badge-required en">Min. 1× per year</span></td>
+        </tr>
+        <tr>
+          <td><strong>ČSN EN 15780</strong><br><span style="color:var(--muted);font-size:12px">Čistota VZT rozvodů</span></td>
+          <td><strong>ČSN EN 15780</strong><br><span style="color:var(--muted);font-size:12px">HVAC Duct Cleanliness</span></td>
+          <td class="cs">Udržovat větrací šachty v čistotě — pravidelné čištění a protokolární dokumentace</td>
+          <td class="en">Maintain ventilation shafts in a clean state — periodic cleaning with protocol documentation</td>
+          <td><span class="badge badge-recommended cs">Každé 2 roky</span><span class="badge badge-recommended en">Every 2 years</span></td>
+        </tr>
+        <tr>
+          <td><strong>NOZ č. 89/2012 Sb., § 159, § 2910</strong><br><span style="color:var(--muted);font-size:12px">Nový občanský zákoník</span></td>
+          <td><strong>Civil Code No. 89/2012 Sb., § 159, § 2910</strong><br><span style="color:var(--muted);font-size:12px">New Civil Code</span></td>
+          <td class="cs">Péče řádného hospodáře — osobní odpovědnost předsedy/výboru SVJ za škody způsobené zanedbáním správy</td>
+          <td class="en">Duty of care of a proper manager — personal liability of the SVJ chairman/board for damages caused by negligent management</td>
+          <td><span class="badge badge-required cs">Průběžně</span><span class="badge badge-required en">Ongoing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Zákon č. 258/2000 Sb.</strong><br><span style="color:var(--muted);font-size:12px">O ochraně veřejného zdraví</span></td>
+          <td><strong>Act No. 258/2000 Sb.</strong><br><span style="color:var(--muted);font-size:12px">On Public Health Protection</span></td>
+          <td class="cs">Zajistit hygienické podmínky — plíseň a bakterie v šachtách mohou zakládat hygienický přestupek</td>
+          <td class="en">Ensure hygienic conditions — mould and bacteria in shafts can constitute a public health violation</td>
+          <td><span class="badge badge-required cs">Průběžně</span><span class="badge badge-required en">Ongoing</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Fire dampers -->
+  <h3 class="subsec subsec-red cs">Požární klapky — povinná roční revize</h3>
+  <h3 class="subsec subsec-red en">Fire Dampers — Mandatory Annual Inspection</h3>
+
+  <div class="grid-2">
+    <div class="card card-red">
+      <div class="card-title">🔥 <span class="cs">Co zákon říká</span><span class="en">What the law says</span></div>
+      <div class="cs"><p>Vyhláška 246/2001 Sb., § 7 ukládá SVJ povinnost provádět <strong>roční revize požárních klapek</strong> certifikovanou osobou. Požární klapky zajišťují, že při požáru nedojde k šíření plamenů a kouře mezi byty prostřednictvím VZT šachet. Tato povinnost platí bez výjimky pro každý bytový dům s nucenou nebo přirozenou vzduchotechnikou.</p></div>
+      <div class="en"><p>Decree 246/2001 Sb., § 7 obliges SVJ boards to carry out <strong>annual fire damper inspections</strong> by a certified person. Fire dampers prevent flames and smoke from spreading between flats through ventilation shafts during a fire. This obligation applies without exception to every apartment building with forced or natural ventilation.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📄 <span class="cs">Požadovaná dokumentace</span><span class="en">Required documentation</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Požární kniha (povinná pro každý objekt)</li>
+        <li>Kniha požárních klapek (samostatný záznam každé klapky)</li>
+        <li>Servisní protokol od revizního technika</li>
+        <li>Revizní zpráva s výsledky zkoušek</li>
+        <li>Doklady o odborné způsobilosti technika</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Fire log book (required for every building)</li>
+        <li>Fire damper log (separate record for each damper)</li>
+        <li>Service protocol from the inspection technician</li>
+        <li>Inspection report with test results</li>
+        <li>Proof of the technician's professional competence</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- HVAC cleaning -->
+  <h3 class="subsec cs">Čištění VZT šachet — ČSN EN 15780 (každé 2 roky)</h3>
+  <h3 class="subsec en">HVAC Shaft Cleaning — ČSN EN 15780 (every 2 years)</h3>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">📐</div>
+    <div>
+      <div class="cs"><p><strong>ČSN EN 15780</strong> stanovuje limity čistoty pro větrací rozvody. Průmysl i soudy tuto normu považují za <strong>de facto závaznou</strong> — nesplnění může být hodnoceno jako porušení péče řádného hospodáře. Norma doporučuje čištění ve dvouletých cyklech a vyžaduje protokolární doložení každého čištění.</p></div>
+      <div class="en"><p><strong>ČSN EN 15780</strong> sets cleanliness limits for ventilation distribution systems. Industry and courts treat this standard as <strong>de facto binding</strong> — non-compliance can be assessed as a breach of the duty of care. The standard recommends cleaning in two-year cycles and requires each cleaning to be documented with a signed protocol.</p></div>
+    </div>
+  </div>
+
+  <!-- Chairman liability -->
+  <h3 class="subsec subsec-red cs">Osobní odpovědnost předsedy SVJ</h3>
+  <h3 class="subsec subsec-red en">Personal Liability of the SVJ Chairman</h3>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">⚖️</div>
+    <div>
+      <div class="cs"><p><strong>NOZ § 159 + § 2910 — péče řádného hospodáře:</strong> Předseda a výbor SVJ odpovídají <strong>osobně, neomezeně a solidárně</strong> za škody způsobené zanedbáním správy domu. Pokud dojde k požáru, šíření kouře šachtami nebo hygienickému incidentu z důvodu zanedbaného čištění nebo revize, může být předseda SVJ žalován z vlastního majetku.</p></div>
+      <div class="en"><p><strong>Civil Code § 159 + § 2910 — duty of a proper manager:</strong> The SVJ chairman and board are <strong>personally, unlimitedly and jointly liable</strong> for damages caused by negligent building management. If a fire, smoke spread through shafts, or a hygiene incident occurs due to neglected cleaning or inspection, the SVJ chairman can be sued from their personal assets.</p></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">⚠️ <span class="cs">Kdy odpovědnost vzniká</span><span class="en">When liability arises</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Požár, kde klapky nefungovaly (neprováděla se revize)</li>
+        <li>Šíření kouře nebo oxidu uhelnatého VZT šachtou</li>
+        <li>Hygienická inspekce najde plíseň nebo bakterie</li>
+        <li>Stížnost obyvatele na zápach nebo znečistění</li>
+        <li>Pojišťovna odmítne pojistné plnění</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Fire where dampers failed (no inspections performed)</li>
+        <li>Smoke or carbon monoxide spreading through HVAC shaft</li>
+        <li>Hygiene inspection finds mould or bacteria</li>
+        <li>Resident complaint about odours or contamination</li>
+        <li>Insurer refuses to pay out insurance claim</li>
+      </ul></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🛡️ <span class="cs">Jak se předseda chrání</span><span class="en">How the chairman protects themselves</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Provádět revize a čištění a uchovávat protokoly</li>
+        <li>Objednávat služby u certifikovaných firem</li>
+        <li>Dokumentovat každé rozhodnutí výboru</li>
+        <li>Sjednat pojištění odpovědnosti orgánu SVJ</li>
+        <li>Neignorovat upozornění správce nemovitosti</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Perform inspections and cleaning, keep all protocols</li>
+        <li>Commission services from certified companies</li>
+        <li>Document every board decision</li>
+        <li>Take out SVJ board member liability insurance</li>
+        <li>Do not ignore warnings from the property manager</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- Fines -->
+  <h3 class="subsec subsec-red cs">Sankce za neplnění povinností (zákon č. 133/1985 Sb., § 76)</h3>
+  <h3 class="subsec subsec-red en">Penalties for Non-Compliance (Act No. 133/1985 Sb., § 76)</h3>
+
+  <div class="fine-box">
+    <h4 class="cs">Přehled pokut — požární ochrana</h4>
+    <h4 class="en">Fine overview — fire protection</h4>
+    <div class="fine-row">
+      <div class="cs">Standardní přestupek (neplnění povinností PO)</div>
+      <div class="en">Standard offence (failure to meet fire protection obligations)</div>
+      <div class="fine-amount">250 000 Kč</div>
+    </div>
+    <div class="fine-row">
+      <div class="cs">Závažný přestupek (opakované nebo hrubé neplnění)</div>
+      <div class="en">Serious offence (repeated or gross non-compliance)</div>
+      <div class="fine-amount">500 000 Kč</div>
+    </div>
+    <div class="fine-row">
+      <div class="cs">Přestupek ve zvýšeném požárním nebezpečí</div>
+      <div class="en">Offence in areas of elevated fire risk</div>
+      <div class="fine-amount">1 000 000 Kč</div>
+    </div>
+    <div class="fine-row">
+      <div class="cs">Opakovaný přestupek (do 1 roku od předchozího)</div>
+      <div class="en">Repeated offence (within 1 year of previous)</div>
+      <div class="fine-amount cs">2× výše standardní pokuty</div>
+      <div class="fine-amount en">2× the standard fine</div>
+    </div>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">⛔</div>
+    <div>
+      <div class="cs"><p><strong>Trestní odpovědnost:</strong> Pokud zanedbaná údržba způsobí požár nebo újmu na zdraví, může předseda SVJ čelit trestnímu stíhání za <em>obecné ohrožení</em> (§ 272 TZ) nebo <em>nedbalostní způsobení újmy</em> — v závažných případech trest odnětí svobody až 2 roky.</p></div>
+      <div class="en"><p><strong>Criminal liability:</strong> If neglected maintenance causes a fire or personal injury, the SVJ chairman may face criminal prosecution for <em>general endangerment</em> (§ 272 Criminal Code) or <em>negligent bodily harm</em> — in serious cases, a prison sentence of up to 2 years.</p></div>
+    </div>
+  </div>
+
+  <!-- Insurance void -->
+  <h3 class="subsec subsec-orange cs">Zánik pojistného plnění — skryté riziko</h3>
+  <h3 class="subsec subsec-orange en">Insurance Void — The Hidden Risk</h3>
+
+  <div class="card card-orange">
+    <div class="card-title">🚫 <span class="cs">Pojišťovna odmítne plnit, pokud…</span><span class="en">The insurer will refuse to pay if…</span></div>
+    <div class="cs"><p>Pojistné smlouvy bytových domů standardně obsahují klauzuli o <strong>povinné údržbě</strong>. Pokud SVJ neprovede povinnou revizi požárních klapek nebo nechá šachty nevyčistěné a dojde k incidentu (požár, šíření zápachu, zdravotní komplikace), pojišťovna může odmítnout uhradit škodu s odůvodněním, že SVJ nesplnilo své zákonné povinnosti. Typická škoda z požáru v panelovém domě: stovky tisíc až miliony korun.</p></div>
+    <div class="en"><p>Apartment building insurance policies routinely include a <strong>mandatory maintenance clause</strong>. If an SVJ fails to carry out the mandatory fire damper inspection or leaves shafts uncleaned and an incident occurs (fire, odour spread, health complications), the insurer may refuse to pay, citing the SVJ's failure to meet its statutory obligations. A typical fire loss in a panel block: hundreds of thousands to millions of CZK.</p></div>
+  </div>
+
+  <!-- SVJ outreach callout -->
+  <div class="callout callout-purple" style="margin-top:32px;">
+    <div class="callout-icon">📢</div>
+    <div>
+      <div class="cs"><p><strong>Pro předsedy SVJ a správce nemovitostí:</strong> Tato sekce shrnuje vaše zákonné povinnosti. Pokud nemáte aktuální protokoly o revizi požárních klapek a čištění VZT šachet, kontaktujte certifikovanou firmu. Zajistíme kompletní dokumentaci, servisní protokoly i revizní zprávy — vše tak, aby váš dům splnil zákon.</p></div>
+      <div class="en"><p><strong>For SVJ chairmen and property managers:</strong> This section summarises your statutory obligations. If you do not have up-to-date fire damper inspection protocols and HVAC shaft cleaning records, contact a certified company. We provide complete documentation, service protocols and inspection reports — everything your building needs to comply with the law.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     3. NORMY A STANDARDY
+     ═══════════════════════════════════════════ -->
+<section class="section" id="normy">
+  <div class="section-header">
+    <div class="section-icon icon-yellow">📐</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Normy a technické standardy</span>
+        <span class="en">Standards & Technical Norms</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">ČSN EN 15780, REHVA a další relevantní předpisy</span>
+        <span class="en">ČSN EN 15780, REHVA and other relevant specifications</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📏 <span class="cs">ČSN EN 15780</span><span class="en">ČSN EN 15780</span> <span class="badge badge-required cs">Klíčová norma</span><span class="badge badge-required en">Key standard</span></div>
+      <div class="cs"><p>Norma <strong>ČSN EN 15780:2011</strong> (Větrání budov — Vzduchové rozvody — Čistota systémů vzduchových rozvodů) definuje třídy čistoty VZT systémů a povinnost dokumentace po čištění. Průmysl a pojišťovny ji považují za de facto závaznou. Čištění každé 2 roky pro bytové domy v provozu.</p></div>
+      <div class="en"><p><strong>ČSN EN 15780:2011</strong> (Ventilation for buildings — Air distribution systems — Cleanliness of air distribution systems) defines cleanliness classes for HVAC systems and the documentation requirement after each cleaning. Industry and insurers treat it as de facto binding. Cleaning every 2 years for occupied apartment buildings.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🌡️ <span class="cs">Vyhláška 268/2009 Sb.</span><span class="en">Decree 268/2009 Sb.</span></div>
+      <div class="cs"><p>Technické požadavky na stavby — § 41 ukládá, aby větrací systémy umožňovaly čištění a údržbu. Nepřímo zakládá povinnost SVJ zajistit přístup a provádět servis.</p></div>
+      <div class="en"><p>Technical requirements on buildings — § 41 requires that ventilation systems allow for cleaning and maintenance. This indirectly obliges SVJ boards to ensure access and carry out servicing.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔬 <span class="cs">Hygiena (zákon 258/2000 Sb.)</span><span class="en">Hygiene (Act 258/2000 Sb.)</span></div>
+      <div class="cs"><p>Krajská hygienická stanice může nařídit okamžité čištění šachet při nálezu plísní (<em>Aspergillus, Stachybotrys</em>) nebo škodlivých bakterií. Hygienický přestupek: pokuta až 500 000 Kč pro SVJ.</p></div>
+      <div class="en"><p>The regional public health authority can order immediate shaft cleaning upon finding mould (<em>Aspergillus, Stachybotrys</em>) or harmful bacteria. Hygiene offence: fine up to CZK 500,000 for the SVJ.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 <span class="cs">Co musí protokol obsahovat</span><span class="en">What the protocol must contain</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Identifikace objektu a šachty</li>
+        <li>Datum a rozsah prací</li>
+        <li>Použitá metoda a technika</li>
+        <li>Stav před a po (kamerová dokumentace)</li>
+        <li>Razítko a podpis zhotovitele</li>
+        <li>Doporučení pro příští interval</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Identification of building and shaft</li>
+        <li>Date and scope of work</li>
+        <li>Method and technique used</li>
+        <li>Before and after condition (camera documentation)</li>
+        <li>Stamp and signature of the service provider</li>
+        <li>Recommendation for the next interval</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     4. OZO PO / TPO — POŽÁRNÍ KLAPKY: KDO SMÍ REVIDOVAT?
+     ═══════════════════════════════════════════ -->
+<section class="section" id="ozo">
+  <div class="section-header">
+    <div class="section-icon icon-orange">🔥</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Požární klapky — kdo smí provádět revizi?</span>
+        <span class="en">Fire Dampers — Who Is Legally Allowed to Inspect?</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Klíčová otázka pro Pavla: co smí dělat bez certifikátu a co vyžaduje OZO PO nebo TPO</span>
+        <span class="en">The key question for Pavel: what can he do without a certificate, and what requires OZO PO or TPO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE CORE ANSWER -->
+  <div class="callout callout-orange">
+    <div class="callout-icon">⚖️</div>
+    <div>
+      <div class="cs"><p><strong>Krátká odpověď:</strong> Čistit šachty a fyzicky ošetřit klapky smí kdokoli. Ale <strong>podepsat zákonem vyžadovanou revizní zprávu</strong> (doklad o kontrole provozuschopnosti), kterou SVJ musí mít v požární knize, smí pouze <strong>OZO PO, TPO nebo autorizovaný zástupce výrobce</strong>. Bez jednoho z těchto oprávnění Pavel klapky vyčistí, ale SVJ nemá platnou dokumentaci — což pro ně zákon nesplní.</p></div>
+      <div class="en"><p><strong>Short answer:</strong> Anyone can clean shafts and physically service dampers. But <strong>signing the legally required inspection report</strong> (proof of operability check) that SVJ must keep in their fire log can only be done by <strong>OZO PO, TPO, or an authorised manufacturer's representative</strong>. Without one of these credentials, Pavel can clean the dampers but the SVJ has no valid documentation — meaning the law is not met.</p></div>
+    </div>
+  </div>
+
+  <!-- CAPABILITY TABLE -->
+  <h3 class="subsec cs">Co Pavel smí dělat — podle toho, co má</h3>
+  <h3 class="subsec en">What Pavel can do — depending on what he holds</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cs">Oprávnění</th><th class="en">Credential</th>
+          <th class="cs">Čištění šachet</th><th class="en">Shaft cleaning</th>
+          <th class="cs">Fyzické ošetření klapek</th><th class="en">Physical damper servicing</th>
+          <th class="cs">Podpis revizní zprávy (zákonem vyžadované)</th><th class="en">Sign legally required inspection report</th>
+          <th class="cs">Zpracování dokumentace PO budovy</th><th class="en">Prepare building fire safety documentation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cs"><strong>Žádné</strong> (volná živnost)</td>
+          <td class="en"><strong>None</strong> (free trade licence only)</td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-lose">✗</span></td>
+          <td><span class="compare-lose">✗</span></td>
+        </tr>
+        <tr>
+          <td class="cs"><strong>TPO</strong> — Technik požární ochrany</td>
+          <td class="en"><strong>TPO</strong> — Fire Protection Technician</td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓</span></td>
+          <td class="cs"><span class="compare-mid">⚠ omezeno</span></td>
+          <td class="en"><span class="compare-mid">⚠ limited</span></td>
+        </tr>
+        <tr>
+          <td class="cs"><strong>OZO PO</strong> — Odborně způsobilá osoba</td>
+          <td class="en"><strong>OZO PO</strong> — Professionally Qualified Person</td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓ plně</span></td>
+        </tr>
+        <tr>
+          <td class="cs"><strong>Autorizovaný zástupce výrobce</strong></td>
+          <td class="en"><strong>Authorised manufacturer's rep</strong></td>
+          <td><span class="compare-win">✓</span></td>
+          <td><span class="compare-win">✓</span></td>
+          <td class="cs"><span class="compare-mid">⚠ jen pro daný typ klapky</span></td>
+          <td class="en"><span class="compare-mid">⚠ only for that damper model</span></td>
+          <td><span class="compare-lose">✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">⛔</div>
+    <div>
+      <div class="cs"><p><strong>Důležité:</strong> Ani proškolení výrobcem nestačí, pokud osoba nemá OZO PO nebo TPO. Česká judikatura (rozhodnutí Nejvyššího soudu) potvrdila, že zprávu o kontrole provozuschopnosti smí podepsat pouze OZO nebo TPO — nebo samotný výrobce/jeho pověřený zástupce pro jeho vlastní produkty. Školení od výrobce bez OZO/TPO nedává právo vydávat zákonně platné dokumenty.</p></div>
+      <div class="en"><p><strong>Important:</strong> Even manufacturer training alone is not sufficient if the person holds neither OZO PO nor TPO. Czech case law (Supreme Court ruling) has confirmed that the operability inspection report may only be signed by an OZO or TPO — or by the manufacturer/their authorised representative for their own products. Manufacturer training without OZO/TPO does not confer the right to issue legally valid documents.</p></div>
+    </div>
+  </div>
+
+  <!-- TPO vs OZO comparison -->
+  <h3 class="subsec cs">TPO vs. OZO PO — praktické srovnání pro Pavla</h3>
+  <h3 class="subsec en">TPO vs. OZO PO — a practical comparison for Pavel</h3>
+
+  <div class="grid-2">
+    <div class="card card-orange">
+      <div class="card-title">🟡 <span class="cs">TPO — Technik požární ochrany</span><span class="en">TPO — Fire Protection Technician</span> <span class="badge badge-recommended cs">Doporučený 1. krok</span><span class="badge badge-recommended en">Recommended 1st step</span></div>
+      <div class="cs">
+        <ul class="plain">
+          <li>Kratší kurz, nižší cena (≈ 5 000–10 000 Kč)</li>
+          <li>Zkouška na Střední odborné škole požární ochrany ve Frýdku-Místku</li>
+          <li>Správní poplatek: 1 000 Kč za vydání osvědčení</li>
+          <li>Oprávnění: podpis revizní zprávy požárních klapek ✓</li>
+          <li>Oprávnění: čistění, servis, protokoly pro SVJ ✓</li>
+          <li>Omezení: nemůže sám zpracovat veškerou PO dokumentaci budovy</li>
+        </ul>
+      </div>
+      <div class="en">
+        <ul class="plain">
+          <li>Shorter course, lower cost (≈ CZK 5,000–10,000)</li>
+          <li>Examination at the Fire Protection Vocational School in Frýdek-Místek</li>
+          <li>Administrative fee: CZK 1,000 for certificate issuance</li>
+          <li>Authorised to: sign fire damper inspection reports ✓</li>
+          <li>Authorised to: cleaning, servicing, SVJ protocols ✓</li>
+          <li>Limitation: cannot independently prepare all building fire safety documentation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔴 <span class="cs">OZO PO — Odborně způsobilá osoba</span><span class="en">OZO PO — Professionally Qualified Person</span> <span class="badge badge-info cs">Plné oprávnění</span><span class="badge badge-info en">Full authority</span></div>
+      <div class="cs">
+        <ul class="plain">
+          <li>10denní kurz (≈ 100 výukových hodin)</li>
+          <li>Cena kurzu: cca 20 000–25 000 Kč (vč. DPH)</li>
+          <li>Zkouška u MV-GŘ HZS ČR (náročnější než TPO)</li>
+          <li>Platnost 5 let, poté přezkušování</li>
+          <li>Oprávnění: vše — revize klapek, PO dokumentace, preventivní požární prohlídky</li>
+          <li>Silná konkurenční výhoda oproti firmám bez tohoto certifikátu</li>
+        </ul>
+      </div>
+      <div class="en">
+        <ul class="plain">
+          <li>10-day course (≈ 100 teaching hours)</li>
+          <li>Course cost: approx. CZK 20,000–25,000 (incl. VAT)</li>
+          <li>Examination at MV-GŘ HZS ČR (more demanding than TPO)</li>
+          <li>Valid 5 years, then re-examination</li>
+          <li>Authorised for: everything — damper inspections, fire safety docs, preventive fire audits</li>
+          <li>Strong competitive advantage over companies without this certificate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUSINESS IMPACT -->
+  <h3 class="subsec subsec-green cs">Co to znamená pro byznys</h3>
+  <h3 class="subsec subsec-green en">What this means for the business</h3>
+
+  <div class="card card-green">
+    <div class="card-title">💡 <span class="cs">Scénáře: co Pavel může nabídnout</span><span class="en">Scenarios: what Pavel can offer</span></div>
+    <div class="cs">
+      <p style="margin-bottom:12px;font-size:14px;color:var(--muted)">Každý scénář odpovídá jiné úrovni certifikace a jiné hodnotě zakázky:</p>
+      <ul class="plain">
+        <li><strong>Bez certifikátu:</strong> Čištění šachet + čistící protokol (ČSN EN 15780). SVJ musí odděleně zajistit revizní zprávu klapek od jiné firmy → menší hodnota zakázky, riziko, že SVJ preferuje one-stop-shop konkurenci.</li>
+        <li><strong>S TPO:</strong> Čištění + fyzický servis klapek + <em>zákonně platná</em> revizní zpráva klapek. SVJ dostane vše od jedné firmy. Vyšší cena zakázky, opakované roční návštěvy (revize klapek), silnější pozice při prodeji smlouvy na údržbu.</li>
+        <li><strong>S OZO PO:</strong> Vše výše + kompletní PO dokumentace budovy (požární kniha, preventivní prohlídky). Možnost oslovit větší správce nemovitostí a developery. Nejvyšší hodnota, nejsilnější značka.</li>
+      </ul>
+    </div>
+    <div class="en">
+      <p style="margin-bottom:12px;font-size:14px;color:var(--muted)">Each scenario corresponds to a different certification level and contract value:</p>
+      <ul class="plain">
+        <li><strong>No certificate:</strong> Shaft cleaning + cleaning protocol (ČSN EN 15780). SVJ must separately arrange the fire damper inspection report from another company → lower contract value, risk that SVJ prefers a one-stop-shop competitor.</li>
+        <li><strong>With TPO:</strong> Cleaning + physical damper servicing + <em>legally valid</em> damper inspection report. SVJ gets everything from one company. Higher contract value, recurring annual visits (damper inspections), stronger position when selling a maintenance agreement.</li>
+        <li><strong>With OZO PO:</strong> Everything above + full building fire safety documentation (fire log, preventive inspections). Ability to target larger property managers and developers. Highest value, strongest brand.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">📌</div>
+    <div>
+      <div class="cs"><p><strong>Doporučení:</strong> TPO je logický první krok — kratší a levnější než OZO PO, ale odemkne klíčovou schopnost: podepsat revizní zprávu klapek, kterou SVJ ze zákona potřebuje každý rok. To z Pavla udělá one-stop-shop a výrazně zvýší průměrnou hodnotu každé zakázky. OZO PO zvažte jako druhý krok při dalším růstu.</p></div>
+      <div class="en"><p><strong>Recommendation:</strong> TPO is the logical first step — shorter and cheaper than OZO PO, but it unlocks the key capability: signing the damper inspection report that SVJ legally needs every year. This makes Pavel a one-stop-shop and significantly increases the average contract value. OZO PO is the sensible second step as the business grows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     5. BOZP
+     ═══════════════════════════════════════════ -->
+<section class="section" id="bozp">
+  <div class="section-header">
+    <div class="section-icon icon-red">⛑️</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Bezpečnost a ochrana zdraví při práci (BOZP)</span>
+        <span class="en">Health & Safety at Work</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Práce v uzavřených prostorech a výškách — klíčové předpisy</span>
+        <span class="en">Work in confined spaces and at heights — key regulations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📋 <span class="cs">Nařízení vlády 362/2005 Sb.</span><span class="en">Government Regulation 362/2005 Sb.</span> <span class="badge badge-required">BOZP</span></div>
+      <div class="cs"><p>Práce ve výšce a nad volnou hloubkou. Při čištění VZT šachet v panelovém domě (přístup ze střechy nebo výška >1,5 m) je nutné zajistit systém zachycení pádu, zábradlí nebo pracovní polohovací systém. Písemný plán BOZP pro práce ve výšce.</p></div>
+      <div class="en"><p>Work at height and above open depths. When cleaning HVAC shafts in a panel block (roof access or height >1.5 m), fall arrest systems, guardrails or work positioning systems are required. Written H&S plan for work at height.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 <span class="cs">Nařízení vlády 591/2006 Sb.</span><span class="en">Government Regulation 591/2006 Sb.</span> <span class="badge badge-required">BOZP</span></div>
+      <div class="cs"><p>Bezpečnost práce a technických zařízení na staveništích. Relevantní při čištění šachet formou stavební rekonstrukce nebo při pronikání do zdiva. Vyžaduje školení pracovníků a bezpečnostní plán.</p></div>
+      <div class="en"><p>Safety of work and technical equipment on construction sites. Relevant when shaft cleaning involves structural reconstruction or wall penetration. Requires worker training and a safety plan.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🪣 <span class="cs">Uzavřené prostory (confined spaces)</span><span class="en">Confined Spaces</span></div>
+      <div class="cs"><p>Čistění šachet ze spodní strany může být považováno za vstup do uzavřeného prostoru. Povinnosti: měření kyslíku a škodlivin, komunikace s venkovní osobou (záchranář), záchranný plán, správné OOPP (respirátor P3 nebo FFP3).</p></div>
+      <div class="en"><p>Bottom-up shaft cleaning may qualify as entering a confined space. Obligations: oxygen and hazardous substance measurement, communication with an outside person (rescuer), rescue plan, correct PPE (P3 or FFP3 respirator).</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🦺 <span class="cs">OOPP — minimální vybavení</span><span class="en">PPE — Minimum Equipment</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Respirátor FFP3 / P3 (prachové a biologické částice)</li>
+        <li>Ochranné brýle nebo obličejový štít</li>
+        <li>Jednorázový ochranný oděv (Tyvek nebo ekvivalent)</li>
+        <li>Pracovní rukavice (nitrilové)</li>
+        <li>Helma při práci ve výšce nebo ze střechy</li>
+        <li>Postroj + lano při pádu nad 1,5 m</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>FFP3 / P3 respirator (dust and biological particles)</li>
+        <li>Safety goggles or face shield</li>
+        <li>Disposable protective suit (Tyvek or equivalent)</li>
+        <li>Work gloves (nitrile)</li>
+        <li>Hard hat when working at height or from roof</li>
+        <li>Harness + rope when fall risk exceeds 1.5 m</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">📝</div>
+    <div>
+      <div class="cs"><p><strong>Školení BOZP:</strong> Jako OSVČ jste sami sobě zaměstnavatelem — zákon č. 262/2006 Sb. (zákoník práce) a zákon č. 309/2006 Sb. vyžadují vstupní a periodické školení BOZP. Doporučeno: každé 2–3 roky, akreditovaný školitel, certifikát k uložení.</p></div>
+      <div class="en"><p><strong>H&S Training:</strong> As a sole trader you are your own employer — Act No. 262/2006 Sb. (Labour Code) and Act No. 309/2006 Sb. require initial and periodic H&S training. Recommended: every 2–3 years, accredited trainer, certificate to be retained.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     6. BIOCIDY / DEZINFEKCE
+     ═══════════════════════════════════════════ -->
+<section class="section" id="biocidy">
+  <div class="section-header">
+    <div class="section-icon icon-green">🧴</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Biocidní přípravky a dezinfekce</span>
+        <span class="en">Biocidal Products & Disinfection</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Pokud nabízíte dezinfekci šachet — toto jsou vaše povinnosti</span>
+        <span class="en">If you offer shaft disinfection — these are your obligations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <div class="cs"><p><strong>Dezinfekce VZT šachet je regulovaná činnost.</strong> Přípravky musí být zapsány v Registru biocidních přípravků (CHLAP) Ministerstva zdravotnictví ČR. Jako aplikátor musíte splnit požadavky zákona č. 324/2016 Sb. (o biocidech) a nařízení EU 528/2012.</p></div>
+      <div class="en"><p><strong>HVAC shaft disinfection is a regulated activity.</strong> Products must be listed in the Biocidal Products Register (CHLAP) of the Czech Ministry of Health. As an applicator you must comply with Act No. 324/2016 Sb. (on biocides) and EU Regulation 528/2012.</p></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">✅ <span class="cs">Co smíte používat</span><span class="en">What you may use</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Přípravky zapsané v CHLAP registru MZ ČR</li>
+        <li>Produkty typu PT2 (dezinfekce) nebo PT18 (insekticidy)</li>
+        <li>Stříbrné ionty — schválené a oblíbené v praxi</li>
+        <li>Quaternary ammonium compounds (QAC) — schválené</li>
+        <li>H2O2 (peroxid vodíku) — schválené formulace</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Products listed in the CHLAP register of MZ ČR</li>
+        <li>PT2 type products (disinfectants) or PT18 (insecticides)</li>
+        <li>Silver ions — approved and popular in practice</li>
+        <li>Quaternary ammonium compounds (QAC) — approved</li>
+        <li>H2O2 (hydrogen peroxide) — approved formulations</li>
+      </ul></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📄 <span class="cs">Dokumentace pro zákazníka</span><span class="en">Customer Documentation</span></div>
+      <div class="cs"><ul class="plain">
+        <li>Bezpečnostní list (SDS) přípravku</li>
+        <li>Číslo registrace v CHLAP</li>
+        <li>Doporučené ředění a expoziční čas</li>
+        <li>Protokol o provedené dezinfekci (datum, plocha, přípravek)</li>
+        <li>Návod k větrání po aplikaci</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li>Safety data sheet (SDS) of the product</li>
+        <li>CHLAP registration number</li>
+        <li>Recommended dilution and exposure time</li>
+        <li>Disinfection completion protocol (date, area, product)</li>
+        <li>Ventilation instructions after application</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     7. FINANCE — DANĚ, ODVODY, ZAMĚSTNANCI, S.R.O.
+     ═══════════════════════════════════════════ -->
+<section class="section" id="finance">
+  <div class="section-header">
+    <div class="section-icon icon-purple">💰</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Finance — Daně, odvody a DPH (2026)</span>
+        <span class="en">Finance — Taxes, Levies & VAT (2026)</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Aktuální sazby, hranice a praktický přehled pro OSVČ</span>
+        <span class="en">Current rates, thresholds and a practical overview for sole traders</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DANĚ Z PŘÍJMŮ -->
+  <h3 class="subsec cs">Daň z příjmů fyzických osob</h3>
+  <h3 class="subsec en">Personal Income Tax</h3>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-label cs">Sazba do limitu</div>
+      <div class="stat-label en">Rate up to threshold</div>
+      <div class="stat-value">15 %</div>
+      <div class="stat-sub cs">do 1 762 812 Kč příjmů</div>
+      <div class="stat-sub en">up to CZK 1,762,812 income</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label cs">Solidární sazba</div>
+      <div class="stat-label en">Higher rate above</div>
+      <div class="stat-value">23 %</div>
+      <div class="stat-sub cs">nad 1 762 812 Kč příjmů</div>
+      <div class="stat-sub en">above CZK 1,762,812 income</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label cs">Základní sleva na dani</div>
+      <div class="stat-label en">Basic personal tax credit</div>
+      <div class="stat-value">30 840 Kč</div>
+      <div class="stat-sub cs">za rok 2026</div>
+      <div class="stat-sub en">for year 2026</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cs">Metoda výdajů</th><th class="en">Expense method</th>
+          <th class="cs">Paušální výdaje</th><th class="en">Flat-rate expenses</th>
+          <th class="cs">Poznámka</th><th class="en">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cs"><strong>Volná živnost</strong> (čištění šachet)</td>
+          <td class="en"><strong>Free trade</strong> (shaft cleaning)</td>
+          <td><span class="highlight">60 %</span></td>
+          <td class="cs">Max. odpočet 1 200 000 Kč z příjmů do 2 000 000 Kč</td>
+          <td class="en">Max. deduction CZK 1,200,000 on income up to CZK 2,000,000</td>
+        </tr>
+        <tr>
+          <td class="cs">Skutečné výdaje</td>
+          <td class="en">Actual expenses</td>
+          <td class="cs">Dle dokladů</td>
+          <td class="en">Per receipts</td>
+          <td class="cs">Výhodné při vysokých nákladech (vybavení, auto, zaměstnanci)</td>
+          <td class="en">Beneficial when actual costs are high (equipment, vehicle, employees)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SOCIÁLNÍ A ZDRAVOTNÍ POJIŠTĚNÍ -->
+  <h3 class="subsec cs">Sociální a zdravotní pojištění OSVČ (2026)</h3>
+  <h3 class="subsec en">Social & Health Insurance for Sole Traders (2026)</h3>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-label cs">Zdravotní pojištění — min. záloha</div>
+      <div class="stat-label en">Health insurance — min. monthly advance</div>
+      <div class="stat-value">3 306 Kč</div>
+      <div class="stat-sub cs">měsíčně (zavedená OSVČ)</div>
+      <div class="stat-sub en">per month (established sole trader)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label cs">Sociální pojištění — min. záloha</div>
+      <div class="stat-label en">Social insurance — min. monthly advance</div>
+      <div class="stat-value">5 720 Kč</div>
+      <div class="stat-sub cs">měsíčně (zavedená OSVČ)</div>
+      <div class="stat-sub en">per month (established sole trader)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label cs">Celkem měsíčně</div>
+      <div class="stat-label en">Total per month</div>
+      <div class="stat-value highlight-red">9 026 Kč</div>
+      <div class="stat-sub cs">108 312 Kč ročně</div>
+      <div class="stat-sub en">CZK 108,312 annually</div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">ℹ️</div>
+    <div>
+      <div class="cs"><p><strong>Nová OSVČ (1. rok):</strong> Sociální záloha 3 575 Kč/měsíc (platí od 1. 1. 2026). Zdravotní pojištění stejné: 3 306 Kč/měsíc. V prvním roce podnikání se zálohy doplatí v přehledu po podání daňového přiznání.</p></div>
+      <div class="en"><p><strong>New sole trader (1st year):</strong> Social advance CZK 3,575/month (from 1 January 2026). Health insurance unchanged: CZK 3,306/month. In the first year of trading, advances are settled in the annual statement after filing the tax return.</p></div>
+    </div>
+  </div>
+
+  <!-- PAUŠÁLNÍ DAŇ -->
+  <h3 class="subsec cs">Paušální daň 2026 — jeden odvod místo tří</h3>
+  <h3 class="subsec en">Flat-Rate Tax 2026 — One Payment Instead of Three</h3>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">💡</div>
+    <div>
+      <div class="cs"><p><strong>Paušální daň</strong> spojuje daň z příjmu, zdravotní i sociální pojištění do jedné měsíční platby. Nevyžaduje daňové přiznání ani přehledy pojišťovnám. Podmínka: příjmy z podnikání max. 2 000 000 Kč ročně a nejste plátce DPH.</p></div>
+      <div class="en"><p><strong>Flat-rate tax</strong> combines income tax, health and social insurance into one monthly payment. No tax return or insurance statements required. Condition: business income max. CZK 2,000,000 per year and you are not VAT-registered.</p></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cs">Pásmo</th><th class="en">Band</th>
+          <th class="cs">Podmínka (roční příjmy)</th><th class="en">Condition (annual income)</th>
+          <th class="cs">Měsíční platba 2026</th><th class="en">Monthly payment 2026</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cs"><strong>Pásmo I</strong></td><td class="en"><strong>Band I</strong></td>
+          <td class="cs">Do 1 000 000 Kč</td><td class="en">Up to CZK 1,000,000</td>
+          <td><span class="highlight">9 984 Kč</span></td>
+        </tr>
+        <tr>
+          <td class="cs"><strong>Pásmo II</strong></td><td class="en"><strong>Band II</strong></td>
+          <td class="cs">1 000 001 – 1 500 000 Kč</td><td class="en">CZK 1,000,001 – 1,500,000</td>
+          <td><span class="highlight">16 745 Kč</span></td>
+        </tr>
+        <tr>
+          <td class="cs"><strong>Pásmo III</strong></td><td class="en"><strong>Band III</strong></td>
+          <td class="cs">1 500 001 – 2 000 000 Kč</td><td class="en">CZK 1,500,001 – 2,000,000</td>
+          <td><span class="highlight">27 139 Kč</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DPH -->
+  <h3 class="subsec cs">DPH — hranice a sazby 2026</h3>
+  <h3 class="subsec en">VAT — Thresholds and Rates 2026</h3>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-label cs">1. práh — registrace k 1. 1. příštího roku</div>
+      <div class="stat-label en">1st threshold — registration from Jan 1 next year</div>
+      <div class="stat-value">2 000 000 Kč</div>
+      <div class="stat-sub cs">za kalendářní rok (žádost do 15. 1.)</div>
+      <div class="stat-sub en">per calendar year (apply by Jan 15)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label cs">2. práh — registrace ihned (následující den)</div>
+      <div class="stat-label en">2nd threshold — immediate registration (next day)</div>
+      <div class="stat-value">2 536 500 Kč</div>
+      <div class="stat-sub cs">kumulativně v posledních 12 měsících</div>
+      <div class="stat-sub en">cumulatively in the preceding 12 months</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label cs">Sazba DPH — čistící služby</div>
+      <div class="stat-label en">VAT rate — cleaning services</div>
+      <div class="stat-value highlight-red">21 %</div>
+      <div class="stat-sub cs">od 2024 (konsolidační balíček)</div>
+      <div class="stat-sub en">since 2024 (consolidation package)</div>
+    </div>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <div class="cs"><p><strong>Pozor na sazbu DPH:</strong> Čistící a desinfekční služby byly v roce 2024 přeřazeny z snížené sazby do <strong>základní sazby 21 %</strong> (konsolidační balíček). Pokud jste plátce DPH, nezapomeňte přefakturovat zákazníkům správnou sazbu.</p></div>
+      <div class="en"><p><strong>VAT rate alert:</strong> Cleaning and disinfection services were moved from the reduced rate to the <strong>standard 21% rate</strong> in 2024 (consolidation package). If you are VAT-registered, make sure to invoice customers at the correct rate.</p></div>
+    </div>
+  </div>
+
+  <!-- ZAMĚSTNANCI -->
+  <h3 class="subsec subsec-orange cs">Přijmutí prvního zaměstnance</h3>
+  <h3 class="subsec subsec-orange en">Taking on Your First Employee</h3>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">👷</div>
+    <div>
+      <div class="cs"><p><strong>Minimální mzda od 1. 1. 2026: 22 400 Kč/měsíc</strong> (136,50 Kč/hod). Toto je zákonné minimum — pokud zaměstnáváte kvalifikovaného pracovníka, očekávejte vyšší mzdové nároky.</p></div>
+      <div class="en"><p><strong>Minimum wage from 1 January 2026: CZK 22,400/month</strong> (CZK 136.50/hour). This is the statutory minimum — a skilled worker will command higher wages.</p></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cs">Odvod zaměstnavatele</th><th class="en">Employer levy</th>
+          <th class="cs">Sazba</th><th class="en">Rate</th>
+          <th class="cs">Základ</th><th class="en">Base</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cs">Sociální pojištění</td><td class="en">Social insurance</td>
+          <td><strong>24,8 %</strong></td>
+          <td class="cs">z hrubé mzdy</td><td class="en">of gross wage</td>
+        </tr>
+        <tr>
+          <td class="cs">Zdravotní pojištění</td><td class="en">Health insurance</td>
+          <td><strong>9,0 %</strong></td>
+          <td class="cs">z hrubé mzdy</td><td class="en">of gross wage</td>
+        </tr>
+        <tr>
+          <td class="cs"><strong>Celkem odvody zaměstnavatele</strong></td>
+          <td class="en"><strong>Total employer levies</strong></td>
+          <td><span class="highlight-red"><strong>33,8 %</strong></span></td>
+          <td class="cs"><strong>navíc k hrubé mzdě</strong></td>
+          <td class="en"><strong>on top of gross wage</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">📌</div>
+    <div>
+      <div class="cs"><p><strong>Praktický příklad:</strong> Zaměstnanec na 22 400 Kč hrubého stojí zaměstnavatele celkem cca <strong>29 978 Kč/měsíc</strong> (22 400 + 33,8 %). Čistá výplata zaměstnance je přibližně 18 300 Kč.</p></div>
+      <div class="en"><p><strong>Practical example:</strong> An employee at CZK 22,400 gross costs the employer approximately <strong>CZK 29,978/month</strong> (22,400 + 33.8%). The employee's net take-home is approximately CZK 18,300.</p></div>
+    </div>
+  </div>
+
+  <h3 class="subsec cs">Povinnosti při přijetí prvního zaměstnance</h3>
+  <h3 class="subsec en">Obligations when Taking on the First Employee</h3>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4 class="cs">Registrace na OSSZ (sociální pojistné)</h4>
+      <h4 class="en">Register at OSSZ (social insurance)</h4>
+      <p class="cs">Do 8 dnů od vzniku pracovního poměru zaregistrovat sebe jako zaměstnavatele a zaměstnance na Okresní správě sociálního zabezpečení (OSSZ).</p>
+      <p class="en">Within 8 days of employment starting, register yourself as an employer and the employee at the District Social Security Administration (OSSZ).</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4 class="cs">Registrace na zdravotní pojišťovně zaměstnance</h4>
+      <h4 class="en">Register with the employee's health insurer</h4>
+      <p class="cs">Do 8 dnů přihlásit zaměstnance na jeho zdravotní pojišťovnu. Každý zaměstnanec může mít jinou pojišťovnu — musíte odvádět pojistné na každou zvlášť.</p>
+      <p class="en">Within 8 days, register the employee with their health insurer. Each employee may have a different insurer — you must pay contributions to each separately.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4 class="cs">Zákonné pojištění odpovědnosti zaměstnavatele</h4>
+      <h4 class="en">Statutory employer liability insurance</h4>
+      <p class="cs">Povinné ze zákona — sjednat u Kooperativy nebo Generali. Sazba: cca 8–14 ‰ čtvrtletního mzdového základu. Chrání zaměstnance při pracovním úrazu.</p>
+      <p class="en">Mandatory by law — take out with Kooperativa or Generali. Rate: approx. 8–14 ‰ of quarterly wage base. Protects the employee in case of a workplace injury.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4 class="cs">Mzdový software a výplatní pásky</h4>
+      <h4 class="en">Payroll software and pay slips</h4>
+      <p class="cs">Zákoník práce vyžaduje vydávat výplatní pásky. Doporučujeme Pohoda, Money S3 nebo Pamica. Při více zaměstnancích zvažte mzdovou účetní.</p>
+      <p class="en">The Labour Code requires issuing pay slips. Recommended: Pohoda, Money S3 or Pamica. With multiple employees, consider a payroll accountant.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h4 class="cs">JMHZ a PREZEC (novinky 2026)</h4>
+      <h4 class="en">JMHZ and PREZEC (new from 2026)</h4>
+      <p class="cs">Od dubna 2026 platí nový systém <strong>JMHZ</strong> (Jedno místo hlášení zaměstnavatele). Od července 2026 PREZEC — předregistrace zaměstnanců před nástupem. Sledujte aktualizace na eportal.cssz.cz.</p>
+      <p class="en">From April 2026 the new <strong>JMHZ</strong> system (Single employer reporting point) applies. From July 2026 PREZEC — pre-registration of employees before they start. Monitor updates at eportal.cssz.cz.</p>
+    </div>
+  </div>
+
+  <!-- S.R.O. VS OSVČ -->
+  <h3 class="subsec subsec-purple cs">OSVČ vs. s.r.o. — kdy přejít?</h3>
+  <h3 class="subsec subsec-purple en">Sole Trader vs. Ltd. Company — When to Switch?</h3>
+
+  <div class="callout callout-purple">
+    <div class="callout-icon">🔀</div>
+    <div>
+      <div class="cs"><p><strong>Klíčový práh přechodu na s.r.o.: zisk přibližně 2 000 000 Kč ročně.</strong> Pod touto hranicí je OSVČ s paušálními výdaji téměř vždy daňově výhodnější. Nad touto hranicí může s.r.o. šetřit na daních — ale přidává administrativní náklady a složitost.</p></div>
+      <div class="en"><p><strong>Key threshold for switching to an s.r.o.: profit of approximately CZK 2,000,000 per year.</strong> Below this level, a sole trader with flat-rate expenses is almost always more tax-efficient. Above it, an s.r.o. can save on taxes — but adds administrative costs and complexity.</p></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="cs">Kritérium</th><th class="en">Criterion</th>
+          <th class="cs">OSVČ (volná živnost)</th><th class="en">Sole Trader (free trade)</th>
+          <th class="cs">s.r.o.</th><th class="en">Ltd. Company (s.r.o.)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cs">Daňová zátěž (průměrná)</td><td class="en">Average tax burden</td>
+          <td class="compare-win cs">Nízká při paušálních výdajích</td>
+          <td class="compare-win en">Low with flat-rate expenses</td>
+          <td class="compare-mid cs">21 % DPPO + 15 % srážková = ~32,85 % z distribuovaného zisku</td>
+          <td class="compare-mid en">21% corp. tax + 15% withholding = ~32.85% on distributed profit</td>
+        </tr>
+        <tr>
+          <td class="cs">Osobní odpovědnost</td><td class="en">Personal liability</td>
+          <td class="compare-lose cs">Neomezená — veškerý majetek</td>
+          <td class="compare-lose en">Unlimited — all personal assets</td>
+          <td class="compare-win cs">Omezená na základní kapitál (min. 1 Kč)</td>
+          <td class="compare-win en">Limited to share capital (min. CZK 1)</td>
+        </tr>
+        <tr>
+          <td class="cs">Náklady na založení</td><td class="en">Setup costs</td>
+          <td class="compare-win cs">Nízké (1 000 Kč živnostenský list)</td>
+          <td class="compare-win en">Low (CZK 1,000 trade licence)</td>
+          <td class="compare-mid cs">7 000–13 000 Kč (notář + zápis)</td>
+          <td class="compare-mid en">CZK 7,000–13,000 (notary + registration)</td>
+        </tr>
+        <tr>
+          <td class="cs">Průběžné účetnictví</td><td class="en">Ongoing accounting</td>
+          <td class="compare-win cs">Jednoduché nebo daňová evidence</td>
+          <td class="compare-win en">Simple bookkeeping or tax records</td>
+          <td class="compare-lose cs">Podvojné účetnictví — účetní nutná (12 000–30 000 Kč/rok)</td>
+          <td class="compare-lose en">Double-entry bookkeeping — accountant required (CZK 12,000–30,000/yr)</td>
+        </tr>
+        <tr>
+          <td class="cs">Věrohodnost vůči SVJ</td><td class="en">Credibility with SVJ</td>
+          <td class="compare-mid">—</td>
+          <td class="compare-mid">—</td>
+          <td class="compare-win cs">Vyšší — „firma" vzbuzuje důvěru</td>
+          <td class="compare-win en">Higher — a registered company inspires more trust</td>
+        </tr>
+        <tr>
+          <td class="cs">Sociální a zdrav. pojistné jednatele</td><td class="en">Director's social/health ins.</td>
+          <td class="cs">Zálohy dle příjmu OSVČ</td><td class="en">Advances based on sole-trader income</td>
+          <td class="cs">Pouze ze mzdy jednatele; z dividendy se neodvádí</td>
+          <td class="en">Only on director's salary; dividends carry no social/health contribution</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">💡</div>
+    <div>
+      <div class="cs"><p><strong>Doporučení:</strong> Dokud jsou příjmy pod 2 mil. Kč ročně, zůstaňte OSVČ s paušálními výdaji 60 % — je to nejjednodušší a daňově nejefektivnější. S.r.o. zvažte při rychlém růstu, kdy potřebujete oddělit osobní majetek od podnikatelského rizika, nebo pro získání velkých zakázek od správcovských firem.</p></div>
+      <div class="en"><p><strong>Recommendation:</strong> While income stays below CZK 2M per year, remain a sole trader using 60% flat-rate expenses — it is the simplest and most tax-efficient structure. Consider an s.r.o. when rapidly growing and needing to separate personal assets from business risk, or to win large contracts from property management companies.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     8. POJIŠTĚNÍ
+     ═══════════════════════════════════════════ -->
+<section class="section" id="pojisteni">
+  <div class="section-header">
+    <div class="section-icon icon-blue">🛡️</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Pojištění OSVČ</span>
+        <span class="en">Insurance for Sole Traders</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Co je povinné a co je silně doporučeno</span>
+        <span class="en">What is mandatory and what is strongly recommended</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">✅ <span class="cs">Povinné pojištění</span><span class="en">Mandatory Insurance</span> <span class="badge badge-required cs">Zákon</span><span class="badge badge-required en">Law</span></div>
+      <div class="cs"><ul class="plain">
+        <li><strong>Zdravotní pojištění OSVČ</strong> — 3 306 Kč/měsíc min. (VZP nebo jiná ZP)</li>
+        <li><strong>Sociální pojištění OSVČ</strong> — 5 720 Kč/měsíc min. (ČSSZ)</li>
+        <li><strong>Zákonné pojištění zaměstnavatele</strong> — pouze při zaměstnancích (Kooperativa/Generali)</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li><strong>Sole trader health insurance</strong> — min. CZK 3,306/month (VZP or other insurer)</li>
+        <li><strong>Sole trader social insurance</strong> — min. CZK 5,720/month (ČSSZ)</li>
+        <li><strong>Statutory employer liability insurance</strong> — only when you have employees (Kooperativa/Generali)</li>
+      </ul></div>
+    </div>
+    <div class="card">
+      <div class="card-title">⭐ <span class="cs">Silně doporučené pojištění</span><span class="en">Strongly Recommended</span> <span class="badge badge-recommended">!</span></div>
+      <div class="cs"><ul class="plain">
+        <li><strong>Odpovědnost za škody při výkonu povolání</strong> — krytí škod způsobených zákazníkům (poškozená VZT, záplavy, požár)</li>
+        <li><strong>Pracovní neschopnost / úrazové pojištění</strong> — OSVČ nemají nemocenskou ze zákona</li>
+        <li><strong>Pojištění nářadí a vybavení</strong> — drony, kamery, průmyslové vysavače</li>
+      </ul></div>
+      <div class="en"><ul class="plain">
+        <li><strong>Professional liability insurance</strong> — covers damage caused to clients (broken HVAC, floods, fire)</li>
+        <li><strong>Sickness / accident insurance</strong> — sole traders have no statutory sick pay</li>
+        <li><strong>Tools and equipment insurance</strong> — drones, cameras, industrial vacuum cleaners</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">💡</div>
+    <div>
+      <div class="cs"><p><strong>Pojištění odpovědnosti při výkonu povolání</strong> je kriticky důležité při práci v bytových domech SVJ. Pokud při čištění šachty dojde k zatopení bytu nebo poškození VZT systému, pojištění pokryje škodu. Bez něj jste osobně odpovědni za veškeré škody. Typická cena: 3 000–8 000 Kč/rok dle limitu plnění.</p></div>
+      <div class="en"><p><strong>Professional liability insurance</strong> is critically important when working in SVJ apartment buildings. If shaft cleaning causes a flat to flood or damages the HVAC system, the insurance covers the loss. Without it you are personally liable for all damages. Typical cost: CZK 3,000–8,000/year depending on coverage limit.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     9. CHECKLIST
+     ═══════════════════════════════════════════ -->
+<section class="section" id="checklist">
+  <div class="section-header">
+    <div class="section-icon icon-green">✅</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Kompletní checklist provozovatele</span>
+        <span class="en">Complete Operator Checklist</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Co musíte mít v pořádku pro bezproblémový provoz</span>
+        <span class="en">What you must have in place for smooth operations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="subhead cs">📋 Živnost a registrace</div>
+      <div class="subhead en">📋 Trade Licence & Registration</div>
+      <ul class="checklist">
+        <li class="cs"><span class="chk">✓</span><div><strong>Živnostenský list</strong> — volná živnost (Skupina 58 a/nebo 76)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Trade licence</strong> — free trade (Group 58 and/or 76)</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>Registrace u FÚ</strong> — daňové identifikační číslo (DIČ)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Tax authority registration</strong> — tax ID number</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>Registrace na ČSSZ</strong> — sociální pojištění OSVČ</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Register with ČSSZ</strong> — social insurance as sole trader</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>Registrace u ZP</strong> — zdravotní pojištění OSVČ</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Register with health insurer</strong> — health insurance as sole trader</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>Datová schránka</strong> — od 2023 povinná pro OSVČ</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Data mailbox</strong> — mandatory for sole traders since 2023</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="subhead cs">🔥 Normy a bezpečnost</div>
+      <div class="subhead en">🔥 Standards & Safety</div>
+      <ul class="checklist">
+        <li class="cs"><span class="chk">✓</span><div><strong>Znalost ČSN EN 15780</strong> — doložení čistoty po každém čištění</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>ČSN EN 15780 knowledge</strong> — document cleanliness after each job</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>Servisní protokol</strong> — vzor pro každou zakázku (datum, rozsah, stav šachty)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Service protocol template</strong> — for each job (date, scope, shaft condition)</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>BOZP dokumentace</strong> — školení, plán pro práce ve výšce</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>H&S documentation</strong> — training certificate, height work plan</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>OOPP</strong> — FFP3 respirátor, jednorázový oděv, rukavice</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>PPE</strong> — FFP3 respirator, disposable suit, gloves</div></li>
+        <li class="cs"><span class="crs">○</span><div><strong>OZO PO certifikace</strong> — doporučeno pro komplexní nabídku (revize klapek)</div></li>
+        <li class="en"><span class="crs">○</span><div><strong>OZO PO certification</strong> — recommended for full service offering (damper inspections)</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="subhead cs">💰 Finance a daně</div>
+      <div class="subhead en">💰 Finance & Tax</div>
+      <ul class="checklist">
+        <li class="cs"><span class="chk">✓</span><div><strong>Daňové přiznání</strong> — do 1. 4. následujícího roku (nebo paušální daň)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Annual tax return</strong> — by April 1 of the following year (or flat-rate tax)</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>Zálohy SP a ZP</strong> — platit měsíčně (SP: 5 720 Kč, ZP: 3 306 Kč)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Monthly SP & ZP advances</strong> — pay monthly (SP: CZK 5,720, ZP: CZK 3,306)</div></li>
+        <li class="cs"><span class="chk">✓</span><div><strong>DPH monitoring</strong> — sledovat obrat (práh 2 mil. Kč / 2,536 mil. Kč)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>VAT monitoring</strong> — track turnover (threshold CZK 2M / CZK 2.536M)</div></li>
+        <li class="cs"><span class="crs">○</span><div><strong>Paušální daň</strong> — zvažte, pokud příjmy do 2 mil. Kč a nejste plátce DPH</div></li>
+        <li class="en"><span class="crs">○</span><div><strong>Flat-rate tax</strong> — consider if income under CZK 2M and not VAT-registered</div></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="subhead cs">🛡️ Pojištění a dezinfekce</div>
+      <div class="subhead en">🛡️ Insurance & Disinfection</div>
+      <ul class="checklist">
+        <li class="cs"><span class="chk">✓</span><div><strong>Pojištění odpovědnosti</strong> — při výkonu povolání (min. 1 mil. Kč plnění)</div></li>
+        <li class="en"><span class="chk">✓</span><div><strong>Professional liability insurance</strong> — min. CZK 1M coverage</div></li>
+        <li class="cs"><span class="crs">○</span><div><strong>Úrazové pojištění OSVČ</strong> — náhrada příjmu při pracovní neschopnosti</div></li>
+        <li class="en"><span class="crs">○</span><div><strong>Sole trader accident insurance</strong> — income replacement during incapacity</div></li>
+        <li class="cs"><span class="crs">○</span><div><strong>Biocidní přípravky</strong> — pouze z CHLAP registru MZ ČR (pro dezinfekci)</div></li>
+        <li class="en"><span class="crs">○</span><div><strong>Biocidal products</strong> — only from CHLAP register of MZ ČR (for disinfection)</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-green" style="margin-top: 8px;">
+    <div class="callout-icon">✅</div>
+    <div>
+      <div class="cs"><p><strong>Legenda:</strong> <strong>✓</strong> = povinné ze zákona &nbsp;|&nbsp; <strong>○</strong> = doporučeno nebo podmíněně povinné</p></div>
+      <div class="en"><p><strong>Legend:</strong> <strong>✓</strong> = mandatory by law &nbsp;|&nbsp; <strong>○</strong> = recommended or conditionally required</p></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<script>
+const NAV_H = 60;
+const SECTIONS = ['zivnost','svj','normy','ozo','bozp','biocidy','finance','pojisteni','checklist'];
+
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  localStorage.setItem('lang', lang);
+}
+
+function updateNav() {
+  const scrollY = window.scrollY + NAV_H + 10;
+  let active = SECTIONS[0];
+  for (const id of SECTIONS) {
+    const sec = document.getElementById(id);
+    if (sec && sec.offsetTop <= scrollY) active = id;
+  }
+  document.querySelectorAll('nav a.nav-link').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+  });
+}
+
+document.querySelectorAll('nav a.nav-link').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (target) window.scrollTo({ top: target.offsetTop - NAV_H + 1, behavior: 'smooth' });
+  });
+});
+
+window.addEventListener('scroll', updateNav);
+updateNav();
+
+const saved = localStorage.getItem('lang');
+if (saved === 'en') setLang('en');
+</script>

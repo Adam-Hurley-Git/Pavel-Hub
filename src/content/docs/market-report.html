@@ -1,0 +1,1743 @@
+<style>
+
+:root{
+  --bg:#0c1424;--bg2:#0f1c33;--panel:#ffffff;--ink:#16202e;--muted:#5a6b80;
+  --line:#e3e9f2;--brand:#0e7c86;--brand2:#13a3b0;--accent:#f4a23b;--accent2:#ef6f53;
+  --good:#1f9d6b;--warn:#e0992a;--bad:#d6483b;--soft:#f4f8fb;--soft2:#eef4f9;
+  --shadow:0 10px 30px rgba(13,30,55,.10);--shadow2:0 4px 14px rgba(13,30,55,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--soft);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{line-height:1.25}
+h2{font-size:1.75rem;letter-spacing:-.01em;margin-bottom:.5rem}
+h3{font-size:1.15rem;margin-bottom:.35rem}
+h4{font-size:.95rem;margin-bottom:.25rem}
+p{margin-bottom:.9rem}
+ul,ol{padding-left:1.4rem;margin-bottom:.9rem}
+li{margin-bottom:.25rem}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.small{font-size:.85rem}
+.muted{color:var(--muted)}
+strong{font-weight:700}
+
+/* LANGUAGE SWITCHING */
+.en{display:none!important}
+body.lang-en .cs{display:none!important}
+body.lang-en span.en{display:inline!important}
+body.lang-en div.en{display:block!important}
+body.lang-en li.en{display:list-item!important}
+body.lang-en ul.en{display:block!important}
+body.lang-en ol.en{display:block!important}
+body.lang-en td.en{display:table-cell!important}
+body.lang-en th.en{display:table-cell!important}
+body.lang-en p.en{display:block!important}
+body.lang-en h1.en{display:block!important}
+body.lang-en h2.en{display:block!important}
+body.lang-en h3.en{display:block!important}
+body.lang-en h4.en{display:block!important}
+body.lang-en a.en{display:inline!important}
+body.lang-en label.en{display:block!important}
+body.lang-en strong.en{display:inline!important}
+body.lang-en small.en{display:inline!important}
+body.lang-en em.en{display:inline!important}
+nav.toc a.en{display:none}
+body.lang-en nav.toc a.en{display:inline-flex!important}
+
+/* LANG BUTTONS */
+.lang-btn{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#dbe7f4;padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:800;letter-spacing:.03em;cursor:pointer;transition:all .15s}
+.lang-btn:hover{background:rgba(255,255,255,.16)}
+.lang-btn.active{background:var(--accent);color:#23160a;border-color:var(--accent)}
+.lang-group{display:flex;align-items:center;gap:8px}
+
+/* HERO */
+header.hero{background:linear-gradient(150deg,var(--bg) 0%,var(--bg2) 55%,#10314a 100%);color:#eaf2fb;padding:54px 0 46px;position:relative;overflow:hidden}
+header.hero::before{content:"";position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(19,163,176,.3),transparent 70%)}
+header.hero::after{content:"";position:absolute;left:-80px;bottom:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(244,162,59,.15),transparent 70%)}
+.agencybar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:32px;flex-wrap:wrap;position:relative;z-index:1}
+.logoSlot{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.05rem;letter-spacing:.02em}
+.logoSlot .mark{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--brand2),var(--accent));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.logoSlot small{display:block;font-weight:500;color:#9fb6cf;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.hero-content{position:relative;z-index:1}
+.hero h1{font-size:2.6rem;margin-bottom:10px;letter-spacing:-.02em}
+.hero .sub{font-size:1.1rem;color:#bcd0e6;max-width:680px;margin-bottom:22px}
+.hero .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);padding:7px 14px;border-radius:30px;font-size:.8rem;color:#dbe7f4}
+.btnPrint{background:var(--accent);color:#23160a;border:none;padding:10px 18px;border-radius:9px;font-weight:700;cursor:pointer;font-size:.84rem;box-shadow:var(--shadow2);transition:background .15s}
+.btnPrint:hover{background:#ffb55a}
+
+/* NAV */
+nav.toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(13,30,55,.05)}
+nav.toc .wrap{display:flex;gap:2px;overflow-x:auto;padding:8px 0;scrollbar-width:none}
+nav.toc .wrap::-webkit-scrollbar{display:none}
+nav.toc a{flex:0 0 auto;color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:600;padding:7px 11px;border-radius:7px;white-space:nowrap;transition:background .12s,color .12s}
+nav.toc a:hover{background:var(--soft2);color:var(--brand)}
+
+/* SECTIONS */
+section{padding:48px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.kicker{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);background:rgba(14,124,134,.1);padding:5px 12px;border-radius:20px;margin-bottom:14px}
+.lead{font-size:1.05rem;color:#33414f;max-width:780px;margin-bottom:24px}
+
+/* CARDS & GRID */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:780px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media(max-width:600px){.hero h1{font-size:1.8rem}}
+
+/* HIGHLIGHT BOXES */
+.hl{background:linear-gradient(180deg,#fffaf0,#fff5e2);border:1px solid #f0dcb4;border-left:5px solid var(--accent);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.hl strong{color:#9a6a14}
+.win{background:linear-gradient(180deg,#eefaf4,#e4f6ee);border:1px solid #bfe6d4;border-left:5px solid var(--good);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.danger{background:linear-gradient(180deg,#fff0ef,#fde8e6);border:1px solid #f4c4bf;border-left:5px solid var(--bad);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+
+/* TABLES */
+.tableScroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow2)}
+table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff;min-width:600px}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--bg);color:#dbe7f4;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+tbody tr:hover{background:#f7fbfc}
+tbody tr:nth-child(even){background:var(--soft)}
+td.ok{color:var(--good);font-weight:700}
+td.no{color:var(--bad);font-weight:700}
+td.warn{color:var(--warn);font-weight:700}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.71rem;font-weight:800;letter-spacing:.02em}
+.b-high{background:#fde7e4;color:#b4362b}
+.b-med{background:#fbf0d8;color:#9a6a14}
+.b-low{background:#e9f4ec;color:#1f7d52}
+.b-tier-a{background:#e0f0fb;color:#1155aa}
+.b-tier-b{background:#f0e8fb;color:#6b21a8}
+.b-tier-c{background:#e8f5e9;color:#256029}
+.score{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:28px;border-radius:8px;font-weight:800;color:#fff;font-size:.84rem;padding:0 8px}
+.s9{background:#15803d}.s8{background:#3f9142}.s7{background:#6f9a39}.s6{background:#b98521}.s5{background:#c2762f}.s4{background:#c2542f}.s3{background:#c2392f}
+.flag{display:inline-flex;align-items:center;gap:5px;background:#fde7e4;color:#b4362b;padding:3px 9px;border-radius:6px;font-size:.78rem;font-weight:700}
+
+/* COMPETITOR CARDS */
+.comp-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow2);transition:box-shadow .15s}
+.comp-card:hover{box-shadow:var(--shadow)}
+.comp-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:20px 22px;cursor:pointer;user-select:none}
+.comp-header:hover{background:var(--soft)}
+.comp-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.comp-title h3{margin:0}
+.comp-scores{display:flex;align-items:center;gap:8px}
+.comp-tagline{font-size:.86rem;color:var(--muted);margin-top:4px;font-style:italic}
+.comp-edge{font-size:.83rem;color:var(--good);margin-top:6px}
+.comp-weak{font-size:.83rem;color:var(--bad);margin-top:2px}
+.expand-icon{font-size:1.2rem;color:var(--muted);flex-shrink:0;transition:transform .2s}
+.comp-card.open .expand-icon{transform:rotate(180deg)}
+.comp-detail{display:none;padding:0 22px 22px;border-top:1px solid var(--line)}
+.comp-card.open .comp-detail{display:block}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+@media(max-width:600px){.detail-grid{grid-template-columns:1fr}}
+.detail-item{background:var(--soft);border-radius:10px;padding:14px}
+.detail-item label{display:block;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px}
+.detail-item p{margin:0;font-size:.88rem}
+.service-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.stag{background:rgba(14,124,134,.1);color:var(--brand);padding:3px 9px;border-radius:6px;font-size:.78rem;font-weight:600}
+
+/* AD BUTTONS */
+.ad-btn-group{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.ad-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:9px;font-weight:700;font-size:.82rem;text-decoration:none;transition:opacity .15s;border:none;cursor:pointer}
+.ad-btn:hover{opacity:.85;text-decoration:none}
+.btn-meta{background:#1877f2;color:#fff}
+.btn-meta-zero{background:#64748b;color:#fff}
+.btn-google{background:#ea4335;color:#fff}
+.btn-google-zero{background:#6b7280;color:#fff}
+.btn-tiktok{background:#010101;color:#fff}
+.btn-youtube{background:#ff0000;color:#fff}
+.btn-ares{background:#2563eb;color:#fff}
+
+/* SWIPE TABLE */
+.swipe-table th{background:#1c2e4a}
+
+/* KEYWORD TABLE */
+.kw-gap{background:#eefaf4;color:var(--good);font-weight:700}
+.kw-owned{background:#fde7e4;color:var(--bad)}
+.kw-contested{background:#fbf0d8;color:var(--warn)}
+
+/* OPPORTUNITY CARDS */
+.opp-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow2);display:flex;gap:14px;align-items:flex-start}
+.opp-num{width:36px;height:36px;border-radius:50%;background:var(--bg);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;flex-shrink:0}
+.opp-body{flex:1}
+.opp-body h4{margin-bottom:4px}
+.opp-body p{font-size:.87rem;color:#33414f;margin-bottom:6px}
+
+/* MATRIX */
+.matrix-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow2)}
+.matrix{min-width:900px}
+.matrix th:first-child{background:#0c1424}
+.matrix td{text-align:center;font-size:1.1rem}
+.matrix td.row-label{text-align:left;font-size:.84rem;font-weight:600;color:var(--ink);background:var(--soft)}
+.cell-yes{color:#16a34a}
+.cell-no{color:#dc2626}
+.cell-warn{color:#d97706}
+.client-col{background:rgba(14,124,134,.05)!important}
+
+/* ACCORDION */
+.acc-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:var(--soft2);border-radius:10px;cursor:pointer;font-weight:700;margin-bottom:4px;border:1px solid var(--line)}
+.acc-header:hover{background:var(--line)}
+.acc-body{display:none;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-top:none;border-radius:0 0 10px 10px;margin-bottom:8px}
+.acc-open .acc-body{display:block}
+.acc-open .acc-header{border-radius:10px 10px 0 0;margin-bottom:0}
+.acc-icon{transition:transform .2s}
+.acc-open .acc-icon{transform:rotate(180deg)}
+
+/* ICP PROFILES */
+.icp-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow2)}
+.icp-icon{font-size:2rem;margin-bottom:10px}
+
+/* FINANCE TABLE */
+.fin-note{background:var(--soft2);border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-size:.86rem;color:var(--muted);margin-top:14px}
+
+/* FOOTER */
+footer{background:var(--bg);color:#6b8bad;padding:32px 0;font-size:.83rem;text-align:center}
+
+/* PRINT */
+@media print{
+  nav.toc,header.hero .btnPrint,.ad-btn-group{display:none!important}
+  .comp-detail{display:block!important}
+  .acc-body{display:block!important}
+  body{background:#fff}
+  section{page-break-inside:avoid;border-bottom:1px solid #ddd}
+  .tableScroll,.matrix-wrap{overflow:visible}
+  table{min-width:unset;font-size:.78rem}
+}
+
+</style>
+
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="agencybar">
+      <div class="logoSlot">
+        <svg width="150" height="25" viewBox="0 0 338 57" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Help Us Launch" style="flex-shrink:0"><path fill-rule="evenodd" clip-rule="evenodd" d="M209.663 13.1521C208.946 13.5259 208.749 13.8943 208.566 15.2033C208.345 16.7763 207.087 26.0805 206.424 31.034C206.287 32.0611 206.063 33.6977 205.927 34.6708C205.791 35.6439 205.635 36.7718 205.581 37.1772C205.526 37.5827 205.351 38.8875 205.192 40.0769C205.033 41.2662 204.832 42.7451 204.745 43.3634C204.6 44.398 204.6 44.5205 204.747 44.9052C204.946 45.4261 205.559 45.9916 206.017 46.0776C206.209 46.1135 207.549 46.1254 208.997 46.1041C211.912 46.0612 211.964 46.0508 212.543 45.3913C212.711 45.2002 212.891 44.8773 212.944 44.6737C213.037 44.3092 213.296 42.5127 213.393 41.5512C213.553 39.9729 213.769 38.4997 213.894 38.1471C214.084 37.6068 214.081 37.1772 213.886 37.1772C213.803 37.1772 213.279 37.4205 212.722 37.7178C212.166 38.0152 211.636 38.2584 211.546 38.2584C211.408 38.2584 211.383 38.1444 211.383 37.5341C211.383 35.5569 211.929 34.0552 213.059 32.9252L213.752 32.2319L215.532 32.2964C216.511 32.3319 217.84 32.3609 218.485 32.3609H219.658L220.342 33.0207C221.133 33.7844 221.512 34.4854 221.739 35.6045C221.941 36.6021 222.056 38.2584 221.923 38.2584C221.867 38.2584 221.629 38.1484 221.394 38.0139C221.159 37.8794 220.899 37.7688 220.817 37.7682C220.735 37.7675 220.508 37.6809 220.311 37.5757C220.115 37.4705 219.828 37.3711 219.674 37.3545C219.285 37.3132 219.274 37.527 219.599 38.7664C219.759 39.3747 219.897 40.2353 219.944 40.9123C220.047 42.4006 220.218 43.7712 220.392 44.5C220.495 44.9355 220.628 45.1881 220.897 45.4657C221.517 46.1057 221.609 46.1218 224.633 46.1218C227.172 46.1218 227.369 46.109 227.763 45.9183C228.196 45.7084 228.528 45.2836 228.684 44.7375C228.747 44.519 228.703 43.9301 228.536 42.7435C228.229 40.5599 227.884 38.0446 227.455 34.8674C227.266 33.4618 227.09 32.1569 227.065 31.9677C225.873 23.1585 225.193 18.0979 224.946 16.1918C224.834 15.3268 224.7 14.459 224.648 14.2634C224.517 13.7707 224.199 13.3984 223.726 13.1837C223.349 13.0123 222.936 13.0015 216.641 13.0001C210.769 12.9987 209.922 13.0172 209.663 13.1521ZM219.346 23.6129C219.018 21.6863 218.218 19.7918 217.094 18.2805C216.903 18.0237 216.72 17.8136 216.687 17.8136C216.469 17.8136 215.525 19.2171 215.024 20.2859C214.248 21.9431 213.859 23.8316 213.814 26.1685L213.791 27.3971H216.641H219.492L219.482 25.8736C219.476 25.0357 219.415 24.0183 219.346 23.6129Z" fill="#00C9A7"/><path d="M185.49 46.0005C184.74 46.0005 184.035 45.8205 183.375 45.4605C182.745 45.1005 182.43 44.5605 182.43 43.8405V15.2205C182.43 14.4705 182.79 13.9305 183.51 13.6005C184.26 13.2705 185.07 13.1055 185.94 13.1055C186.81 13.1055 187.605 13.2705 188.325 13.6005C189.075 13.9305 189.45 14.4705 189.45 15.2205V39.8805H199.71C200.4 39.8805 200.91 40.1955 201.24 40.8255C201.57 41.4555 201.735 42.1605 201.735 42.9405C201.735 43.6905 201.57 44.3955 201.24 45.0555C200.91 45.6855 200.4 46.0005 199.71 46.0005H185.49Z" fill="#00C9A7"/><path d="M242.809 46.2705C240.679 46.2705 238.759 45.9255 237.049 45.2355C235.339 44.5455 233.974 43.4205 232.954 41.8605C231.964 40.3005 231.469 38.2305 231.469 35.6505V15.2205C231.469 14.4705 231.829 13.9305 232.549 13.6005C233.269 13.2705 234.079 13.1055 234.979 13.1055C235.849 13.1055 236.644 13.2705 237.364 13.6005C238.114 13.9305 238.489 14.4705 238.489 15.2205V35.6505C238.489 37.1805 238.864 38.3205 239.614 39.0705C240.394 39.7905 241.459 40.1505 242.809 40.1505C244.159 40.1505 245.209 39.7905 245.959 39.0705C246.739 38.3205 247.129 37.1805 247.129 35.6505V15.2205C247.129 14.4705 247.489 13.9305 248.209 13.6005C248.929 13.2705 249.739 13.1055 250.639 13.1055C251.509 13.1055 252.304 13.2705 253.024 13.6005C253.774 13.9305 254.149 14.4705 254.149 15.2205V35.6505C254.149 38.2305 253.639 40.3005 252.619 41.8605C251.629 43.4205 250.279 44.5455 248.569 45.2355C246.859 45.9255 244.939 46.2705 242.809 46.2705Z" fill="#00C9A7"/><path d="M262.405 46.0005C261.535 46.0005 260.725 45.8205 259.975 45.4605C259.255 45.1005 258.895 44.5605 258.895 43.8405V15.2655C258.895 14.5155 259.255 13.9755 259.975 13.6455C260.725 13.2855 261.535 13.1055 262.405 13.1055C263.245 13.1055 263.935 13.1805 264.475 13.3305C265.045 13.4505 265.555 13.7505 266.005 14.2305C266.485 14.7105 267.01 15.5055 267.58 16.6155L274.87 30.5205V15.2205C274.87 14.4705 275.23 13.9305 275.95 13.6005C276.7 13.2705 277.51 13.1055 278.38 13.1055C279.25 13.1055 280.045 13.2705 280.765 13.6005C281.515 13.9305 281.89 14.4705 281.89 15.2205V43.8405C281.89 44.5605 281.515 45.1005 280.765 45.4605C280.045 45.8205 279.25 46.0005 278.38 46.0005C277.57 46.0005 276.82 45.8805 276.13 45.6405C275.44 45.4005 274.885 44.8905 274.465 44.1105L265.915 28.5405V43.8405C265.915 44.5605 265.54 45.1005 264.79 45.4605C264.07 45.8205 263.275 46.0005 262.405 46.0005Z" fill="#00C9A7"/><path d="M297.196 46.2705C295.246 46.2705 293.446 45.9255 291.796 45.2355C290.146 44.5455 288.826 43.4205 287.836 41.8605C286.876 40.3005 286.396 38.2305 286.396 35.6505V23.7255C286.396 21.1455 286.876 19.0755 287.836 17.5155C288.826 15.9555 290.146 14.8305 291.796 14.1405C293.446 13.4505 295.246 13.1055 297.196 13.1055C299.356 13.1055 301.276 13.4655 302.956 14.1855C304.666 14.8755 306.016 15.8805 307.006 17.2005C307.996 18.5205 308.491 20.1405 308.491 22.0605C308.491 23.4105 308.206 24.3105 307.636 24.7605C307.066 25.1805 306.181 25.3905 304.981 25.3905C304.051 25.3905 303.241 25.2405 302.551 24.9405C301.891 24.6405 301.531 24.0855 301.471 23.2755C301.471 22.9755 301.426 22.6005 301.336 22.1505C301.276 21.7005 301.126 21.2505 300.886 20.8005C300.646 20.3505 300.256 19.9755 299.716 19.6755C299.176 19.3755 298.426 19.2255 297.466 19.2255C296.176 19.2255 295.171 19.6005 294.451 20.3505C293.761 21.0705 293.416 22.1955 293.416 23.7255V35.6505C293.416 37.1805 293.776 38.3205 294.496 39.0705C295.216 39.7905 296.221 40.1505 297.511 40.1505C298.411 40.1505 299.116 40.0005 299.626 39.7005C300.166 39.4005 300.556 39.0255 300.796 38.5755C301.036 38.0955 301.201 37.6005 301.291 37.0905C301.381 36.5805 301.441 36.1005 301.471 35.6505C301.531 34.8105 301.891 34.2555 302.551 33.9855C303.241 33.6855 304.036 33.5355 304.936 33.5355C306.166 33.5355 307.066 33.7605 307.636 34.2105C308.206 34.6305 308.491 35.5155 308.491 36.8655C308.491 38.8455 307.996 40.5405 307.006 41.9505C306.016 43.3605 304.666 44.4405 302.956 45.1905C301.276 45.9105 299.356 46.2705 297.196 46.2705Z" fill="#00C9A7"/><path d="M315.534 46.0005C314.664 46.0005 313.854 45.8205 313.104 45.4605C312.384 45.1005 312.024 44.5605 312.024 43.8405V15.2205C312.024 14.4705 312.384 13.9305 313.104 13.6005C313.854 13.2705 314.664 13.1055 315.534 13.1055C316.404 13.1055 317.199 13.2705 317.919 13.6005C318.669 13.9305 319.044 14.4705 319.044 15.2205V26.2455H327.999V15.2205C327.999 14.4705 328.359 13.9305 329.079 13.6005C329.829 13.2705 330.639 13.1055 331.509 13.1055C332.379 13.1055 333.174 13.2705 333.894 13.6005C334.644 13.9305 335.019 14.4705 335.019 15.2205V43.8405C335.019 44.5605 334.644 45.1005 333.894 45.4605C333.174 45.8205 332.379 46.0005 331.509 46.0005C330.639 46.0005 329.829 45.8205 329.079 45.4605C328.359 45.1005 327.999 44.5605 327.999 43.8405V31.6455H319.044V43.8405C319.044 44.5605 318.669 45.1005 317.919 45.4605C317.199 45.8205 316.404 46.0005 315.534 46.0005Z" fill="#00C9A7"/><path d="M5.93969 46.0009C5.06969 46.0009 4.25969 45.8209 3.50969 45.4609C2.78969 45.1009 2.42969 44.5609 2.42969 43.8409V15.2209C2.42969 14.4709 2.78969 13.9309 3.50969 13.6009C4.25969 13.2709 5.06969 13.1059 5.93969 13.1059C6.80969 13.1059 7.60469 13.2709 8.32469 13.6009C9.07469 13.9309 9.44969 14.4709 9.44969 15.2209V26.2459H18.4047V15.2209C18.4047 14.4709 18.7647 13.9309 19.4847 13.6009C20.2347 13.2709 21.0447 13.1059 21.9147 13.1059C22.7847 13.1059 23.5797 13.2709 24.2997 13.6009C25.0497 13.9309 25.4247 14.4709 25.4247 15.2209V43.8409C25.4247 44.5609 25.0497 45.1009 24.2997 45.4609C23.5797 45.8209 22.7847 46.0009 21.9147 46.0009C21.0447 46.0009 20.2347 45.8209 19.4847 45.4609C18.7647 45.1009 18.4047 44.5609 18.4047 43.8409V31.6459H9.44969V43.8409C9.44969 44.5609 9.07469 45.1009 8.32469 45.4609C7.60469 45.8209 6.80969 46.0009 5.93969 46.0009Z" fill="white"/><path d="M33.351 46.0009C32.601 46.0009 31.896 45.8209 31.236 45.4609C30.606 45.1009 30.291 44.5609 30.291 43.8409V15.2659C30.291 14.5459 30.606 14.0059 31.236 13.6459C31.896 13.2859 32.601 13.1059 33.351 13.1059H49.371C50.121 13.1059 50.661 13.4359 50.991 14.0959C51.321 14.7259 51.486 15.4009 51.486 16.1209C51.486 16.9609 51.306 17.6959 50.946 18.3259C50.586 18.9259 50.061 19.2259 49.371 19.2259H37.311V26.8309H44.061C44.751 26.8309 45.276 27.1159 45.636 27.6859C45.996 28.2259 46.176 28.8559 46.176 29.5759C46.176 30.1759 46.011 30.7759 45.681 31.3759C45.351 31.9459 44.811 32.2309 44.061 32.2309H37.311V39.8809H49.371C50.061 39.8809 50.586 40.1959 50.946 40.8259C51.306 41.4259 51.486 42.1459 51.486 42.9859C51.486 43.7059 51.321 44.3959 50.991 45.0559C50.661 45.6859 50.121 46.0009 49.371 46.0009H33.351Z" fill="white"/><path d="M57.6088 46.0009C56.8588 46.0009 56.1538 45.8209 55.4938 45.4609C54.8638 45.1009 54.5488 44.5609 54.5488 43.8409V15.2209C54.5488 14.4709 54.9088 13.9309 55.6288 13.6009C56.3788 13.2709 57.1888 13.1059 58.0588 13.1059C58.9288 13.1059 59.7238 13.2709 60.4438 13.6009C61.1938 13.9309 61.5688 14.4709 61.5688 15.2209V39.8809H71.8288C72.5188 39.8809 73.0288 40.1959 73.3588 40.8259C73.6888 41.4559 73.8538 42.1609 73.8538 42.9409C73.8538 43.6909 73.6888 44.3959 73.3588 45.0559C73.0288 45.6859 72.5188 46.0009 71.8288 46.0009H57.6088Z" fill="white"/><path d="M80.2073 46.0009C79.3373 46.0009 78.5273 45.8209 77.7773 45.4609C77.0573 45.1009 76.6973 44.5609 76.6973 43.8409V15.2209C76.6973 14.6509 76.9373 14.1559 77.4173 13.7359C77.8973 13.3159 78.5273 13.1059 79.3073 13.1059H88.6223C90.6023 13.1059 92.3873 13.4509 93.9773 14.1409C95.5973 14.8009 96.8723 15.8959 97.8023 17.4259C98.7623 18.9259 99.2423 20.9359 99.2423 23.4559V23.6809C99.2423 26.2009 98.7473 28.2259 97.7573 29.7559C96.7973 31.2859 95.4773 32.3959 93.7973 33.0859C92.1173 33.7759 90.2423 34.1209 88.1723 34.1209H83.7173V43.8409C83.7173 44.5609 83.3423 45.1009 82.5923 45.4609C81.8723 45.8209 81.0773 46.0009 80.2073 46.0009ZM83.7173 28.7209H88.1723C89.4323 28.7209 90.4223 28.3609 91.1423 27.6409C91.8623 26.8909 92.2223 25.7509 92.2223 24.2209V23.7259C92.2223 22.1959 91.8623 21.0709 91.1423 20.3509C90.4223 19.6009 89.4323 19.2259 88.1723 19.2259H83.7173V28.7209Z" fill="white"/><path d="M127.635 46.2709C125.505 46.2709 123.585 45.9259 121.875 45.2359C120.165 44.5459 118.8 43.4209 117.78 41.8609C116.79 40.3009 116.295 38.2309 116.295 35.6509V15.2209C116.295 14.4709 116.655 13.9309 117.375 13.6009C118.095 13.2709 118.905 13.1059 119.805 13.1059C120.675 13.1059 121.47 13.2709 122.19 13.6009C122.94 13.9309 123.315 14.4709 123.315 15.2209V35.6509C123.315 37.1809 123.69 38.3209 124.44 39.0709C125.22 39.7909 126.285 40.1509 127.635 40.1509C128.985 40.1509 130.035 39.7909 130.785 39.0709C131.565 38.3209 131.955 37.1809 131.955 35.6509V15.2209C131.955 14.4709 132.315 13.9309 133.035 13.6009C133.755 13.2709 134.565 13.1059 135.465 13.1059C136.335 13.1059 137.13 13.2709 137.85 13.6009C138.6 13.9309 138.975 14.4709 138.975 15.2209V35.6509C138.975 38.2309 138.465 40.3009 137.445 41.8609C136.455 43.4209 135.105 44.5459 133.395 45.2359C131.685 45.9259 129.765 46.2709 127.635 46.2709Z" fill="white"/><path d="M152.99 46.4509C151.04 46.4509 149.24 46.1659 147.59 45.5959C145.94 45.0259 144.62 44.3059 143.63 43.4359C142.64 42.5359 142.145 41.5909 142.145 40.6009C142.145 40.0909 142.28 39.5509 142.55 38.9809C142.82 38.3809 143.18 37.8709 143.63 37.4509C144.11 37.0309 144.635 36.8209 145.205 36.8209C145.745 36.8209 146.24 36.9859 146.69 37.3159C147.17 37.6459 147.68 38.0359 148.22 38.4859C148.79 38.9359 149.435 39.3259 150.155 39.6559C150.905 39.9859 151.805 40.1509 152.855 40.1509C153.545 40.1509 154.22 40.0609 154.88 39.8809C155.57 39.6709 156.125 39.3559 156.545 38.9359C156.995 38.4859 157.22 37.9009 157.22 37.1809C157.22 36.4009 156.965 35.7409 156.455 35.2009C155.945 34.6309 155.255 34.1209 154.385 33.6709C153.545 33.2209 152.615 32.7709 151.595 32.3209C150.605 31.8409 149.6 31.3309 148.58 30.7909C147.56 30.2209 146.615 29.5609 145.745 28.8109C144.905 28.0309 144.23 27.1009 143.72 26.0209C143.21 24.9409 142.955 23.6509 142.955 22.1509C142.955 20.4709 143.285 19.0459 143.945 17.8759C144.605 16.6759 145.49 15.7159 146.6 14.9959C147.71 14.2459 148.94 13.7059 150.29 13.3759C151.67 13.0159 153.065 12.8359 154.475 12.8359C155.075 12.8359 155.87 12.8809 156.86 12.9709C157.85 13.0609 158.84 13.2409 159.83 13.5109C160.85 13.7809 161.705 14.1859 162.395 14.7259C163.085 15.2359 163.43 15.9259 163.43 16.7959C163.43 17.1859 163.325 17.6809 163.115 18.2809C162.935 18.8509 162.635 19.3609 162.215 19.8109C161.825 20.2609 161.3 20.4859 160.64 20.4859C160.1 20.4859 159.59 20.3509 159.11 20.0809C158.66 19.7809 158.075 19.4959 157.355 19.2259C156.665 18.9259 155.705 18.7759 154.475 18.7759C153.425 18.7759 152.555 18.9109 151.865 19.1809C151.205 19.4209 150.725 19.7509 150.425 20.1709C150.125 20.5609 149.975 20.9959 149.975 21.4759C149.975 22.1059 150.23 22.6609 150.74 23.1409C151.25 23.5909 151.925 24.0259 152.765 24.4459C153.635 24.8359 154.565 25.2559 155.555 25.7059C156.575 26.1259 157.595 26.6359 158.615 27.2359C159.635 27.8059 160.565 28.4959 161.405 29.3059C162.275 30.1159 162.965 31.1059 163.475 32.2759C163.985 33.4459 164.24 34.8409 164.24 36.4609C164.24 38.6209 163.745 40.4509 162.755 41.9509C161.795 43.4209 160.475 44.5459 158.795 45.3259C157.115 46.0759 155.18 46.4509 152.99 46.4509Z" fill="white"/></svg>
+        <div>
+          <small>Weby a digitální růst pro lokální firmy</small>
+        </div>
+      </div>
+      <div class="lang-group">
+        <button class="lang-btn active" id="btn-cs" onclick="setLang('cs')">CZ</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        <button class="btnPrint" onclick="window.print()">🖨 <span class="cs">Tisknout / Uložit PDF</span><span class="en">Print / Save PDF</span></button>
+      </div>
+    </div>
+    <div class="hero-content">
+      <h1><span class="cs">Analýza konkurence<br>Čisté šachty</span><span class="en">Competitor Analysis<br>Čisté šachty</span></h1>
+      <p class="sub cs">Kompletní průzkum trhu — kdo jsou vaši konkurenti, jak pracují, kde jsou jejich slabiny a kde leží vaše příležitosti.</p>
+      <p class="sub en">A complete market survey — who your competitors are, how they operate, where their weaknesses lie, and where your opportunities are.</p>
+      <div class="meta">
+        <span class="pill"><span class="cs">📍 Hodonínský okres · Jihomoravský kraj</span><span class="en">📍 Hodonín District · South Moravian Region</span></span>
+        <span class="pill"><span class="cs">🔧 Čištění odvětrávacích šachet · SVJ/BD</span><span class="en">🔧 Ventilation Shaft Cleaning · SVJ/Housing Co-ops</span></span>
+        <span class="pill"><span class="cs">📅 Červen 2026</span><span class="en">📅 June 2026</span></span>
+        <span class="pill">🌐 cistesachty.cz</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
+<nav class="toc">
+  <div class="wrap">
+    <a href="#audit" class="cs">1. Váš stav</a><a href="#audit" class="en">1. Your Status</a>
+    <a href="#market" class="cs">2. Trh</a><a href="#market" class="en">2. Market</a>
+    <a href="#competitors" class="cs">3. Konkurenti</a><a href="#competitors" class="en">3. Competitors</a>
+    <a href="#matrix" class="cs">4. Srovnání</a><a href="#matrix" class="en">4. Comparison</a>
+    <a href="#ads" class="cs">5. Reklama</a><a href="#ads" class="en">5. Advertising</a>
+    <a href="#seo" class="cs">6. SEO</a><a href="#seo" class="en">6. SEO</a>
+    <a href="#icp" class="cs">7. Cílové skupiny</a><a href="#icp" class="en">7. Target Groups</a>
+    <a href="#gaps" class="cs">8. Příležitosti</a><a href="#gaps" class="en">8. Opportunities</a>
+    <a href="#finance" class="cs">9. Finance</a><a href="#finance" class="en">9. Finance</a>
+    <a href="#appendix" class="cs">10. Příloha</a><a href="#appendix" class="en">10. Appendix</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ SECTION 1: AUDIT ═══════════════════════════════════════ -->
+<section id="audit">
+  <div class="wrap">
+    <span class="kicker cs">1 — Váš aktuální stav</span><span class="kicker en">1 — Your Current Status</span>
+    <h2 class="cs">Co o vás víme před zahájením spolupráce</h2>
+    <h2 class="en">What we know about you before we start working together</h2>
+    <p class="lead cs">Před naším prvním setkáním jsme prověřili váš web, digitální stopu a pozici na trhu. Zde je upřímný přehled — silné stránky i slabiny, se kterými pracujeme.</p>
+    <p class="lead en">Before our first meeting, we checked your website, digital footprint, and market position. Here is an honest overview — the strengths and the weaknesses we're working with.</p>
+
+    <div class="grid g2" style="margin-bottom:24px">
+      <div>
+        <div class="win">
+          <h4 class="cs">✅ Silné stránky</h4>
+          <h4 class="en">✅ Strengths</h4>
+          <ul style="margin-top:10px" class="cs">
+            <li><strong>SVJ voucher</strong> — v rámci revidovaného setu konkurentů nejzřetelnější voucher-style lead magnet</li>
+            <li>Jasné zaměření na odvětrávací šachty bytových domů</li>
+            <li>Facebook přítomnost (základ pro sociální reklamu)</li>
+            <li>Galerie prací a video obsah na webu</li>
+            <li>Formulář pro poptávky</li>
+          </ul>
+          <ul style="margin-top:10px" class="en">
+            <li><strong>SVJ voucher</strong> — the clearest voucher-style lead magnet in the reviewed competitor set</li>
+            <li>Clear focus on apartment building ventilation shafts</li>
+            <li>Facebook presence (a base for social advertising)</li>
+            <li>Work gallery and on-site video content</li>
+            <li>Enquiry form</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="danger">
+          <h4 class="cs">🚨 Kritické slabiny — opravit ihned</h4>
+          <h4 class="en">🚨 Critical weaknesses — fix immediately</h4>
+          <ul style="margin-top:10px" class="cs">
+            <li><span class="flag">⚠ Gmail</span> <strong>cistesachty@gmail.com</strong> — může snižovat profesionální důvěryhodnost u části správců SVJ</li>
+            <li>Na hlavní landing page nejsou zřetelně komunikovány certifikace ani kvalifikace</li>
+            <li>Žádná stránka o servisní oblasti — pro lokální poptávku je pokrytí měst a okresu slabé</li>
+            <li>Žádný blog / obsah — omezená tematická SEO stopa</li>
+            <li>V revidovaných vyhledávacích dotazech jsme nenašli viditelné organické pozice</li>
+            <li>Žádná přítomnost v českých katalozích (Firmy.cz, Zlatéstránky, Najisto)</li>
+            <li>IČO není na hlavní landing page zjevně komunikované — stojí za to ho zviditelnit</li>
+            <li>Recenze a reference nejsou na hlavní landing page příliš prominentní</li>
+          </ul>
+          <ul style="margin-top:10px" class="en">
+            <li><span class="flag">⚠ Gmail</span> <strong>cistesachty@gmail.com</strong> — can reduce perceived professionalism with some SVJ managers</li>
+            <li>The main landing page does not clearly foreground certifications or qualifications</li>
+            <li>No service-area page — local-city and district coverage is weak for search demand</li>
+            <li>No blog / editorial content — limited topic-level SEO footprint</li>
+            <li>We did not find visible organic rankings in the sampled searches we reviewed</li>
+            <li>No presence in Czech directories (Firmy.cz, Zlatéstránky, Najisto)</li>
+            <li>The company ID (IČO) is not prominently surfaced on the main landing page</li>
+            <li>Reviews and references are not very prominent on the main landing page</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:0">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span class="score s3">3/10</span>
+        <div>
+          <strong class="cs">Celkové digitální skóre cistesachty.cz</strong>
+          <strong class="en">Overall digital score for cistesachty.cz</strong>
+          <div class="small muted cs">Na spodní hraně revidovaného konkurenčního setu. Místní SEO a adresáře lze při konzistentní práci zlepšit i v krátkém horizontu.</div>
+          <div class="small muted en">At the low end of the reviewed competitor set. Local SEO and directory presence could improve meaningfully in the near term with consistent execution.</div>
+        </div>
+      </div>
+      <div class="tableScroll">
+        <table>
+          <thead><tr><th class="cs">Oblast</th><th class="en">Area</th><th class="cs">Stav</th><th class="en">Status</th><th class="cs">Priorita</th><th class="en">Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="cs">Firemní e-mail (doménový)</td><td class="en">Company email (own domain)</td><td class="no">✗ Gmail</td><td><span class="badge b-high cs">🔴 Kritická</span><span class="badge b-high en">🔴 Critical</span></td></tr>
+            <tr><td class="cs">Certifikace uvedena</td><td class="en">Certifications listed</td><td class="no"><span class="cs">✗ Žádná</span><span class="en">✗ None</span></td><td><span class="badge b-high cs">🔴 Vysoká</span><span class="badge b-high en">🔴 High</span></td></tr>
+            <tr><td class="cs">Stránka servisní oblasti</td><td class="en">Service-area page</td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td><td><span class="badge b-high cs">🔴 Vysoká</span><span class="badge b-high en">🔴 High</span></td></tr>
+            <tr><td class="cs">SEO pozice (revidované dotazy)</td><td class="en">SEO visibility (sampled queries)</td><td class="no"><span class="cs">✗ V kontrolovaném vzorku nenalezeno</span><span class="en">✗ Not found in the sampled checks</span></td><td><span class="badge b-high cs">🔴 Vysoká</span><span class="badge b-high en">🔴 High</span></td></tr>
+            <tr><td class="cs">Firmy.cz zápis</td><td class="en">Firmy.cz listing</td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td><td><span class="badge b-high cs">🔴 Vysoká</span><span class="badge b-high en">🔴 High</span></td></tr>
+            <tr><td class="cs">Recenze na webu</td><td class="en">Reviews on site</td><td class="warn"><span class="cs">⚠ Nejsou prominentní na hlavní landing page</span><span class="en">⚠ Not prominent on the main landing page</span></td><td><span class="badge b-med cs">🟠 Střední</span><span class="badge b-med en">🟠 Medium</span></td></tr>
+            <tr><td class="cs">Blog / obsah</td><td class="en">Blog / content</td><td class="no"><span class="cs">✗ Žádný</span><span class="en">✗ None</span></td><td><span class="badge b-med cs">🟠 Střední</span><span class="badge b-med en">🟠 Medium</span></td></tr>
+            <tr><td class="cs">Cenová kalkulačka / transparentnost</td><td class="en">Price calculator / transparency</td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td><td><span class="badge b-med cs">🟠 Střední</span><span class="badge b-med en">🟠 Medium</span></td></tr>
+            <tr><td class="cs">Lead magnet (voucher SVJ)</td><td class="en">Lead magnet (SVJ voucher)</td><td class="ok"><span class="cs">✓ Existuje</span><span class="en">✓ Exists</span></td><td>—</td></tr>
+            <tr><td class="cs">Facebook přítomnost</td><td class="en">Facebook presence</td><td class="ok"><span class="cs">✓ Existuje</span><span class="en">✓ Exists</span></td><td>—</td></tr>
+            <tr><td class="cs">Video obsah</td><td class="en">Video content</td><td class="ok"><span class="cs">✓ Existuje</span><span class="en">✓ Exists</span></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2: MARKET ═══════════════════════════════════════ -->
+<section id="market">
+  <div class="wrap">
+    <span class="kicker cs">2 — Trh</span><span class="kicker en">2 — Market</span>
+    <h2 class="cs">Trh na první pohled</h2>
+    <h2 class="en">The market at a glance</h2>
+    <p class="lead cs">Čištění odvětrávacích šachet je compliance a údržbové téma, ne lifestyle služba. Nejsilnější argument je obvykle dokumentace, čistota systému a provozní odpovědnost.</p>
+    <p class="lead en">Ventilation shaft cleaning is a compliance and maintenance topic, not a lifestyle service. The strongest angle is usually documentation, system cleanliness, and operational responsibility.</p>
+
+    <div class="grid g3" style="margin-bottom:28px">
+      <div class="card">
+        <div style="font-size:2rem;margin-bottom:10px">📋</div>
+        <h4 class="cs">Zákonný driver</h4>
+        <h4 class="en">Legal driver</h4>
+        <p class="small cs">ČSN EN 15780 je v oboru často citovaným referenčním rámcem pro čistotu a dokumentaci VZT rozvodů. V praxi se kolem bytových domů běžně komunikuje dvouletý servisní rytmus, ale přesná povinnost závisí na typu systému, požárně-bezpečnostním režimu a dokumentaci objektu.</p>
+        <p class="small en">ČSN EN 15780 is commonly cited in the sector as a reference framework for HVAC cleanliness and documentation. In practice, a two-year service rhythm is often discussed for apartment-building systems, but the exact obligation depends on the system type, fire-safety regime, and the building's documentation.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:2rem;margin-bottom:10px">🏥</div>
+        <h4 class="cs">Zdravotní argument</h4>
+        <h4 class="en">Health argument</h4>
+        <p class="small cs">Znečištěné šachty mohou zhoršovat hygienu provozu a kvalitu vzduchu v bytovém domě. To je užitečný argument hlavně tam, kde výbor řeší zdraví obyvatel nebo dlouhodobě zanedbanou údržbu.</p>
+        <p class="small en">Contaminated shafts can worsen hygiene conditions and perceived air quality in an apartment building. This is a useful angle especially where the board is concerned about resident health or long-deferred maintenance.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:2rem;margin-bottom:10px">🔥</div>
+        <h4 class="cs">Požární bezpečnost</h4>
+        <h4 class="en">Fire safety</h4>
+        <p class="small cs">Usazený prach, mastnota a nečistoty mohou zvyšovat požární i provozní riziko. Pokud lze službu spojit s požárně-bezpečnostní dokumentací, může to podpořit vyšší hodnotu zakázky i důvěru zadavatele.</p>
+        <p class="small en">Settled dust, grease, and debris can increase both fire and operational risk. Where the service can be paired with fire-safety documentation, it may support a higher-value scope and stronger buyer confidence.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:2rem;margin-bottom:10px">🏢</div>
+        <h4 class="cs">Cílový zákazník</h4>
+        <h4 class="en">Target customer</h4>
+        <p class="small cs"><strong>SVJ</strong> (Společenství vlastníků jednotek) a <strong>bytová družstva (BD)</strong> jsou přirozené cílové skupiny, protože řeší údržbu společných částí domu. Jeden správce nebo družstvo může otevřít více budov najednou.</p>
+        <p class="small en"><strong>SVJ</strong> (unit owners' associations) and <strong>housing co-operatives (BD)</strong> are natural target groups because they manage the building's shared infrastructure. One manager or co-op relationship can unlock multiple buildings at once.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:2rem;margin-bottom:10px">📍</div>
+        <h4 class="cs">Hodonínská příležitost</h4>
+        <h4 class="en">The Hodonín opportunity</h4>
+        <p class="small cs">V kontrolovaných dotazech z června 2026 jsme v hodonínském okrese nenašli zřetelně lokálního specialistu na čištění šachet. Viditelnější hráči působí spíše z Brna a širšího regionu, což naznačuje prostor pro lokální vstup.</p>
+        <p class="small en">In the June 2026 search checks we reviewed, we did not find a clearly local shaft-cleaning specialist in the Hodonín district. The more visible players appeared to operate from Brno and the wider region, which suggests room for a local entrant.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:2rem;margin-bottom:10px">🔄</div>
+        <h4 class="cs">Opakující se příjem</h4>
+        <h4 class="en">Recurring revenue</h4>
+        <p class="small cs">Pravidelná údržba a kontrolní cykly mohou vytvářet opakovanou poptávku. Pokud se podaří získat správce nebo BD, jeden vztah může přinést více objektů a kombinaci technického, hygienického i dokumentačního argumentu.</p>
+        <p class="small en">Regular maintenance and inspection cycles can create repeat demand. If you win a property manager or co-op relationship, one account can span multiple buildings and combine technical, hygiene, and documentation angles.</p>
+      </div>
+    </div>
+
+    <div class="hl cs">
+      <strong>Prodejní cyklus:</strong> Předseda SVJ nebo správce nemovitosti obvykle potřebuje souhlas výboru nebo vlastníků → hledá dodavatele s dokumentací → srovnává více nabídek → rozhoduje podle důvěryhodnosti, srozumitelnosti a dokladů. <strong>Fotodokumentace, reference a jasně vysvětlený compliance rámec mohou být silnější než obecný „řemeslnický“ web bez důkazů.</strong>
+    </div>
+    <div class="hl en">
+      <strong>Sales cycle:</strong> An SVJ chairman or property manager usually needs board or owner approval → looks for a supplier with documentation → compares multiple quotes → decides based on credibility, clarity, and paperwork. <strong>Photo documentation, references, and a clearly explained compliance framework can outperform a generic trades website with little proof.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3: COMPETITORS ═══════════════════════════════════════ -->
+<section id="competitors">
+  <div class="wrap">
+    <span class="kicker cs">3 — Konkurenční krajina</span><span class="kicker en">3 — Competitive Landscape</span>
+    <h2 class="cs">Kdo jsou vaši konkurenti</h2>
+    <h2 class="en">Who your competitors are</h2>
+    <p class="lead cs">Zmapovali jsme trh ve třech vrstvách. Kliknutím na kartu rozbalte kompletní profil.</p>
+    <p class="lead en">We mapped the market in three tiers. Click a card to expand the full profile.</p>
+
+    <div style="margin-bottom:28px">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px" class="cs">
+        <span class="badge b-tier-a" style="font-size:.82rem;padding:5px 12px">🔵 Tier A — Regionální hrozby (Brno a okolí, přijíždějí do vašeho okresu)</span>
+        <span class="badge b-tier-b" style="font-size:.82rem;padding:5px 12px">🟣 Tier B — Národní lídři (taktiky k okopírování)</span>
+        <span class="badge b-tier-c" style="font-size:.82rem;padding:5px 12px">🟢 Tier C — Místní mezera (indikativní lokální gap)</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px" class="en">
+        <span class="badge b-tier-a" style="font-size:.82rem;padding:5px 12px">🔵 Tier A — Regional threats (Brno area, travel into your district)</span>
+        <span class="badge b-tier-b" style="font-size:.82rem;padding:5px 12px">🟣 Tier B — National leaders (tactics to copy)</span>
+        <span class="badge b-tier-c" style="font-size:.82rem;padding:5px 12px">🟢 Tier C — Local gap (apparent local gap)</span>
+      </div>
+    </div>
+
+    <!-- TIER C: APPARENT LOCAL GAP -->
+    <div class="win" style="margin-bottom:24px">
+      <h3 class="cs">🟢 Tier C: Hodonínský okres — ZJEVNÝ LOKÁLNÍ SEARCH GAP</h3>
+      <h3 class="en">🟢 Tier C: Hodonín District — APPARENT LOCAL SEARCH GAP</h3>
+      <p style="margin-top:8px" class="cs">V kontrolovaných Google dotazech z června 2026 pro klíčová slova <em>čištění odvětrávacích šachet Hodonín</em>, <em>Kyjov</em>, <em>Veselí nad Moravou</em> a <em>Strážnice</em> jsme nenašli zřetelně lokálního specialistu, který by dominoval výsledkům. Častěji se objevovaly firmy z Brna nebo širšího regionu. To naznačuje lokální příležitost, nikoli garantované „prázdné tržiště“.</p>
+      <p style="margin-top:8px" class="en">In the June 2026 Google queries we reviewed for <em>ventilation shaft cleaning Hodonín</em>, <em>Kyjov</em>, <em>Veselí nad Moravou</em>, and <em>Strážnice</em>, we did not find a clearly local specialist dominating the results. Brno-based or wider-regional companies appeared more often. That suggests a local opportunity, not a guaranteed empty market.</p>
+    </div>
+
+    <!-- TIER A COMPETITORS -->
+    <h3 style="margin-bottom:12px" class="cs">🔵 Tier A — Regionální hrozby</h3>
+    <h3 style="margin-bottom:12px" class="en">🔵 Tier A — Regional threats</h3>
+
+    <!-- KLIMAHAUS -->
+    <div class="comp-card" style="margin-bottom:12px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>KLIMAHAUS s.r.o.</h3>
+            <span class="badge b-tier-a">Tier A</span>
+            <span class="score s7">7/10</span>
+          </div>
+          <div class="comp-tagline cs">"Prima klima v každém domě" — klimahaus.cz | Brno | firma od 2021, web komunikuje cca 20-25 let technické praxe / praxe s produkty</div>
+          <div class="comp-tagline en">"Great climate in every home" — klimahaus.cz | Brno | company since 2021, with the site presenting roughly 20-25 years of technical/product experience</div>
+          <div class="comp-edge cs">✅ Edge: LOMANCO distribuce + dlouho komunikovaná technická praxe + e-shop + široké portfolio</div>
+          <div class="comp-edge en">✅ Edge: LOMANCO distribution + long-communicated technical experience + e-shop + a broad portfolio</div>
+          <div class="comp-weak cs">❌ Slabina: široké portfolio může rozostřovat pozici čistě šachtového specialisty; veřejná recenzní stopa se při této revizi jevila jako omezená</div>
+          <div class="comp-weak en">❌ Weakness: the broad offer can blur its position as a pure shaft specialist; its public review footprint appeared limited in this review</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>Přesný headline</label>
+            <p>"PRIMA KLIMA V KAŽDÉM DOMĚ" / "LOMANCO ventilační turbíny, čištění šachet bytových domů SVJ"</p>
+          </div>
+          <div class="detail-item">
+            <label>IČO / Vznik</label>
+            <p>IČO: 09783555 | Vznik: 1. 1. 2021. Web komunikuje přibližně 20-25 let praxe u technického poradenství / produktových linií; nejde o stáří firmy samotné.</p>
+          </div>
+          <div class="detail-item">
+            <label>Certifikace</label>
+            <p>Žádné explicitně uvedeny. Odkazuje na normy obecně.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technologie / vybavení</label>
+            <p>LOMANCO turbíny, LOMANCO i-DRIVE (hybridní systém), KLIMASUN světlovody, klimatizace (Fujitsu, LG, Sinclair)</p>
+          </div>
+          <div class="detail-item">
+            <label>Transparentnost cen</label>
+            <p>Letní akce (sleva až 7 %), žádné konkrétní ceny za čištění. E-shop s cenami produktů.</p>
+          </div>
+          <div class="detail-item">
+            <label>Lead magnet</label>
+            <p>Bezplatný design a kalkulace; technická konzultace; měsíční akční produkty</p>
+          </div>
+          <div class="detail-item">
+            <label>Servisní oblast</label>
+            <p>Celá ČR. Sídlo: Brno (~60 km od Hodonína)</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>Portfolio fotek, before/after, sekce "Naše realizace". Veřejná recenzní stopa působí spíše omezeně než masivně.</p>
+          </div>
+          <div class="detail-item">
+            <label>Blog / obsah</label>
+            <p>Ano — sezónní tipy, inovace produktů, archiv z tisku, ke stažení</p>
+          </div>
+          <div class="detail-item">
+            <label>Kontakt</label>
+            <p>info@klimahaus.cz (doménový email ✓). E-shop: eshop.klimahaus.cz</p>
+          </div>
+          <div class="detail-item">
+            <label>Cílový zákazník</label>
+            <p>Rodinné domy, SVJ, architekti, stavební firmy, správci nemovitostí</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>Exact headline</label>
+            <p>"GREAT CLIMATE IN EVERY HOME" / "LOMANCO ventilation turbines, shaft cleaning for SVJ apartment buildings"</p>
+          </div>
+          <div class="detail-item">
+            <label>Company ID / Founded</label>
+            <p>IČO: 09783555 | Founded: 1 Jan 2021. The site presents roughly 20-25 years of experience around technical advisory / product practice; this does not refer to the age of the legal entity.</p>
+          </div>
+          <div class="detail-item">
+            <label>Certifications</label>
+            <p>None explicitly stated. References standards in general terms.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technology / equipment</label>
+            <p>LOMANCO turbines, LOMANCO i-DRIVE (hybrid system), KLIMASUN light tubes, air conditioning (Fujitsu, LG, Sinclair)</p>
+          </div>
+          <div class="detail-item">
+            <label>Price transparency</label>
+            <p>Summer promotion (discount up to 7%), no specific cleaning prices. E-shop with product prices.</p>
+          </div>
+          <div class="detail-item">
+            <label>Lead magnet</label>
+            <p>Free design and quote; technical consultation; monthly promo products</p>
+          </div>
+          <div class="detail-item">
+            <label>Service area</label>
+            <p>Whole of Czechia. HQ: Brno (~60 km from Hodonín)</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>Photo portfolio, before/after, and an "Our projects" section. The public review footprint appears limited rather than extensive.</p>
+          </div>
+          <div class="detail-item">
+            <label>Blog / content</label>
+            <p>Yes — seasonal tips, product innovations, press archive, downloads</p>
+          </div>
+          <div class="detail-item">
+            <label>Contact</label>
+            <p>info@klimahaus.cz (own-domain email ✓). E-shop: eshop.klimahaus.cz</p>
+          </div>
+          <div class="detail-item">
+            <label>Target customer</label>
+            <p>Family houses, SVJ, architects, construction firms, property managers</p>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="small muted cs" style="font-weight:700;text-transform:uppercase;letter-spacing:.1em">Služby:</label>
+          <label class="small muted en" style="font-weight:700;text-transform:uppercase;letter-spacing:.1em">Services:</label>
+          <div class="service-tags cs">
+            <span class="stag">Čištění VZT šachet</span>
+            <span class="stag">LOMANCO turbíny</span>
+            <span class="stag">Klimatizace montáž/servis</span>
+            <span class="stag">Rekuperace</span>
+            <span class="stag">Světlovody KLIMASUN</span>
+            <span class="stag">i-DRIVE hybridní systém</span>
+          </div>
+          <div class="service-tags en">
+            <span class="stag">HVAC shaft cleaning</span>
+            <span class="stag">LOMANCO turbines</span>
+            <span class="stag">AC installation/service</span>
+            <span class="stag">Heat recovery</span>
+            <span class="stag">KLIMASUN light tubes</span>
+            <span class="stag">i-DRIVE hybrid system</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLÍCE DOMU -->
+    <div class="comp-card" style="margin-bottom:24px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>PLÍCE DOMU s.r.o.</h3>
+            <span class="badge b-tier-a">Tier A</span>
+            <span class="score s6">6/10</span>
+          </div>
+          <div class="comp-tagline cs">"Čistíme odvětrávací potrubí" — plicedomu.cz | Brno | Značka od 2019, nový právní subjekt 6/2024</div>
+          <div class="comp-tagline en">"We clean ventilation ducts" — plicedomu.cz | Brno | Brand since 2019, new legal entity 6/2024</div>
+          <div class="comp-edge cs">✅ Edge: "Kontrola zdarma" lead magnet + Delphia Tornádo turbíny + silná recenzní vrstva + zavedená značka (web aktivní minimálně od 2019)</div>
+          <div class="comp-edge en">✅ Edge: "Free inspection" lead magnet + Delphia Tornado turbines + strong review layer + an established brand (site active since at least 2019)</div>
+          <div class="comp-weak cs">❌ Slabina: nový právní subjekt z 6/2024 může u části zadavatelů vyvolat otázky ke kontinuitě značky; přesné datum handoveru z veřejných stop není zcela jasné</div>
+          <div class="comp-weak en">❌ Weakness: the June 2024 legal-entity reset may raise continuity questions for some buyers; the exact public handover date is not fully clear from public traces</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>Přesný headline</label>
+            <p>"Čištění, dezinfekce, výměny a montáž odvětrávacích šachet" / "Zdarma provedeme kontrolu šachty i u vás!"</p>
+          </div>
+          <div class="detail-item">
+            <label>Certifikace</label>
+            <p>Aktuální web explicitně uvádí OZO PO / kvalifikaci vůči Ministerstvu vnitra a komunikuje certifikované technologie / produkty. To je potřeba oddělit od změny právního subjektu.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technologie / vybavení</label>
+            <p><strong>Delphia Tornádo turbíny</strong> (novinka 2024), kamerová inspekce, rotační kartáče</p>
+          </div>
+          <div class="detail-item">
+            <label>Transparentnost cen</label>
+            <p>Žádné ceny. Pouze na vyžádání.</p>
+          </div>
+          <div class="detail-item">
+            <label>Lead magnet</label>
+            <p><strong>"Kontrola zdarma"</strong> — bezplatná inspekce šachty na místě. Silný spouštěč prvního kontaktu.</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>Silná recenzní vrstva: pojmenované reference na homepage a rozsáhlá dedikovaná stránka recenzí. YouTube přítomnost jsme v této revizi nepotvrdili.</p>
+          </div>
+          <div class="detail-item">
+            <label>Kontakt</label>
+            <p>info@plicedomu.cz (doménový email ✓)</p>
+          </div>
+          <div class="detail-item">
+            <label>IČO / Vznik</label>
+            <p><strong>Značka a web aktivní minimálně od 22. 10. 2019</strong> (ověřeno na Wayback Machine jako "Plíce vašeho domu"). Archivované kontaktní stránky uváděly Delphia MORAVIA s.r.o. (IČO 06762450, založena 12. 1. 2018) ještě minimálně 19. 2. 2025; aktuální provozovatel je PLÍCE DOMU s.r.o. (IČO 21738441, vznik 19. 6. 2024). Značka tedy zjevně předchází současný právní subjekt, ale přesné veřejně doložitelné datum handoveru neuvádíme užší, než dovolují stopy.</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>Exact headline</label>
+            <p>"Cleaning, disinfection, replacement and installation of ventilation shafts" / "We'll inspect your shaft free of charge, on-site!"</p>
+          </div>
+          <div class="detail-item">
+            <label>Certifications</label>
+            <p>The current site explicitly presents OZO PO / Ministry of Interior qualification language and references certified technologies/products. That should be separated from the legal-entity change.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technology / equipment</label>
+            <p><strong>Delphia Tornado turbines</strong> (new for 2024), camera inspection, rotary brushes</p>
+          </div>
+          <div class="detail-item">
+            <label>Price transparency</label>
+            <p>No prices. On request only.</p>
+          </div>
+          <div class="detail-item">
+            <label>Lead magnet</label>
+            <p><strong>"Free inspection"</strong> — a free on-site shaft inspection. A strong first-contact trigger.</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>Strong review layer: named references on the homepage and an extensive dedicated reviews page. We did not confirm YouTube presence in this review.</p>
+          </div>
+          <div class="detail-item">
+            <label>Contact</label>
+            <p>info@plicedomu.cz (own-domain email ✓)</p>
+          </div>
+          <div class="detail-item">
+            <label>Company ID / Founded</label>
+            <p><strong>Brand and website active since at least 22 Oct 2019</strong> (confirmed via Wayback Machine as "Plíce vašeho domu"). Archived contact pages still listed Delphia MORAVIA s.r.o. (IČO 06762450, founded 12 Jan 2018) at least as late as 19 Feb 2025; the current operator is PLÍCE DOMU s.r.o. (IČO 21738441, incorporated 19 June 2024). The brand clearly predates the current legal entity, but we no longer state a narrower handover date than the public traces support.</p>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="small muted cs" style="font-weight:700;text-transform:uppercase;letter-spacing:.1em">Služby:</label>
+          <label class="small muted en" style="font-weight:700;text-transform:uppercase;letter-spacing:.1em">Services:</label>
+          <div class="service-tags cs">
+            <span class="stag">Čištění potrubí</span>
+            <span class="stag">Kamerová kontrola</span>
+            <span class="stag">Dezinfekce</span>
+            <span class="stag">Výměna šachet</span>
+            <span class="stag">Montáž šachet</span>
+            <span class="stag">Delphia Tornádo turbíny</span>
+          </div>
+          <div class="service-tags en">
+            <span class="stag">Duct cleaning</span>
+            <span class="stag">Camera inspection</span>
+            <span class="stag">Disinfection</span>
+            <span class="stag">Shaft replacement</span>
+            <span class="stag">Shaft installation</span>
+            <span class="stag">Delphia Tornado turbines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER B COMPETITORS -->
+    <h3 style="margin-bottom:12px" class="cs">🟣 Tier B — Národní lídři</h3>
+    <h3 style="margin-bottom:12px" class="en">🟣 Tier B — National leaders</h3>
+
+    <!-- ALKION / ZDRAVÝ PANELÁK -->
+    <div class="comp-card" style="margin-bottom:12px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>Alkion service / Zdravý panelák</h3>
+            <span class="badge b-tier-b cs">Tier B — Národní lídr</span>
+            <span class="badge b-tier-b en">Tier B — National leader</span>
+            <span class="score s9">9.5/10</span>
+          </div>
+          <div class="comp-tagline cs">"Jsme největší firma v oboru na českém trhu" — alkion.eu + zdravypanelak.cz | Celá ČR | od 2009</div>
+          <div class="comp-tagline en">"We are the largest company in the field on the Czech market" — alkion.eu + zdravypanelak.cz | Whole of Czechia | since 2009</div>
+          <div class="comp-edge cs">✅ Edge: NADCA členství + online kalkulačka + pojmenovaný moravský kontakt + podcast</div>
+          <div class="comp-edge en">✅ Edge: NADCA membership + online calculator + named Moravian contact + podcast</div>
+          <div class="comp-weak cs">❌ Slabina: pravděpodobně prémiovější positioning; industriální brand může na část SVJ působit méně „lokálně“; bez kanceláře v okrese Hodonín</div>
+          <div class="comp-weak en">❌ Weakness: likely premium positioning; the industrial brand may feel less local to some SVJ buyers; no office in the Hodonín district</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div style="background:rgba(14,124,134,.07);border-radius:10px;padding:14px;margin-top:16px;margin-bottom:14px" class="cs">
+          <strong>⚡ Dvoubrandová SEO strategie:</strong> alkion.eu (industriální/komerční brand) + zdravypanelak.cz (paneláky/SVJ brand) = obsazují různé klíčové fráze zároveň. Taktika k okopírování.
+        </div>
+        <div style="background:rgba(14,124,134,.07);border-radius:10px;padding:14px;margin-top:16px;margin-bottom:14px" class="en">
+          <strong>⚡ Dual-brand SEO strategy:</strong> alkion.eu (industrial/commercial brand) + zdravypanelak.cz (panel-block/SVJ brand) = occupies different keyword phrases at once. A tactic worth copying.
+        </div>
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>Certifikace — klíčové</label>
+            <p><strong>NADCA</strong> — členství potvrzeno v oficiálním adresáři NADCA (od 12/2010); tvrzení "jediná firma ve Střední Evropě" je vlastní marketingové tvrzení Alkionu, nezávisle neověřeno. <strong>VDI 6022-B</strong> (německá hygienická certifikace). Zakládající člen AČV.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technologie / vybavení</label>
+            <p>Vlastní vývoj technologií, spolupráce s univerzitami. Suchý led, AEROSEAL (těsnění potrubí), rotační kartáče, inspekční kamera, Lomanco turbíny, dezinfekce.</p>
+          </div>
+          <div class="detail-item">
+            <label>Online kalkulačka</label>
+            <p><strong>zdravypanelak.cz/kalkulacka/</strong> — zákazník si spočítá orientační cenu online. V rámci revidovaného setu jde o neobvykle silný konverzní prvek.</p>
+          </div>
+          <div class="detail-item">
+            <label>Lead magnet</label>
+            <p>Podcast "Zdravý panelák" na Spotify a Apple Podcasts. Online kalkulačka. Video na homepage.</p>
+          </div>
+          <div class="detail-item">
+            <label>Pojmenovaný kontakt pro Moravu</label>
+            <p><strong>Michal Bischof</strong> — michal.bischof@alkion.eu (Morava) + David Brůža (Čechy). Jmenný kontakt zvyšuje důvěru.</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>BMW, U.S. Navy, Globus, Burger King, Four Seasons Hotel Praha, Continental Barum. SVJ reference: Nová Bystřice, Praha, Liberec. 3 pojmenované recenze výborů SVJ.</p>
+          </div>
+          <div class="detail-item">
+            <label>Blog / obsah</label>
+            <p>Aktivní blog s technickými články (EN 15780, těsnost potrubí, požární riziko). Odborná autorita.</p>
+          </div>
+          <div class="detail-item">
+            <label>IČO / Vznik</label>
+            <p>IČO: 28875931 | Vznik: 15. 4. 2009</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>Certifications — key</label>
+            <p><strong>NADCA</strong> — membership confirmed in NADCA's official directory (since 12/2010); the "only company in Central Europe" claim is Alkion's own marketing statement, not independently verified. <strong>VDI 6022-B</strong> (German hygiene certification). Founding member of AČV.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technology / equipment</label>
+            <p>In-house technology development, university collaborations. Dry ice, AEROSEAL (duct sealing), rotary brushes, inspection camera, Lomanco turbines, disinfection.</p>
+          </div>
+          <div class="detail-item">
+            <label>Online calculator</label>
+            <p><strong>zdravypanelak.cz/kalkulacka/</strong> — customers get an indicative price online. Within the reviewed set, this is an unusually strong conversion element.</p>
+          </div>
+          <div class="detail-item">
+            <label>Lead magnet</label>
+            <p>"Zdravý panelák" podcast on Spotify and Apple Podcasts. Online calculator. Homepage video.</p>
+          </div>
+          <div class="detail-item">
+            <label>Named contact for Moravia</label>
+            <p><strong>Michal Bischof</strong> — michal.bischof@alkion.eu (Moravia) + David Brůža (Bohemia). A named contact builds trust.</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>BMW, U.S. Navy, Globus, Burger King, Four Seasons Hotel Prague, Continental Barum. SVJ references: Nová Bystřice, Prague, Liberec. 3 named reviews from SVJ boards.</p>
+          </div>
+          <div class="detail-item">
+            <label>Blog / content</label>
+            <p>Active blog with technical articles (EN 15780, duct tightness, fire risk). Expert authority.</p>
+          </div>
+          <div class="detail-item">
+            <label>Company ID / Founded</label>
+            <p>IČO: 28875931 | Founded: 15 April 2009</p>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <label class="small muted" style="font-weight:700;text-transform:uppercase;letter-spacing:.1em"><span class="cs">Služby (zdravypanelak.cz):</span><span class="en">Services (zdravypanelak.cz):</span></label>
+          <div class="service-tags cs">
+            <span class="stag">Čištění centrálního odtahu</span>
+            <span class="stag">Dezinfekce</span>
+            <span class="stag">Mikrobiologické stěrové testy</span>
+            <span class="stag">Kamerová inspekce</span>
+            <span class="stag">Videodokumentace</span>
+            <span class="stag">AEROSEAL těsnění</span>
+            <span class="stag">Lomanco turbíny</span>
+          </div>
+          <div class="service-tags en">
+            <span class="stag">Central exhaust cleaning</span>
+            <span class="stag">Disinfection</span>
+            <span class="stag">Microbiological swab tests</span>
+            <span class="stag">Camera inspection</span>
+            <span class="stag">Video documentation</span>
+            <span class="stag">AEROSEAL sealing</span>
+            <span class="stag">Lomanco turbines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAURIS PLUS -->
+    <div class="comp-card" style="margin-bottom:12px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>TAURIS plus, s.r.o.</h3>
+            <span class="badge b-tier-b">Tier B</span>
+            <span class="score s7">7/10</span>
+          </div>
+          <div class="comp-tagline cs">"Certifikovaná firma, specializace od roku 1990" — taurisplus.cz | Praha-Krč / Zdiby | obor od 1990, s.r.o. založena 2001</div>
+          <div class="comp-tagline en">"A certified company, specialising since 1990" — taurisplus.cz | Prague-Krč / Zdiby | trade since 1990, s.r.o. incorporated 2001</div>
+          <div class="comp-edge cs">✅ Edge: dlouhodobě komunikovaná oborová tradice od roku 1990 + aktivní obsah</div>
+          <div class="comp-edge en">✅ Edge: a long-standing trade-heritage claim dating back to 1990 + active content</div>
+          <div class="comp-weak cs">❌ Slabina: sídlo u Prahy; žádný kalkulátor/lead magnet; reference jsou hůře vyhodnotitelné bez manuálního průchodu</div>
+          <div class="comp-weak en">❌ Weakness: HQ near Prague; no calculator/lead magnet; its references were harder to assess without a manual walkthrough</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>Přesný headline</label>
+            <p>"Autorizovaná a certifikovaná firma pro montáž vzduchotechniky, kontroly a čištění potrubí v panelových domech, specializující se v tomto oboru od roku 1990."</p>
+          </div>
+          <div class="detail-item">
+            <label>Certifikace</label>
+            <p>"Autorizovaná a certifikovaná firma" — specifické kódy certifikací nejsou na webu zjevně vypsané, ale dlouhodobě komunikovaná tradice od roku 1990 je silný diferenciátor.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technologie</label>
+            <p>Hydraulické rotační kartáče, průmyslový vysavač, vložná inspekční kamera, rotační kamera, LOMANCO turbíny, VIV turbíny</p>
+          </div>
+          <div class="detail-item">
+            <label>Blog / obsah</label>
+            <p>Aktivní blog: "Revize vzduchotechniky v bytech by měla být naprostým standardem" (11/2025), "Požáru vzduchotechniky lze předcházet" (9/2025)</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>Reference stránka existuje (taurisplus.cz/reference/), obsah nepřístupný scraperům. Kontakt: Petr Douděra (jednatel), tel. 602 296 812.</p>
+          </div>
+          <div class="detail-item">
+            <label>IČO</label>
+            <p>IČO: 26424894 | s.r.o. založena 5. 1. 2001 (obor "od 1990" se týká předchozí praxe zakladatele, ne stáří právnické osoby) | sídlo Praha 4-Krč, provozovny Zdiby / Předboj u Prahy</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>Exact headline</label>
+            <p>"An authorised and certified company for HVAC installation, inspections and duct cleaning in panel-block apartment buildings, specialising in this field since 1990."</p>
+          </div>
+          <div class="detail-item">
+            <label>Certifications</label>
+            <p>"Authorised and certified company" — specific certification codes are not clearly listed on the site, but the long-running since-1990 heritage claim is a strong differentiator.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technology</label>
+            <p>Hydraulic rotary brushes, industrial vacuum, push-in inspection camera, rotary camera, LOMANCO turbines, VIV turbines</p>
+          </div>
+          <div class="detail-item">
+            <label>Blog / content</label>
+            <p>Active blog: "HVAC inspection in flats should be an absolute standard" (11/2025), "HVAC fires can be prevented" (9/2025)</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p>A references page exists (taurisplus.cz/reference/), content inaccessible to scrapers. Contact: Petr Douděra (director), tel. 602 296 812.</p>
+          </div>
+          <div class="detail-item">
+            <label>Company ID</label>
+            <p>IČO: 26424894 | s.r.o. incorporated 5 Jan 2001 (the "since 1990" trade claim refers to the founder's earlier practice, not the legal entity's age) | registered seat Prague 4-Krč, operating sites in Zdiby / Předboj near Prague</p>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div class="service-tags cs">
+            <span class="stag">Čištění a dezinfekce potrubí</span>
+            <span class="stag">Kamerové prohlídky</span>
+            <span class="stag">Revize vzduchotechniky</span>
+            <span class="stag">Montáž LOMANCO/VIV turbín</span>
+            <span class="stag">Servis klimatizací</span>
+            <span class="stag">Rekonstrukce větrání</span>
+          </div>
+          <div class="service-tags en">
+            <span class="stag">Duct cleaning and disinfection</span>
+            <span class="stag">Camera inspections</span>
+            <span class="stag">HVAC inspection</span>
+            <span class="stag">LOMANCO/VIV turbine installation</span>
+            <span class="stag">AC servicing</span>
+            <span class="stag">Ventilation reconstruction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ECODUCT -->
+    <div class="comp-card" style="margin-bottom:12px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>EcoDuct s.r.o.</h3>
+            <span class="badge b-tier-b">Tier B</span>
+            <span class="score s6">6/10</span>
+          </div>
+          <div class="comp-tagline cs">"Moderní čištění vzduchotechniky" — ecoduct.cz | Jirkov (Ústecký kraj) | Zal. 11/2023</div>
+          <div class="comp-tagline en">"Modern HVAC cleaning" — ecoduct.cz | Jirkov (Ústí Region) | Founded 11/2023</div>
+          <div class="comp-edge cs">✅ Edge: McDonald's/KFC/Burger King reference + e-book lead magnet (stáhnutelný)</div>
+          <div class="comp-edge en">✅ Edge: McDonald's/KFC/Burger King references + a downloadable e-book lead magnet</div>
+          <div class="comp-weak cs">❌ Slabina: Primárně restaurace, ne paneláky; nová firma; sídlo daleko od JM kraje</div>
+          <div class="comp-weak en">❌ Weakness: Primarily restaurants, not apartment blocks; a newer company; HQ far from the South Moravian region</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>E-book lead magnet</label>
+            <p><strong>"Význam čištění VZT v kuchyních"</strong> — ke stažení na webu. Jeden z mála revidovaných konkurentů s PDF-style lead magnetem.</p>
+          </div>
+          <div class="detail-item">
+            <label>Velcí klienti (restaurace)</label>
+            <p>McDonald's, KFC, Burger King, Café Louvre, Ribs of Prague, The Eatery, Café Slavia. Silné pro komerční segment, ale SVJ to nezajímá.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technologie</label>
+            <p>Rotační kartáče, aktivní pěna, kamerová inspekce, revizní dvířka</p>
+          </div>
+          <div class="detail-item">
+            <label>IČO</label>
+            <p>IČO: 19870469 | Vznik: 1. 11. 2023 | Jirkov 431 11</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>E-book lead magnet</label>
+            <p><strong>"The importance of HVAC cleaning in kitchens"</strong> — downloadable on the site. One of the few reviewed competitors with a downloadable PDF-style lead magnet.</p>
+          </div>
+          <div class="detail-item">
+            <label>Major clients (restaurants)</label>
+            <p>McDonald's, KFC, Burger King, Café Louvre, Ribs of Prague, The Eatery, Café Slavia. Strong for the commercial segment, but SVJ boards don't care.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technology</label>
+            <p>Rotary brushes, active foam, camera inspection, access hatches</p>
+          </div>
+          <div class="detail-item">
+            <label>Company ID</label>
+            <p>IČO: 19870469 | Founded: 1 November 2023 | Jirkov 431 11</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMALVO -->
+    <div class="comp-card" style="margin-bottom:12px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>AMALVO group s.r.o.</h3>
+            <span class="badge b-tier-b">Tier B</span>
+            <span class="score s5">5/10</span>
+          </div>
+          <div class="comp-tagline cs">"Čištění a dezinfekce VZT v bytových domech a průmyslu" — amalvo.cz | Praha 9 | Zal. 2021</div>
+          <div class="comp-tagline en">"HVAC cleaning and disinfection in apartment buildings and industry" — amalvo.cz | Prague 9 | Founded 2021</div>
+          <div class="comp-edge cs">✅ Edge: Široké portfolio (VZT + suchý led + ploché střechy) + obsahová základna</div>
+          <div class="comp-edge en">✅ Edge: A broad portfolio (HVAC + dry ice + flat roofs) + an active content base</div>
+          <div class="comp-weak cs">❌ Slabina: recenze na webu existují, ale vizuální důkazní vrstva a odlišení jsou méně výrazné než u Alkionu</div>
+          <div class="comp-weak en">❌ Weakness: reviews are visible on-site, but the visual proof stack and differentiation are less distinctive than Alkion's</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>Blog / SEO obsah</label>
+            <p>Obsah pokrývá témata jako kritéria výběru firmy pro VZT, plíseň ve větrání, požární prevence, energetické úspory a povinnosti SVJ. Přesné organické pozice jsme v této revizi nesledovali nástrojem pro rank tracking.</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p><span class="flag">⚠ STŘEDNÍ</span> Na webu jsou viditelné embedded Trustindex / Google recenze s pojmenovanými recenzenty. Slabší je spíše míra odlišení a síla vizuální důkazní vrstvy oproti nejlepším hráčům.</p>
+          </div>
+          <div class="detail-item">
+            <label>Unikátní služby</label>
+            <p>Čištění suchým ledem, rekuperace, měření a zaregulování VZT, revize požárně bezpečnostních zařízení, rekonstrukce plochých střech</p>
+          </div>
+          <div class="detail-item">
+            <label>IČO</label>
+            <p>IČO: 10745904 | Vznik: 12. 4. 2021 | Praha 9 (Letňany)</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>Blog / SEO content</label>
+            <p>The content covers topics such as how to choose an HVAC company, mould in ventilation, fire prevention, energy savings, and SVJ obligations. We did not use a dedicated rank-tracking tool in this audit to confirm exact organic positions.</p>
+          </div>
+          <div class="detail-item">
+            <label>Social proof</label>
+            <p><span class="flag">⚠ MODERATE</span> The site visibly includes embedded Trustindex / Google reviews with named reviewers. The weaker point is not missing reviews, but a less distinctive visual proof stack than the strongest competitors.</p>
+          </div>
+          <div class="detail-item">
+            <label>Unique services</label>
+            <p>Dry-ice cleaning, heat recovery, HVAC measurement and balancing, fire safety equipment inspection, flat roof reconstruction</p>
+          </div>
+          <div class="detail-item">
+            <label>Company ID</label>
+            <p>IČO: 10745904 | Founded: 12 April 2021 | Prague 9 (Letňany)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DUCTCLEANING (NEW) -->
+    <div class="comp-card" style="margin-bottom:24px" onclick="toggleCard(this)">
+      <div class="comp-header">
+        <div>
+          <div class="comp-title">
+            <h3>DuctCleaning.cz</h3>
+            <span class="badge b-tier-b cs">Tier B — nově nalezeno</span>
+            <span class="badge b-tier-b en">Tier B — newly found</span>
+            <span class="score s5">5/10</span>
+          </div>
+          <div class="comp-tagline cs">"Čištění vzduchotechniky komplexně a 24/7" — ductcleaning.cz | Turnov | Duct cleaning s.r.o., IČO: 23355191</div>
+          <div class="comp-tagline en">"Comprehensive HVAC cleaning, 24/7" — ductcleaning.cz | Turnov | Duct cleaning s.r.o., IČO: 23355191</div>
+          <div class="comp-edge cs">✅ Edge: 24/7 messaging + Jetty Robots technologie (zapamatovatelný brand) + výrazné technologické framingy</div>
+          <div class="comp-edge en">✅ Edge: 24/7 messaging + Jetty Robots technology (a memorable brand) + strong technology framing</div>
+          <div class="comp-weak cs">❌ Slabina: Firma vznikla teprve 4. 6. 2025; žádné certifikace; Turnov je daleko od JM; žádné zřetelné pojmenované reference</div>
+          <div class="comp-weak en">❌ Weakness: The company was only incorporated on 4 June 2025; no certifications; Turnov is far from South Moravia; no clearly named testimonials</div>
+        </div>
+        <span class="expand-icon">▼</span>
+      </div>
+      <div class="comp-detail">
+        <div class="detail-grid cs">
+          <div class="detail-item">
+            <label>IČO / Vznik</label>
+            <p>Oficiální název dle ARES: <strong>Duct cleaning s.r.o.</strong> (ne "DuctCleaning.cz" — to je pouze doména/brand). IČO: 23355191 | Vznik: 4. 6. 2025 | Turnov.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technologie (branding)</label>
+            <p>Air Whip System, <strong>Jetty Robots</strong> (robotická inspekce s kamerou), Dry Ice Technology, Brushing Machine, škrabky</p>
+          </div>
+          <div class="detail-item">
+            <label>24/7 diferenciátor</label>
+            <p>Jeden z mála revidovaných konkurentů, který explicitně komunikuje 24/7 dostupnost — silné pro nouzové situace, ale SVJ zakázky bývají spíše plánované.</p>
+          </div>
+        </div>
+        <div class="detail-grid en">
+          <div class="detail-item">
+            <label>Company ID / Founded</label>
+            <p>Official ARES-registered name: <strong>Duct cleaning s.r.o.</strong> (not "DuctCleaning.cz" — that's just the domain/brand). IČO: 23355191 | Founded: 4 June 2025 | Turnov.</p>
+          </div>
+          <div class="detail-item">
+            <label>Technology (branding)</label>
+            <p>Air Whip System, <strong>Jetty Robots</strong> (robotic camera inspection), Dry Ice Technology, Brushing Machine, scrapers</p>
+          </div>
+          <div class="detail-item">
+            <label>24/7 differentiator</label>
+            <p>One of the few reviewed competitors explicitly messaging 24/7 availability — strong for emergencies, though SVJ work is usually more planned than reactive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOT REAL COMPETITORS NOTE -->
+    <div class="hl cs">
+      <strong>Mimo hlavní fokus této analýzy:</strong> <strong>BELIX s.r.o.</strong> (IČO: 27626113, od 22. 11. 2006) — sanace po požárech a vodě, VZT zde působí spíše jako doplňková větev. <strong>Luftuj s.r.o.</strong> (IČO: 28827902, od 13. 1. 2012) — prodej a montáž rekuperačních systémů do rodinných domů. Oba mají nižší překryv s vaším jádrovým SVJ šachtovým segmentem než výše uvedení specialisté.
+    </div>
+    <div class="hl en">
+      <strong>Outside the main focus of this analysis:</strong> <strong>BELIX s.r.o.</strong> (IČO: 27626113, since 22 Nov 2006) — fire and water damage remediation, with HVAC appearing more peripheral to the core business. <strong>Luftuj s.r.o.</strong> (IČO: 28827902, since 13 Jan 2012) — sale and installation of heat-recovery systems for family houses. Both have lower overlap with your core SVJ shaft-cleaning segment than the specialists above.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4: MATRIX ═══════════════════════════════════════ -->
+<section id="matrix">
+  <div class="wrap">
+    <span class="kicker cs">4 — Srovnání</span><span class="kicker en">4 — Comparison</span>
+    <h2 class="cs">Srovnávací matice</h2>
+    <h2 class="en">Comparison matrix</h2>
+    <p class="lead cs">Srovnání top konkurentů podle klíčových digitálních signálů. Buňky označené ✗ ukazují slabší veřejně viditelnou stopu.</p>
+    <p class="lead en">Comparison of the top competitors across key digital signals. Cells marked ✗ indicate a weaker public-facing footprint.</p>
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th style="min-width:200px"><span class="cs">Faktor</span><span class="en">Factor</span></th>
+            <th style="min-width:100px">Alkion/<br>Zdravý pan.</th>
+            <th style="min-width:100px">KLIMAHAUS</th>
+            <th style="min-width:100px">Plíce domu</th>
+            <th style="min-width:100px">TAURIS plus</th>
+            <th style="min-width:100px">EcoDuct</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label"><span class="cs">Doménový e-mail</span><span class="en">Own-domain email</span></td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="row-label"><span class="cs">Certifikace uvedena</span><span class="en">Certifications listed</span></td><td class="ok">✓ NADCA+VDI</td><td class="warn">⚠ <span class="cs">na webu nezřetelně</span><span class="en">not clearly on-site</span></td><td class="ok">✓ <span class="cs">OZO PO / kvalifikace</span><span class="en">OZO PO / qualifications</span></td><td class="warn">⚠ <span class="cs">jen text</span><span class="en">text only</span></td><td class="warn">⚠ <span class="cs">neuvedeno</span><span class="en">not stated</span></td></tr>
+          <tr><td class="row-label"><span class="cs">Stránka servisní oblasti</span><span class="en">Service-area page</span></td><td class="ok">✓ <span class="cs">(40+ měst)</span><span class="en">(40+ towns)</span></td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="warn">⚠</td></tr>
+          <tr><td class="row-label"><span class="cs">SEO viditelnost (kontrolované dotazy)</span><span class="en">SEO visibility (sampled queries)</span></td><td class="ok">✓ <span class="cs">viditelná</span><span class="en">visible</span></td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td><td class="warn">⚠</td></tr>
+          <tr><td class="row-label">Firmy.cz <span class="cs">zápis</span><span class="en">listing</span></td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓ (TZB-info)</td><td class="warn">⚠</td><td class="ok">✓</td></tr>
+          <tr><td class="row-label"><span class="cs">Recenze / testimonials</span><span class="en">Reviews / testimonials</span></td><td class="ok">✓ <span class="cs">pojmenované</span><span class="en">named</span></td><td class="warn">⚠ <span class="cs">omezená stopa</span><span class="en">limited footprint</span></td><td class="ok">✓ <span class="cs">pojmenované reference</span><span class="en">named references</span></td><td class="warn">⚠ <span class="cs">reference stránka</span><span class="en">references page</span></td><td class="ok">✓ <span class="cs">velké značky</span><span class="en">major brands</span></td></tr>
+          <tr><td class="row-label"><span class="cs">Blog / obsah</span><span class="en">Blog / content</span></td><td class="ok">✓ <span class="cs">aktivní</span><span class="en">active</span></td><td class="ok">✓</td><td class="warn">⚠ <span class="cs">silná recenzní vrstva, ne klasický blog</span><span class="en">strong reviews layer, not a classic blog</span></td><td class="ok">✓ <span class="cs">aktivní</span><span class="en">active</span></td><td class="warn">⚠ e-book</td></tr>
+          <tr><td class="row-label">Lead magnet</td><td class="ok">✓ <span class="cs">Kalkulačka</span><span class="en">Calculator</span></td><td class="warn">⚠ <span class="cs">konzultace</span><span class="en">consultation</span></td><td class="ok">✓ <span class="cs">Kontrola zdarma</span><span class="en">Free inspection</span></td><td class="no">✗</td><td class="ok">✓ E-book</td></tr>
+          <tr><td class="row-label"><span class="cs">Online kalkulačka ceny</span><span class="en">Online price calculator</span></td><td class="ok">✓ <span class="cs">výrazná v rámci setu</span><span class="en">stands out in set</span></td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td class="row-label"><span class="cs">Kamerová inspekce</span><span class="en">Camera inspection</span></td><td class="ok">✓</td><td class="warn">⚠</td><td class="ok">✓</td><td class="ok">✓</td><td class="ok">✓</td></tr>
+          <tr><td class="row-label"><span class="cs">Videodokumentace</span><span class="en">Video documentation</span></td><td class="ok">✓</td><td class="warn">⚠</td><td class="warn">⚠</td><td class="warn">⚠</td><td class="warn">⚠</td></tr>
+          <tr><td class="row-label"><span class="cs">Podcast / média</span><span class="en">Podcast / media</span></td><td class="ok">✓ Spotify</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td class="row-label"><span class="cs">Pojmenovaný reg. kontakt</span><span class="en">Named regional contact</span></td><td class="ok">✓ <span class="cs">Bischof (Morava)</span><span class="en">Bischof (Moravia)</span></td><td class="warn">⚠</td><td class="warn">⚠</td><td class="ok">✓ Douděra</td><td class="no">✗</td></tr>
+          <tr><td class="row-label"><span class="cs">Digitální skóre</span><span class="en">Digital score</span></td><td class="ok"><strong>9.5/10</strong></td><td class="ok"><strong>7/10</strong></td><td class="warn"><strong>6/10</strong></td><td class="ok"><strong>7/10</strong></td><td class="warn"><strong>6/10</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5: ADS ═══════════════════════════════════════ -->
+<section id="ads">
+  <div class="wrap">
+    <span class="kicker cs">5 — Reklamní průzkum</span><span class="kicker en">5 — Advertising Research</span>
+    <h2 class="cs">Co vaši konkurenti inzerují</h2>
+    <h2 class="en">What your competitors advertise</h2>
+    <p class="lead cs">Meta Ad Library u těchto firem nezobrazuje žádné aktivní reklamy, takže místo toho odkazujeme přímo na jejich Facebook/Instagram profily (organický obsah) a do reklamní knihovny Google.</p>
+    <p class="lead en">Meta's Ad Library shows no active ads for these companies, so instead we link straight to their Facebook/Instagram profiles (organic content) and the Google ad library.</p>
+
+    <div class="hl cs" style="margin-bottom:24px">
+      <strong>⚡ Instrukce pro 15minutový recon:</strong> Pro každou firmu níže klikněte na její Facebook stránku → podívejte se, jak často postují, jaký mají engagement a jaká témata/hooky opakují. Pokud stránka neexistuje nebo je dlouho neaktivní, je to samo o sobě signál slabší organické/placené přítomnosti na Meta.
+    </div>
+    <div class="hl en" style="margin-bottom:24px">
+      <strong>⚡ Instructions for a 15-minute recon:</strong> For each company below, click through to its Facebook page → look at how often they post, their engagement, and which themes/hooks they repeat. If a page doesn't exist or has been inactive for a long time, that's itself a signal of a weaker organic/paid presence on Meta.
+    </div>
+
+    <!-- Facebook / Instagram / YouTube Page Buttons -->
+    <h3 style="margin-bottom:16px">Facebook / Instagram / YouTube</h3>
+    <p class="small muted cs" style="margin:-4px 0 18px"><strong>⚠ Poznámka k datům:</strong> Ověřené Facebook stránky: Alkion / Zdravý panelák (facebook.com/Alkionservice) a Plíce domu (facebook profil výše). Pro KLIMAHAUS se žádnou firemní Facebook stránku dohledat nepodařilo. TAURIS plus také nemá dohledatelnou Facebook stránku — místo ní odkazujeme na jejich YouTube kanál. U EcoDuct se rovněž nepodařilo potvrdit žádnou Facebook stránku, proto tlačítko chybí.</p>
+    <p class="small muted en" style="margin:-4px 0 18px"><strong>⚠ Data note:</strong> Verified Facebook pages: Alkion / Zdravý panelák (facebook.com/Alkionservice) and Plíce domu (Facebook profile above). No company Facebook page could be found for KLIMAHAUS. TAURIS plus also has no findable Facebook page — we link to their YouTube channel instead. EcoDuct's Facebook page couldn't be confirmed either, so that button has been left out.</p>
+    <div class="grid g2" style="margin-bottom:24px">
+
+      <div class="card">
+        <h4>Alkion service s.r.o.</h4>
+        <p class="small muted cs">Národní lídr — sledujte jejich hooky pro SVJ segment</p>
+        <p class="small muted en">National leader — watch their hooks for the SVJ segment</p>
+        <div class="ad-btn-group">
+          <a href="https://www.facebook.com/Alkionservice/" target="_blank" class="ad-btn btn-meta"><span class="cs">📘 Facebook — Alkion service</span><span class="en">📘 Facebook — Alkion service</span></a>
+          <a href="https://www.youtube.com/@alkionservice1328" target="_blank" class="ad-btn btn-youtube"><span class="cs">▶ YouTube — Alkion service</span><span class="en">▶ YouTube — Alkion service</span></a>
+          <a href="https://adstransparency.google.com/?region=CZ&domain=alkion.eu" target="_blank" class="ad-btn btn-google"><span class="cs">🔴 Google — doména alkion.eu (zkontrolujte živě)</span><span class="en">🔴 Google — domain alkion.eu (check live)</span></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Zdravý panelák <span class="cs">(Alkion SVJ brand)</span><span class="en">(Alkion's SVJ brand)</span></h4>
+        <p class="small muted cs">Klíčový brand pro SVJ segment — nejvyšší priorita sledování</p>
+        <p class="small muted en">Key brand for the SVJ segment — top priority to monitor</p>
+        <div class="ad-btn-group">
+          <a href="https://www.facebook.com/Alkionservice/" target="_blank" class="ad-btn btn-meta"><span class="cs">📘 Facebook — Zdravý panelák (Alkion service)</span><span class="en">📘 Facebook — Zdravý panelák (Alkion service)</span></a>
+          <a href="https://adstransparency.google.com/?region=CZ&domain=zdravypanelak.cz" target="_blank" class="ad-btn btn-google"><span class="cs">🔴 Google — doména zdravypanelak.cz (zkontrolujte živě)</span><span class="en">🔴 Google — domain zdravypanelak.cz (check live)</span></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>KLIMAHAUS s.r.o.</h4>
+        <p class="small muted cs">Regionální hrozba — Brno, firma od 2021, web komunikuje cca 20-25 let technické / produktové praxe</p>
+        <p class="small muted en">Regional threat — Brno, company since 2021, with the site presenting roughly 20-25 years of technical / product experience</p>
+        <div class="ad-btn-group">
+          <span class="ad-btn btn-meta-zero"><span class="cs">📘 Facebook — nenalezeno</span><span class="en">📘 Facebook — not found</span></span>
+          <a href="https://adstransparency.google.com/?region=CZ&domain=klimahaus.cz" target="_blank" class="ad-btn btn-google"><span class="cs">🔴 Google — doména klimahaus.cz (zkontrolujte živě)</span><span class="en">🔴 Google — domain klimahaus.cz (check live)</span></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>PLÍCE DOMU s.r.o.</h4>
+        <p class="small muted cs">Zavedená brněnská značka (od 2019) pod novým právním subjektem od 6/2024 — sledujte kontinuitu</p>
+        <p class="small muted en">An established Brno brand (since 2019) under a new legal entity since 6/2024 — watch for continuity</p>
+        <div class="ad-btn-group">
+          <a href="https://www.facebook.com/profile.php?id=61556580387812" target="_blank" class="ad-btn btn-meta"><span class="cs">📘 Facebook — Plíce domu</span><span class="en">📘 Facebook — Plíce domu</span></a>
+          <a href="https://www.youtube.com/@plicedomu" target="_blank" class="ad-btn btn-youtube"><span class="cs">▶ YouTube — Plíce domu</span><span class="en">▶ YouTube — Plíce domu</span></a>
+          <a href="https://adstransparency.google.com/?region=CZ&domain=plicedomu.cz" target="_blank" class="ad-btn btn-google"><span class="cs">🔴 Google — doména plicedomu.cz (zkontrolujte živě)</span><span class="en">🔴 Google — domain plicedomu.cz (check live)</span></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>TAURIS plus, s.r.o.</h4>
+        <p class="small muted cs">Heritage brand od 1990 — jak komunikují stáří?</p>
+        <p class="small muted en">A heritage brand since 1990 — how do they communicate their age?</p>
+        <div class="ad-btn-group">
+          <a href="https://www.youtube.com/channel/UCqwcdt-IeOnpesQzOLlftMA" target="_blank" class="ad-btn btn-youtube"><span class="cs">▶ YouTube — TAURIS plus</span><span class="en">▶ YouTube — TAURIS plus</span></a>
+          <a href="https://adstransparency.google.com/?region=CZ&domain=taurisplus.cz" target="_blank" class="ad-btn btn-google"><span class="cs">🔴 Google — doména taurisplus.cz (zkontrolujte živě)</span><span class="en">🔴 Google — domain taurisplus.cz (check live)</span></a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>EcoDuct s.r.o.</h4>
+        <p class="small muted cs">Nový brand s restauračními referencemi — sledujte e-book kampaně</p>
+        <p class="small muted en">A new brand with restaurant references — watch its e-book campaigns</p>
+        <div class="ad-btn-group">
+          <a href="https://adstransparency.google.com/?region=CZ&domain=ecoduct.cz" target="_blank" class="ad-btn btn-google"><span class="cs">🔴 Google — doména ecoduct.cz (zkontrolujte živě)</span><span class="en">🔴 Google — domain ecoduct.cz (check live)</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px">
+      <h3 style="margin-bottom:10px" class="cs">Kde se reálně propagují mimo Google</h3>
+      <h3 style="margin-bottom:10px" class="en">Where they actually promote themselves outside Google</h3>
+      <p class="small muted cs" style="margin-bottom:14px">Z veřejně dohledatelných stop k 23. 6. 2026 se zdá, že konkurence v tomto segmentu nestaví primárně na Meta ads. Viditelnější jsou owned media, SEO landing pages, lead magnety a reference.</p>
+      <p class="small muted en" style="margin-bottom:14px">Based on publicly traceable footprints as of 23 June 2026, competitors in this segment appear not to rely primarily on Meta ads. Owned media, SEO landing pages, lead magnets, and references are more visible.</p>
+      <div class="grid g2">
+        <div>
+          <ul class="small cs" style="margin:0;padding-left:18px">
+            <li><strong>Alkion / Zdravý panelák:</strong> dual-brand web, online kalkulačka, podcast na Spotify, video/testimonial obsah a pojmenované regionální kontakty.</li>
+            <li><strong>KLIMAHAUS:</strong> hlavně web + e-shop, akční promo bloky na homepage a bezplatný návrh / rozpočet jako lead-gen.</li>
+            <li><strong>Plíce domu:</strong> direct-response landing page s nabídkou „kontrola zdarma“, reference a lokální důvěra místo širší mediální distribuce.</li>
+          </ul>
+          <ul class="small en" style="margin:0;padding-left:18px">
+            <li><strong>Alkion / Zdravý panelák:</strong> dual-brand website, online calculator, Spotify podcast, video/testimonial content, and named regional contacts.</li>
+            <li><strong>KLIMAHAUS:</strong> mainly website + e-shop, promo blocks on the homepage, and a free design/quote as lead-gen.</li>
+            <li><strong>Plíce domu:</strong> a direct-response landing page offering "free inspection", references, and local trust instead of broader media distribution.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="small cs" style="margin:0;padding-left:18px">
+            <li><strong>TAURIS plus:</strong> katalog, reference, aktuality a diagnostické / revizní služby na webu; působí spíše jako webově orientovaný servisní brand.</li>
+            <li><strong>EcoDuct:</strong> lead magnety ve formě e-booků, video sekce, case-study loga klientů a vícejazyčný web pro gastro / komerční segment.</li>
+            <li><strong>Závěr:</strong> mimo Google je nejviditelnější owned-content stack Alkionu; ostatní firmy jedou převážně SEO + web + poptávkové formuláře + reference.</li>
+          </ul>
+          <ul class="small en" style="margin:0;padding-left:18px">
+            <li><strong>TAURIS plus:</strong> a catalogue, references, news, and diagnostic/inspection services on the site; comes across more as a web-oriented service brand.</li>
+            <li><strong>EcoDuct:</strong> lead magnets in the form of e-books, a video section, client case-study logos, and a multilingual site for the food-service/commercial segment.</li>
+            <li><strong>Conclusion:</strong> outside Google, Alkion's owned-content stack is the most visible; other companies rely mostly on SEO + website + enquiry forms + references.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6: SEO ═══════════════════════════════════════ -->
+<section id="seo">
+  <div class="wrap">
+    <span class="kicker cs">6 — SEO &amp; vyhledávání</span><span class="kicker en">6 — SEO &amp; Search</span>
+    <h2 class="cs">Vyhledávací příležitost</h2>
+    <h2 class="en">Search opportunity</h2>
+    <p class="lead cs">Orientační snapshot, kdo se objevoval v kontrolovaných dotazech a kde se zdá být prostor pro vstup. Nejde o live rank-tracking report.</p>
+    <p class="lead en">A directional snapshot of who appeared in the checked queries and where there seems to be room to enter. This is not a live rank-tracking report.</p>
+
+    <div class="small muted" style="margin-bottom:14px">
+      <span class="cs"><strong>Poznámka:</strong> Níže uvedené SERP pozice vycházejí z ručních kontrol v červnu 2026. Výsledky se mohou lišit podle lokality, personalizace a času.</span>
+      <span class="en"><strong>Note:</strong> The SERP positions below are based on manual checks from June 2026. Results can vary by location, personalisation, and timing.</span>
+    </div>
+
+    <div class="tableScroll" style="margin-bottom:28px">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="cs">Klíčové slovo (CZ)</span><span class="en">Keyword (CZ)</span></th>
+            <th><span class="cs">Záměr</span><span class="en">Intent</span></th>
+            <th><span class="cs">Nejviditelnější výsledek</span><span class="en">Most visible result</span></th>
+            <th><span class="cs">Další viděný výsledek</span><span class="en">Also seen</span></th>
+            <th><span class="cs">Další viděný výsledek</span><span class="en">Also seen</span></th>
+            <th><span class="cs">Hodnocení</span><span class="en">Assessment</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>čištění vzduchotechniky</strong></td>
+            <td><span class="cs">Kupující</span><span class="en">Buyer</span></td>
+            <td>taurisplus.cz</td>
+            <td>luftuj.cz <span class="cs">(článek)</span><span class="en">(article)</span></td>
+            <td>alkion.eu</td>
+            <td><span class="badge b-high cs">🔴 Obsazeno</span><span class="badge b-high en">🔴 Occupied</span></td>
+          </tr>
+          <tr>
+            <td><strong>čištění odvětrávacích šachet</strong></td>
+            <td><span class="cs">Kupující</span><span class="en">Buyer</span></td>
+            <td>klimahaus.cz</td>
+            <td>plicedomu.cz</td>
+            <td>tzb-info/plicedomu</td>
+            <td><span class="badge b-high cs">🔴 Obsazeno</span><span class="badge b-high en">🔴 Occupied</span></td>
+          </tr>
+          <tr>
+            <td><strong>revize vzduchotechniky panelák</strong></td>
+            <td><span class="cs">Kupující</span><span class="en">Buyer</span></td>
+            <td>taurisplus.cz</td>
+            <td>arnos.cz <span class="cs">(info)</span><span class="en">(info)</span></td>
+            <td>taurisplus.cz (blog)</td>
+            <td><span class="badge b-high cs">🔴 Obsazeno</span><span class="badge b-high en">🔴 Occupied</span></td>
+          </tr>
+          <tr>
+            <td><strong>čištění vzduchotechniky cena</strong></td>
+            <td><span class="cs">Kupující</span><span class="en">Buyer</span></td>
+            <td>alkion.eu/kalkulacka</td>
+            <td>alkion.eu (blog)</td>
+            <td>luftuj.cz <span class="cs">(článek)</span><span class="en">(article)</span></td>
+            <td><span class="badge b-high cs">🔴 Obsazeno</span><span class="badge b-high en">🔴 Occupied</span></td>
+          </tr>
+          <tr style="background:#eefaf4">
+            <td><strong>čištění vzduchotechniky Hodonín</strong></td>
+            <td><span class="cs">Místní kupující</span><span class="en">Local buyer</span></td>
+            <td>nejremeslnici.cz <span class="cs">(dir.)</span><span class="en">(directory)</span></td>
+            <td>belix.cz</td>
+            <td>luftuj.cz</td>
+            <td><span class="badge b-low cs">🟢 Nižší viditelná konkurence</span><span class="badge b-low en">🟢 Lower visible competition</span></td>
+          </tr>
+          <tr style="background:#eefaf4">
+            <td><strong>čištění šachet Kyjov</strong></td>
+            <td><span class="cs">Místní kupující</span><span class="en">Local buyer</span></td>
+            <td colspan="3"><em class="cs">V této kontrole jsme nenašli zjevně relevantní výsledek</em><em class="en">We did not find an obviously relevant result in this check</em></td>
+            <td><span class="badge b-low cs">🟢 Omezená viditelná konkurence</span><span class="badge b-low en">🟢 Limited visible competition</span></td>
+          </tr>
+          <tr style="background:#eefaf4">
+            <td><strong>čištění šachet Veselí nad Moravou</strong></td>
+            <td><span class="cs">Místní kupující</span><span class="en">Local buyer</span></td>
+            <td colspan="3"><em class="cs">V této kontrole jsme nenašli zjevně relevantní výsledek</em><em class="en">We did not find an obviously relevant result in this check</em></td>
+            <td><span class="badge b-low cs">🟢 Omezená viditelná konkurence</span><span class="badge b-low en">🟢 Limited visible competition</span></td>
+          </tr>
+          <tr style="background:#eefaf4">
+            <td><strong>čištění šachet SVJ</strong></td>
+            <td><span class="cs">Kupující B2B</span><span class="en">B2B buyer</span></td>
+            <td>absolut-color.cz <span class="cs">(offtopic)</span><span class="en">(off-topic)</span></td>
+            <td>svjm2.cz (PDF)</td>
+            <td>sbdroznov.cz</td>
+            <td><span class="badge b-med cs">🟠 Přístupné</span><span class="badge b-med en">🟠 Accessible</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid g2" style="margin-bottom:24px">
+      <div>
+        <h3 style="margin-bottom:12px" class="cs">Stránky k vytvoření (prioritizováno)</h3>
+        <h3 style="margin-bottom:12px" class="en">Pages to create (prioritised)</h3>
+        <div class="card cs">
+          <ol style="font-size:.9rem">
+            <li style="margin-bottom:10px"><span class="badge b-high">🔴 1.</span> <strong>Stránka servisní oblasti: Hodonín</strong> — /cisteni-sachet-hodonin/ — zahrňte název sídlišť, mapu, kontakt</li>
+            <li style="margin-bottom:10px"><span class="badge b-high">🔴 2.</span> <strong>Stránka: Kyjov, Veselí nad Moravou, Strážnice, Hodonínský okres</strong></li>
+            <li style="margin-bottom:10px"><span class="badge b-high">🔴 3.</span> <strong>Stránka: Ceny čištění šachet</strong> — nebo kalkulátor orientačních cen (objeďte Alkion)</li>
+            <li style="margin-bottom:10px"><span class="badge b-med">🟠 4.</span> <strong>Článek: "Zákonná povinnost SVJ — ČSN EN 15780"</strong> — informační, zachytí "povinnost" dotazy</li>
+            <li style="margin-bottom:10px"><span class="badge b-med">🟠 5.</span> <strong>Článek: "Jak probíhá čištění šachty v paneláku — krok za krokem"</strong></li>
+            <li><span class="badge b-low">🟡 6.</span> <strong>Stránka: Revize a protokoly pro SVJ</strong> — zákonná dokumentace jako služba</li>
+          </ol>
+        </div>
+        <div class="card en">
+          <ol style="font-size:.9rem">
+            <li style="margin-bottom:10px"><span class="badge b-high">🔴 1.</span> <strong>Service-area page: Hodonín</strong> — /cisteni-sachet-hodonin/ — include housing-estate names, a map, contact details</li>
+            <li style="margin-bottom:10px"><span class="badge b-high">🔴 2.</span> <strong>Page: Kyjov, Veselí nad Moravou, Strážnice, Hodonín District</strong></li>
+            <li style="margin-bottom:10px"><span class="badge b-high">🔴 3.</span> <strong>Page: Shaft cleaning prices</strong> — or an indicative price calculator (matching Alkion)</li>
+            <li style="margin-bottom:10px"><span class="badge b-med">🟠 4.</span> <strong>Article: "SVJ's legal obligation — ČSN EN 15780"</strong> — informational, captures "obligation" queries</li>
+            <li style="margin-bottom:10px"><span class="badge b-med">🟠 5.</span> <strong>Article: "How shaft cleaning works in a panel block — step by step"</strong></li>
+            <li><span class="badge b-low">🟡 6.</span> <strong>Page: Inspections and protocols for SVJ</strong> — legal documentation as a service</li>
+          </ol>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px" class="cs">Katalogové mezery — ihned</h3>
+        <h3 style="margin-bottom:12px" class="en">Directory gaps — immediate</h3>
+        <div class="card">
+          <div class="tableScroll" style="border:none;border-radius:0;box-shadow:none">
+            <table style="min-width:unset;font-size:.85rem">
+              <thead><tr><th><span class="cs">Katalog</span><span class="en">Directory</span></th><th>Cistesachty.cz</th></tr></thead>
+              <tbody>
+                <tr><td><a href="https://www.firmy.cz" target="_blank">Firmy.cz</a></td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td></tr>
+                <tr><td><a href="https://www.zlatestranky.cz" target="_blank">Zlatéstránky.cz</a></td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td></tr>
+                <tr><td><a href="https://www.najisto.cz" target="_blank">Najisto.cz</a></td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td></tr>
+                <tr><td><a href="https://www.tzb-info.cz" target="_blank">TZB-info.cz</a></td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td></tr>
+                <tr><td><a href="https://www.nejremeslnici.cz" target="_blank">NejŘemeslníci.cz</a></td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td></tr>
+                <tr><td><a href="https://ekatalog.cz" target="_blank">eKatalog.cz</a></td><td class="no"><span class="cs">✗ Chybí</span><span class="en">✗ Missing</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="small muted cs" style="margin-top:10px">⚡ Firmy.cz a TZB-info stojí za rychlé doplnění: pro část správců a výborů jsou to praktické validační body s nízkým nákladem.</div>
+          <div class="small muted en" style="margin-top:10px">⚡ Firmy.cz and TZB-info are worth adding quickly: for some managers and boards, they act as practical validation points at low cost.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hl cs">
+      <strong>Near-term SEO priority set:</strong> (1) Doménový email → profesionálnější první dojem. (2) Zápis Firmy.cz + Google Business Profile + Mapy.cz → vyšší lokální dohledatelnost. (3) Stránky měst: Hodonín + Kyjov + Veselí → long-tail vstup do lokálních dotazů s nižší viditelnou konkurencí. (4) Jeden vysvětlující článek o normách / dokumentaci → zachytí výzkumné dotazy SVJ výborů.
+    </div>
+    <div class="hl en">
+      <strong>Near-term SEO priority set:</strong> (1) Own-domain email → a more professional first impression. (2) Firmy.cz + Google Business Profile + Mapy.cz listing → better local discoverability. (3) City pages: Hodonín + Kyjov + Veselí → long-tail entry points with lower visible competition. (4) One explanatory standards/documentation article → captures research queries from SVJ boards.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7: ICP ═══════════════════════════════════════ -->
+<section id="icp">
+  <div class="wrap">
+    <span class="kicker cs">7 — Cílové skupiny</span><span class="kicker en">7 — Target Groups</span>
+    <h2 class="cs">Kdo jsou vaši zákazníci a kde je najít</h2>
+    <h2 class="en">Who your customers are and where to find them</h2>
+
+    <div class="grid g3" style="margin-bottom:28px">
+      <div class="icp-card">
+        <div class="icp-icon">👔</div>
+        <h4 class="cs">Předseda SVJ</h4>
+        <h4 class="en">SVJ Chairman</h4>
+        <p class="small cs">Typický decision-maker, který potřebuje doložit výdaj vlastníkům bytů nebo výboru. Hledá: důvěryhodného dodavatele, srozumitelný důvod zásahu, reference a fotodokumentaci.</p>
+        <p class="small en">A typical decision-maker who needs to justify the spend to flat owners or the board. Looking for: a credible supplier, a clear reason for the work, references, and photo documentation.</p>
+        <div class="small muted cs" style="margin-top:8px">📍 Kde: portalsvj.cz, spoluvlastnici.cz, Facebook skupiny "Předsedové SVJ", "Správa bytových domů"</div>
+        <div class="small muted en" style="margin-top:8px">📍 Where: portalsvj.cz, spoluvlastnici.cz, Facebook groups "Předsedové SVJ", "Správa bytových domů"</div>
+      </div>
+      <div class="icp-card">
+        <div class="icp-icon">🏢</div>
+        <h4 class="cs">Správce nemovitostí</h4>
+        <h4 class="en">Property Manager</h4>
+        <p class="small cs"><strong>Velmi hodnotný cíl.</strong> Jedna správcovská firma může otevřít více budov najednou. Partnerství s jedním správcem může vytvářet opakovanou poptávku napříč portfoliem.</p>
+        <p class="small en"><strong>A high-value target.</strong> One management company can open multiple buildings at once. A partnership with one manager can create repeat demand across a portfolio.</p>
+        <div class="small muted cs" style="margin-top:8px">📍 Kde: Firmy.cz kategorie "správa nemovitostí", ARTN.cz, regionální RK firmy v Hodoníně</div>
+        <div class="small muted en" style="margin-top:8px">📍 Where: Firmy.cz "property management" category, ARTN.cz, regional estate-agency firms in Hodonín</div>
+      </div>
+      <div class="icp-card">
+        <div class="icp-icon">🏗</div>
+        <h4 class="cs">Bytová družstva (BD)</h4>
+        <h4 class="en">Housing Co-operatives (BD)</h4>
+        <p class="small cs">Správce BD rozhoduje za širší bytový fond, takže jedno oslovení může otevřít více objektů. V Hodonínském okrese dává smysl projít jihomoravská BD a regionální SBD.</p>
+        <p class="small en">A BD manager can decide across a broader housing stock, so one outreach can open multiple properties. In the Hodonín district, it makes sense to review South Moravian co-ops and regional SBDs.</p>
+        <div class="small muted cs" style="margin-top:8px">📍 Kde: justice.cz (rejstřík BD), ekatalog.cz, přímý kontakt</div>
+        <div class="small muted en" style="margin-top:8px">📍 Where: justice.cz (co-op register), ekatalog.cz, direct contact</div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:12px" class="cs">Top cíle v hodonínském okrese — sídliště k oslovení</h3>
+    <h3 style="margin-bottom:12px" class="en">Top targets in the Hodonín district — housing estates to approach</h3>
+    <div class="grid g2">
+      <div class="card cs">
+        <h4>Hodonín</h4>
+        <ul class="small">
+          <li>Sídliště Jih — panelové domy 70.–80. léta, větší koncentrace bytů</li>
+          <li>Sídliště Bažantnice — centrální odvětrávání</li>
+          <li>Sídliště Cihelna — podobná typová zástavba</li>
+        </ul>
+        <div class="small muted" style="margin-top:8px">→ Prohledejte justice.cz pro všechna SVJ registrovaná v Hodoníně</div>
+      </div>
+      <div class="card en">
+        <h4>Hodonín</h4>
+        <ul class="small">
+          <li>Jih housing estate — 1970s–80s panel blocks, a larger concentration of flats</li>
+          <li>Bažantnice housing estate — central ventilation</li>
+          <li>Cihelna housing estate — similar standard-design blocks</li>
+        </ul>
+        <div class="small muted" style="margin-top:8px">→ Search justice.cz for all SVJ registered in Hodonín</div>
+      </div>
+      <div class="card cs">
+        <h4>Kyjov + okolí</h4>
+        <ul class="small">
+          <li>Sídliště Poštěky — typový panelák</li>
+          <li>Sídliště Za Stadionem</li>
+          <li>Veselí nad Moravou — panelové domy v centru</li>
+          <li>Strážnice — menší panelové bloky</li>
+        </ul>
+        <div class="small muted" style="margin-top:8px">→ Na justice.cz vyhledejte: "společenství vlastníků" + obec</div>
+      </div>
+      <div class="card en">
+        <h4>Kyjov + surroundings</h4>
+        <ul class="small">
+          <li>Poštěky housing estate — standard-design panel block</li>
+          <li>Za Stadionem housing estate</li>
+          <li>Veselí nad Moravou — panel blocks in the centre</li>
+          <li>Strážnice — smaller panel blocks</li>
+        </ul>
+        <div class="small muted" style="margin-top:8px">→ On justice.cz, search: "společenství vlastníků" + municipality</div>
+      </div>
+      <div class="card cs">
+        <h4>Kde hledat SVJ kontakty</h4>
+        <ul class="small">
+          <li><a href="https://or.justice.cz/ias/ui/rejstrik" target="_blank">justice.cz</a> — veřejný rejstřík, adresy SVJ jsou veřejné</li>
+          <li><a href="https://www.firmy.cz" target="_blank">Firmy.cz</a> — správci nemovitostí v okrese</li>
+          <li><a href="https://www.portalsvj.cz" target="_blank">portalsvj.cz</a> — fórum předsedů SVJ</li>
+          <li><a href="https://www.spoluvlastnici.cz" target="_blank">spoluvlastnici.cz</a> — komunita SVJ</li>
+        </ul>
+      </div>
+      <div class="card en">
+        <h4>Where to find SVJ contacts</h4>
+        <ul class="small">
+          <li><a href="https://or.justice.cz/ias/ui/rejstrik" target="_blank">justice.cz</a> — the public register, SVJ addresses are public</li>
+          <li><a href="https://www.firmy.cz" target="_blank">Firmy.cz</a> — property managers in the district</li>
+          <li><a href="https://www.portalsvj.cz" target="_blank">portalsvj.cz</a> — SVJ chairmen's forum</li>
+          <li><a href="https://www.spoluvlastnici.cz" target="_blank">spoluvlastnici.cz</a> — the SVJ community</li>
+        </ul>
+      </div>
+      <div class="card cs">
+        <h4>Kanály pro oslovení</h4>
+        <ul class="small">
+          <li><strong>Adresovaná pošta</strong> na SVJ (adresy z justice.cz) — zákonný odkaz + voucher</li>
+          <li><strong>Meta/IG reklamy</strong> geo: Hodonínský okres, věk 45+, zájem "správa nemovitostí"</li>
+          <li><strong>Partnerství se správci</strong> — referralová dohoda</li>
+          <li><strong>Canvassing sídlišť</strong> — po každé zakázce oslovit sousední SVJ</li>
+        </ul>
+      </div>
+      <div class="card en">
+        <h4>Outreach channels</h4>
+        <ul class="small">
+          <li><strong>Addressed mail</strong> to SVJ boards (addresses from justice.cz) — legal reference + voucher</li>
+          <li><strong>Meta/IG ads</strong> geo: Hodonín district, age 45+, interest "property management"</li>
+          <li><strong>Partnerships with property managers</strong> — a referral agreement</li>
+          <li><strong>Housing-estate canvassing</strong> — after every job, approach the neighbouring SVJ</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 8: GAPS ═══════════════════════════════════════ -->
+<section id="gaps">
+  <div class="wrap">
+    <span class="kicker cs">8 — Příležitosti</span><span class="kicker en">8 — Opportunities</span>
+    <h2 class="cs">Vaše top příležitosti — seřazeno dle dopadu</h2>
+    <h2 class="en">Your top opportunities — ranked by impact</h2>
+    <p class="lead cs">Níže jsou evidence-based příležitosti vycházející z této revize. Nejsou to garance výsledku, ale opakující se signály v datech a na webech konkurence.</p>
+    <p class="lead en">Below are evidence-backed opportunities from this review. They are not guaranteed outcomes, but repeated signals seen in the data and competitor materials.</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+
+      <div class="opp-card">
+        <div class="opp-num" style="background:var(--bad)">1</div>
+        <div class="opp-body">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+            <h4 class="cs">Místní SEO v Hodoníně — zjevný lokální search gap</h4>
+            <h4 class="en">Local SEO in Hodonín — an apparent local search gap</h4>
+            <span class="badge b-high cs">🔴 Vysoká priorita</span>
+            <span class="badge b-high en">🔴 High priority</span>
+          </div>
+          <p class="cs">V kontrolovaných místních dotazech jsme nenašli dominantního lokálního specialistu na čištění šachet. Google Business Profile + Firmy.cz + stránky měst mohou otevřít relativně rychlý vstup do lokálních SERPů. Nejviditelnější konkurenti se jevili spíše z Brna a širšího regionu. <strong>Lokalita může být smysluplná výhoda, pokud se dobře odkomunikuje.</strong></p>
+          <p class="en">In the local queries we checked, we did not find a dominant local shaft-cleaning specialist. Google Business Profile + Firmy.cz + city pages could create a relatively quick entry into local SERPs. The more visible competitors appeared to come from Brno and the wider region. <strong>Location can become a meaningful advantage if it is communicated well.</strong></p>
+          <div class="small muted cs">Akce: Vytvořit GBP, zápisy v katalozích, 3 stránky měst (Hodonín, Kyjov, Veselí)</div>
+          <div class="small muted en">Action: Create a GBP, directory listings, 3 city pages (Hodonín, Kyjov, Veselí)</div>
+        </div>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-num" style="background:#d97706">2</div>
+        <div class="opp-body">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+            <h4 class="cs">Doménový email + dokumentace = rychlejší důvěra</h4>
+            <h4 class="en">Own-domain email + documentation = faster trust-building</h4>
+            <span class="badge b-high cs">🔴 Vysoká priorita</span>
+            <span class="badge b-high en">🔴 High priority</span>
+          </div>
+          <p class="cs">Gmail adresa může část zadavatelů zbytečně brzdit v prvním dojmu. Doménový email + jasně vysvětlená dokumentace a normový rámec pomohou zúžit trust gap vůči zavedenější konkurenci.</p>
+          <p class="en">A Gmail address can create unnecessary friction in the first impression for some buyers. An own-domain email plus clearly explained documentation and standards framing can narrow the trust gap versus more established competitors.</p>
+          <div class="small muted cs">Akce: info@cistesachty.cz + uvést zákonný odkaz na web</div>
+          <div class="small muted en">Action: info@cistesachty.cz + add a legal reference to the site</div>
+        </div>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-num" style="background:var(--warn)">3</div>
+        <div class="opp-body">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+            <h4 class="cs">Lead funnel: Voucher + Bezplatná inspekce + Fotodokumentace</h4>
+            <h4 class="en">Lead funnel: Voucher + Free Inspection + Photo Documentation</h4>
+            <span class="badge b-med cs">🟠 Střední priorita</span>
+            <span class="badge b-med en">🟠 Medium priority</span>
+          </div>
+          <p class="cs">Voucher se v tomto revidovaném setu jeví jako diferencující prvek, zatímco Plíce domu komunikují "Kontrolu zdarma". Kombinace obou motivů dává smysl: <em>"Bezplatná kamerová inspekce šachty + SVJ voucher na první čištění"</em>. Alkion ukazuje, že orientační cenová stránka může fungovat jako silný konverzní prvek.</p>
+          <p class="en">The voucher appears differentiated within this reviewed set, while Plíce domu pushes "free inspection". Combining both ideas makes sense: <em>"Free camera shaft inspection + SVJ voucher for the first cleaning"</em>. Alkion shows that an indicative price page can work as a strong conversion element.</p>
+          <div class="small muted cs">Akce: Landing page s formulářem pro bezplatnou inspekci, zobrazit voucher prominentně</div>
+          <div class="small muted en">Action: A landing page with a free-inspection form, showing the voucher prominently</div>
+        </div>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-num" style="background:var(--brand)">4</div>
+        <div class="opp-body">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+            <h4 class="cs">Partnerství se správcovskými firmami — multiplikační efekt</h4>
+            <h4 class="en">Partnerships with property management firms — a multiplier effect</h4>
+            <span class="badge b-med cs">🟠 Střední priorita</span>
+            <span class="badge b-med en">🟠 Medium priority</span>
+          </div>
+          <p class="cs">Jeden správce nemovitostí může otevřít více budov najednou. V materiálech revidovaných konkurentů jsme neviděli výrazné explicitní cílení na správce v jihomoravském regionu. Referralová dohoda proto může vytvořit levnější a opakovatelný zdroj poptávek.</p>
+          <p class="en">One property manager can open multiple buildings at once. In the reviewed competitor materials, we did not see strong explicit targeting of management firms in the South Moravian region. A referral arrangement could therefore create a lower-cost, repeatable source of demand.</p>
+          <div class="small muted cs">Akce: Sestavit seznam správců nemovitostí v okrese z Firmy.cz + osloveních dopis</div>
+          <div class="small muted en">Action: Build a list of property managers in the district from Firmy.cz + an outreach letter</div>
+        </div>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-num" style="background:var(--good)">5</div>
+        <div class="opp-body">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+            <h4 class="cs">Social proof — recenze + fotodokumentace viditelná na webu</h4>
+            <h4 class="en">Social proof — reviews + photo documentation visible on the site</h4>
+            <span class="badge b-low cs">🟡 Nižší priorita</span>
+            <span class="badge b-low en">🟡 Lower priority</span>
+          </div>
+          <p class="cs">AMALVO už recenze na webu má, zatímco Alkion pracuje s výraznější kombinací pojmenovaných testimonials a fotografií. Přidání 3–5 pojmenovaných recenzí SVJ výborů + before/after fotogalerie by vás odlišilo od několika revidovaných konkurentů najednou.</p>
+          <p class="en">AMALVO already has visible on-site reviews, while Alkion uses a more distinctive mix of named testimonials and photography. Adding 3–5 named reviews from SVJ boards plus a before/after gallery would still differentiate you from several of the reviewed competitors at once.</p>
+          <div class="small muted cs">Akce: Po každé zakázce požádat předsedu SVJ o krátkou recenzi + povolení k fotodokumentaci</div>
+          <div class="small muted en">Action: After every job, ask the SVJ chairman for a short review + permission for photo documentation</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 10: APPENDIX ═══════════════════════════════════════ -->
+<section id="appendix">
+  <div class="wrap">
+    <span class="kicker cs">10 — Příloha</span><span class="kicker en">10 — Appendix</span>
+    <h2 class="cs">Všechny zdroje a přímé odkazy</h2>
+    <h2 class="en">All sources and direct links</h2>
+
+    <div class="grid g2">
+      <div>
+        <h3 style="margin-bottom:12px" class="cs">Weby konkurentů</h3>
+        <h3 style="margin-bottom:12px" class="en">Competitor websites</h3>
+        <div class="card cs">
+          <ul class="small" style="list-style:none;padding:0">
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://cistesachty.cz" target="_blank">cistesachty.cz</a> — váš web</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://alkion.eu" target="_blank">alkion.eu</a> — Alkion service (industriální)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://zdravypanelak.cz" target="_blank">zdravypanelak.cz</a> — Alkion SVJ sub-brand</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://klimahaus.cz" target="_blank">klimahaus.cz</a> — KLIMAHAUS (Brno)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://plicedomu.cz" target="_blank">plicedomu.cz</a> — Plíce domu (Brno)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://taurisplus.cz" target="_blank">taurisplus.cz</a> — TAURIS plus</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://ecoduct.cz" target="_blank">ecoduct.cz</a> — EcoDuct</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://amalvo.cz" target="_blank">amalvo.cz</a> — AMALVO group</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://belix.cz" target="_blank">belix.cz</a> — BELIX (sanace)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://luftuj.cz" target="_blank">luftuj.cz</a> — Luftuj (rekuperace)</li>
+            <li style="padding:6px 0"><a href="https://ductcleaning.cz" target="_blank">ductcleaning.cz</a> — DuctCleaning.cz</li>
+          </ul>
+        </div>
+        <div class="card en">
+          <ul class="small" style="list-style:none;padding:0">
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://cistesachty.cz" target="_blank">cistesachty.cz</a> — your site</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://alkion.eu" target="_blank">alkion.eu</a> — Alkion service (industrial)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://zdravypanelak.cz" target="_blank">zdravypanelak.cz</a> — Alkion's SVJ sub-brand</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://klimahaus.cz" target="_blank">klimahaus.cz</a> — KLIMAHAUS (Brno)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://plicedomu.cz" target="_blank">plicedomu.cz</a> — Plíce domu (Brno)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://taurisplus.cz" target="_blank">taurisplus.cz</a> — TAURIS plus</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://ecoduct.cz" target="_blank">ecoduct.cz</a> — EcoDuct</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://amalvo.cz" target="_blank">amalvo.cz</a> — AMALVO group</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://belix.cz" target="_blank">belix.cz</a> — BELIX (remediation)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://luftuj.cz" target="_blank">luftuj.cz</a> — Luftuj (heat recovery)</li>
+            <li style="padding:6px 0"><a href="https://ductcleaning.cz" target="_blank">ductcleaning.cz</a> — DuctCleaning.cz</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px" class="cs">SVJ a trh — klíčové zdroje</h3>
+        <h3 style="margin-bottom:12px" class="en">SVJ and market — key sources</h3>
+        <div class="card cs">
+          <ul class="small" style="list-style:none;padding:0">
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://or.justice.cz/ias/ui/rejstrik" target="_blank">justice.cz</a> — obchodní rejstřík (SVJ adresy, výkazy)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://ares.gov.cz/ekonomicke-subjekty" target="_blank">ares.gov.cz</a> — ARES databáze firem</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.portalsvj.cz" target="_blank">portalsvj.cz</a> — portál pro SVJ (fóra, dokumenty)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.spoluvlastnici.cz" target="_blank">spoluvlastnici.cz</a> — komunita spoluvlastníků</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.tzb-info.cz" target="_blank">tzb-info.cz</a> — technický portál (SVJ manažeři čtou)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.firmy.cz/Remesla-a-sluzby/Cisteni/cisteni-vzduchotechniky" target="_blank">firmy.cz — čištění vzduchotechniky</a></li>
+            <li style="padding:6px 0"><a href="https://zdravypanelak.cz/kalkulacka/" target="_blank">zdravypanelak.cz/kalkulacka</a> — Alkion ceník (benchmarking)</li>
+          </ul>
+        </div>
+        <div class="card en">
+          <ul class="small" style="list-style:none;padding:0">
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://or.justice.cz/ias/ui/rejstrik" target="_blank">justice.cz</a> — commercial register (SVJ addresses, filings)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://ares.gov.cz/ekonomicke-subjekty" target="_blank">ares.gov.cz</a> — ARES company database</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.portalsvj.cz" target="_blank">portalsvj.cz</a> — an SVJ portal (forums, documents)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.spoluvlastnici.cz" target="_blank">spoluvlastnici.cz</a> — a co-owners' community</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.tzb-info.cz" target="_blank">tzb-info.cz</a> — a technical portal (read by SVJ managers)</li>
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.firmy.cz/Remesla-a-sluzby/Cisteni/cisteni-vzduchotechniky" target="_blank">firmy.cz — HVAC cleaning</a></li>
+            <li style="padding:6px 0"><a href="https://zdravypanelak.cz/kalkulacka/" target="_blank">zdravypanelak.cz/kalkulacka</a> — Alkion price list (benchmarking)</li>
+          </ul>
+        </div>
+
+        <h3 style="margin-bottom:12px;margin-top:20px" class="cs">Reklamní knihovny</h3>
+        <h3 style="margin-bottom:12px;margin-top:20px" class="en">Ad libraries</h3>
+        <div class="card">
+          <ul class="small" style="list-style:none;padding:0">
+            <li style="padding:6px 0;border-bottom:1px solid var(--line)"><a href="https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=CZ" target="_blank">Meta Ad Library — CZ</a></li>
+            <li style="padding:6px 0"><a href="https://adstransparency.google.com/?region=CZ" target="_blank">Google Ads Transparency — CZ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;background:var(--bg);color:#dbe7f4">
+      <h3 style="color:#fff;margin-bottom:12px" class="cs">Metodika sběru dat</h3>
+      <h3 style="color:#fff;margin-bottom:12px" class="en">Data collection methodology</h3>
+      <p class="small cs" style="color:#9fb6cf">Tento report byl sestaven v červnu 2026 přímým prohledáváním webů konkurentů, českými vyhledávacími dotazy v Google CZ, prohledáváním katalogů (Firmy.cz, TZB-info, NejŘemeslníci.cz) a přímými dotazy v ARES. Firemní fakta byla ověřována z veřejných zdrojů tam, kde to bylo možné; strategické závěry a prioritizace jsou interpretační vrstva nad pozorovanými signály. Tento snapshot byl aktuální ke dni zpracování — trh se mění; doporučujeme čtvrtletní aktualizaci klíčových profilů.</p>
+      <p class="small cs" style="color:#9fb6cf"><strong>Revize 7/2026:</strong> Report byl následně auditován proti ARES, justice.cz, live webům konkurentů a archivním stopám. Opraveno: datum "založení" Plíce domu (značka aktivní od 2019, jen právní subjekt je nový z 6/2024), veřejně doložitelný handover mezi Delphia MORAVIA s.r.o. a PLÍCE DOMU s.r.o. (už nezužujeme na "konec 2024"), rámování zkušeností u KLIMAHAUS (web komunikuje zhruba 20-25 let technické / produktové praxe, ne stáří firmy od 2021), rok vzniku TAURIS plus, s.r.o. (2001, ne 1990), oficiální název Duct cleaning s.r.o. a jeho skutečné datum vzniku (4. 6. 2025), vznik Luftuj s.r.o. (13. 1. 2012), status tvrzení Alkionu o NADCA exkluzivitě (vlastní marketingové tvrzení, nezávisle neověřeno), a také site-visible claims u Plíce domu a AMALVO (recenze / kvalifikace na webu skutečně viditelné). Zároveň byly zjemněny nepodložené superlativy a absolutní tvrzení typu "unikát", "potvrzená bílá místa", "nulové pozice" nebo pevné 60–90denní výsledky. Konkrétní počty reklam v sekci 5 nebylo možné spolehlivě automatizovaně ověřit (dynamické JS dashboardy) — doporučujeme je vždy ověřit ručně.</p>
+      <p class="small en" style="color:#9fb6cf">This report was compiled in June 2026 by directly reviewing competitor websites, running Czech-language Google CZ queries, checking directories (Firmy.cz, TZB-info, NejŘemeslníci.cz), and querying ARES. Company facts were verified from public sources where possible; the strategy conclusions and prioritisation are an interpretive layer over the observed signals. This snapshot was current as of the processing date — the market changes; we recommend a quarterly update of key profiles.</p>
+      <p class="small en" style="color:#9fb6cf"><strong>Revision 7/2026:</strong> The report was subsequently audited against ARES, justice.cz, live competitor websites, and archival traces. Corrected: Plíce domu's "founding" date (the brand has been active since 2019; only the legal entity is new, from 6/2024), the publicly supportable Delphia MORAVIA s.r.o. → PLÍCE DOMU s.r.o. handover framing (we no longer narrow this to "late 2024"), the experience framing for KLIMAHAUS (the site presents roughly 20-25 years of technical / product experience, not the age of the company founded in 2021), TAURIS plus, s.r.o.'s actual incorporation year (2001, not 1990), the official registered name Duct cleaning s.r.o. and its actual founding date (4 June 2025), Luftuj s.r.o.'s incorporation date (13 January 2012), Alkion's NADCA-exclusivity claim status (their own marketing statement, not independently verified), and the site-visible claims for Plíce domu and AMALVO (reviews / qualifications are in fact visible on the live sites). We also softened unsupported superlatives and absolute claims such as "unique", "confirmed white space", "zero rankings", or fixed 60–90 day outcome promises. The specific ad counts in Section 5 could not be reliably confirmed with automated tools (dynamic JS dashboards) — we recommend verifying them manually each time.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="cs">Zpracováno pro <strong>Čisté šachty — cistesachty.cz</strong> · Hodonín, Jihomoravský kraj</p>
+    <p class="en">Prepared for <strong>Čisté šachty — cistesachty.cz</strong> · Hodonín, South Moravian Region</p>
+    <p style="margin-top:6px" class="cs">[ NÁZEV AGENTURY ] · Červen 2026 · Důvěrný dokument</p>
+    <p style="margin-top:6px" class="en">[ AGENCY NAME ] · June 2026 · Confidential document</p>
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-en', lang === 'en');
+  document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  localStorage.setItem('lang', lang);
+}
+var savedLang = localStorage.getItem('lang');
+if (savedLang === 'en') setLang('en');
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+// Accordion
+document.querySelectorAll('.acc-header').forEach(function(header) {
+  header.addEventListener('click', function() {
+    this.parentElement.classList.toggle('acc-open');
+    var icon = this.querySelector('.acc-icon');
+    if (icon) icon.textContent = this.parentElement.classList.contains('acc-open') ? '▲' : '▼';
+  });
+});
+
+// Active nav highlight on scroll
+var sections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('nav.toc a');
+window.addEventListener('scroll', function() {
+  var scrollY = window.scrollY + 80;
+  sections.forEach(function(section) {
+    var top = section.offsetTop;
+    var bottom = top + section.offsetHeight;
+    if (scrollY >= top && scrollY < bottom) {
+      navLinks.forEach(function(a) { a.style.background = ''; a.style.color = ''; });
+      var active = document.querySelectorAll('nav.toc a[href="#' + section.id + '"]');
+      active.forEach(function(a) { a.style.background = 'var(--soft2)'; a.style.color = 'var(--brand)'; });
+    }
+  });
+}, { passive: true });
+</script>

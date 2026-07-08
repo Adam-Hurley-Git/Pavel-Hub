@@ -1,0 +1,1104 @@
+<style>
+
+  :root { color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fb;
+    color: #1a1d23;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    background: #1a3a2a;
+    color: #fff;
+    padding: 20px 28px 16px;
+    border-bottom: 3px solid #4caf7d;
+  }
+  .site-header h1 { font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+  .site-header p  { font-size: 12px; color: #a0c4b0; margin-top: 3px; }
+  .badge { display: inline-block; background: #4caf7d; color: #1a3a2a; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; margin-left: 8px; vertical-align: middle; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* ── Tab nav ── */
+  .tab-nav {
+    display: flex; gap: 0; overflow-x: auto;
+    background: #214835; padding: 0 28px;
+    scrollbar-width: none;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: none; border: none; color: #82b89a;
+    font-size: 12.5px; font-weight: 600; letter-spacing: .3px;
+    padding: 11px 16px; cursor: pointer; white-space: nowrap;
+    border-bottom: 3px solid transparent; transition: color .2s, border-color .2s;
+  }
+  .tab-btn:hover  { color: #e0f0e8; }
+  .tab-btn.active { color: #fff; border-bottom-color: #4caf7d; }
+
+  /* ── Main layout ── */
+  .content { padding: 24px 28px; max-width: 1100px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Section headers ── */
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: #4caf7d; margin-bottom: 6px;
+  }
+  h2.section-title {
+    font-size: 17px; font-weight: 700; color: #1a3a2a;
+    margin-bottom: 4px;
+  }
+  .section-desc { font-size: 13px; color: #5a6578; margin-bottom: 20px; }
+
+  /* ── Accordion ── */
+  .accordion { margin-bottom: 10px; border: 1px solid #dde3ed; border-radius: 8px; overflow: hidden; }
+  .acc-header {
+    background: #fff; padding: 13px 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    font-weight: 600; font-size: 13.5px; color: #1a3a2a;
+    border: none; width: 100%; text-align: left;
+    transition: background .15s;
+  }
+  .acc-header:hover { background: #f3f8f5; }
+  .acc-header.open  { background: #f0f7f3; border-bottom: 1px solid #dde3ed; }
+  .acc-icon { font-size: 16px; color: #4caf7d; transition: transform .2s; flex-shrink: 0; }
+  .acc-header.open .acc-icon { transform: rotate(45deg); }
+  .acc-body { display: none; background: #fff; padding: 16px; }
+  .acc-body.open { display: block; }
+
+  .schema-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
+  .tag-local    { background: #e8f4ff; color: #1a6dcc; }
+  .tag-faq      { background: #fef3e0; color: #b06a00; }
+  .tag-service  { background: #fff4e8; color: #b05c00; }
+  .tag-review   { background: #fde8f0; color: #b0215f; }
+  .tag-gbp      { background: #e8fff1; color: #1a6d3a; }
+  .tag-social   { background: #eef0ff; color: #3a3acc; }
+  .tag-page     { background: #f3eeff; color: #6a35c2; }
+
+  /* ── Code block ── */
+  .code-wrap { position: relative; margin-top: 10px; }
+  pre {
+    background: #0f1923; color: #c9d8f0;
+    padding: 16px; border-radius: 6px; overflow-x: auto;
+    font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+    font-size: 12px; line-height: 1.55; white-space: pre;
+  }
+  .copy-btn {
+    position: absolute; top: 8px; right: 8px;
+    background: #253555; color: #8da4c8; border: 1px solid #3a4f70;
+    font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px;
+    cursor: pointer; transition: background .2s, color .2s;
+  }
+  .copy-btn:hover  { background: #4caf7d; color: #fff; }
+  .copy-btn.copied { background: #1e7a3d; color: #fff; }
+
+  /* ── Info cards ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .card {
+    background: #fff; border: 1px solid #dde3ed; border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .card-title { font-size: 12px; font-weight: 700; color: #1a3a2a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
+  .card-val   { font-size: 13px; color: #3a4f70; }
+  .card-note  { font-size: 11px; color: #8a96a8; margin-top: 4px; }
+  .card.highlight { border-color: #4caf7d; border-left: 4px solid #4caf7d; }
+
+  /* ── Checklist ── */
+  .checklist { list-style: none; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f2f7; font-size: 13px; }
+  .checklist li:last-child { border-bottom: none; }
+  .chk-icon { flex-shrink: 0; width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+  .chk-must  { background: #fde8e8; color: #c0392b; }
+  .chk-good  { background: #e8f4ff; color: #1a6dcc; }
+  .chk-nice  { background: #edf7ed; color: #217a36; }
+  .chk-label { font-weight: 600; }
+  .chk-sub   { font-size: 11.5px; color: #6a7485; display: block; margin-top: 1px; }
+
+  /* ── Note boxes ── */
+  .note-box { border-left: 3px solid #4caf7d; background: #f0faf4; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12.5px; color: #1a3a2a; margin-bottom: 14px; }
+  .note-box strong { color: #1a3a2a; }
+  .warn-box { border-left: 3px solid #e67e22; background: #fef9ee; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12.5px; color: #5a3800; margin-bottom: 14px; }
+  .warn-box strong { color: #1a1d23; }
+
+  /* ── Sub-section ── */
+  .subsection { margin-top: 22px; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 2px solid #eef1f7; }
+  .subsection h3 { font-size: 14px; font-weight: 700; color: #1a3a2a; }
+
+  /* ── Inspo gallery ── */
+  .inspo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 4px; }
+  .inspo-card { border: 1px solid #dde3ed; border-radius: 10px; overflow: hidden; background: #fff; transition: box-shadow .2s, border-color .2s; }
+  .inspo-card:hover { box-shadow: 0 4px 20px rgba(26,58,42,.1); border-color: #4caf7d; }
+  .inspo-card img { width: 100%; display: block; object-fit: cover; object-position: top; height: 220px; cursor: zoom-in; }
+  .inspo-card.tall img { height: 360px; }
+  .inspo-caption { padding: 12px 14px; }
+  .inspo-caption strong { font-size: 13px; font-weight: 700; color: #1a3a2a; display: block; margin-bottom: 3px; }
+  .inspo-caption span { font-size: 12px; color: #5a6578; }
+
+  /* ── Swatch ── */
+  .swatch-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .swatch { border: 1px solid #dde3ed; border-radius: 10px; overflow: hidden; background: #fff; }
+  .swatch-color { height: 56px; }
+  .swatch-body { padding: 10px 12px; }
+  .swatch-name { font-size: 12.5px; font-weight: 700; color: #1a3a2a; }
+  .swatch-hex { font-size: 11px; color: #8a96a8; }
+
+  /* lightbox */
+  .lb-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:999; align-items:center; justify-content:center; padding:20px; }
+  .lb-overlay.open { display:flex; }
+  .lb-overlay img { max-width:100%; max-height:90vh; border-radius:8px; box-shadow:0 8px 40px rgba(0,0,0,.5); }
+  .lb-close { position:absolute; top:16px; right:20px; font-size:28px; color:#fff; cursor:pointer; line-height:1; font-weight:300; }
+
+  /* ── Step list ── */
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-list li { counter-increment: steps; display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f2f7; font-size: 13px; align-items: flex-start; }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before { content: counter(steps); background: #1a3a2a; color: #4caf7d; font-weight: 700; font-size: 11px; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-body strong { display: block; font-weight: 600; color: #1a3a2a; }
+
+  /* ── Priority badge ── */
+  .pri-must { display: inline-block; background: #fde8e8; color: #c0392b; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; }
+  .pri-good { display: inline-block; background: #e8f4ff; color: #1a6dcc; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-left: 6px; }
+
+  /* ── Formula boxes ── */
+  .formula-box {
+    background: #fff; border: 1px solid #dde3ed; border-radius: 8px;
+    margin-bottom: 14px; overflow: hidden;
+  }
+  .formula-header { background: #f0f7f3; padding: 10px 14px; font-weight: 700; font-size: 12.5px; color: #1a3a2a; border-bottom: 1px solid #dde3ed; }
+  .formula-body   { padding: 14px; }
+  .formula-tag  { display: inline-block; background: #1a3a2a; color: #4caf7d; font-family: monospace; font-size: 12px; padding: 3px 10px; border-radius: 4px; margin-bottom: 8px; word-break: break-all; }
+  .formula-example { font-size: 12px; color: #5a6578; margin-top: 6px; }
+  .formula-example strong { color: #1a3a2a; }
+  .formula-rule { font-size: 11.5px; color: #6a7485; margin-top: 8px; display: flex; gap: 6px; align-items: flex-start; }
+  .formula-rule::before { content: "→"; color: #4caf7d; flex-shrink: 0; font-weight: 700; }
+
+  .table-scroll { overflow-x: auto; }
+  .sm-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .sm-table th { background: #1a3a2a; color: #e0f0e8; font-weight: 600; padding: 9px 12px; text-align: left; }
+  .sm-table td { padding: 8px 12px; border-bottom: 1px solid #eef1f7; vertical-align: top; }
+  .sm-table tr:hover td { background: #f6fbf8; }
+  .sm-table tr:nth-child(even) td { background: #fafbfd; }
+  .group-row td { background: #f0f7f3 !important; font-weight: 700; color: #1a3a2a; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  .pri-high { color: #c0392b; font-weight: 700; }
+  .pri-mid  { color: #1a6dcc; font-weight: 700; }
+  .pri-low  { color: #6a7485; }
+  .freq-badge { background: #f0f2f7; color: #3a4f70; font-size: 11px; padding: 2px 7px; border-radius: 3px; font-weight: 600; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  .icon-row { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; }
+  .icon-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .ic-google  { background: #fff3e0; }
+  .ic-fb      { background: #e8eeff; }
+  .ic-ig      { background: #ffeef5; }
+  .ic-yt      { background: #ffeeee; }
+
+</style>
+
+
+<div class="site-header">
+  <h1>Čisté šachty — Web &amp; Google Business Offer</h1>
+  <p>Hodonín, Česká republika &nbsp;·&nbsp; Čištění vzduchových šachet pro SVJ, bytová družstva a správce nemovitostí &nbsp;·&nbsp; cistesachty.cz</p>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" data-tab="website">Part 1 — Website ✅ Included</button>
+  <button class="tab-btn" data-tab="gbp">Part 2 — Google Profile ✅ Included</button>
+  <button class="tab-btn" data-tab="seo">Part 3 — SEO ✅ Included</button>
+  <button class="tab-btn" data-tab="checklist">Part 4 — Checklist</button>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════════════════════ WHAT'S INCLUDED ═ -->
+<div style="margin-bottom:28px;padding:20px 22px;background:#fff;border:1px solid #dde3ed;border-radius:10px;">
+  <div class="section-label">Locked-in scope</div>
+  <h2 class="section-title" style="margin-bottom:10px">What You're Actually Getting</h2>
+  <p class="section-desc" style="margin-bottom:16px">This document also contains our full playbook of what's possible for your digital presence. The two headline deliverables we're building and billing for right now are below — and on-page SEO (Part 3) is built into the website itself as part of that. Ongoing social media management is a future add-on option — see the Other Services page in your client hub — not part of this build.</p>
+  <div class="card-grid" style="margin-bottom:0">
+    <div class="card highlight">
+      <div class="card-title">✅ 1. Your Website</div>
+      <div class="card-val">A full custom website built around the 9-page structure in Part 1 — homepage, the core service page, pricing, dedicated pages for SVJ and property managers, about, contact, and legal pages — including an interactive price calculator and a best-price guarantee, all designed to convert SVJ boards and property managers into enquiries.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">✅ 2. Google Business Profile Setup</div>
+      <div class="card-val">Full one-time setup of your Google Business Profile as detailed in Part 2 — profile created, optimised and verified, launch photos, pre-seeded Q&amp;A, and matching directory listings. Ongoing posting and review management are a separate add-on.</div>
+    </div>
+  </div>
+  <p style="font-size:12.5px;color:#8a96a8;margin-top:14px;margin-bottom:0">Want more? See the separate <strong>Other Services</strong> page in your client hub for hosting &amp; maintenance, SEO content, social media, photography, and lead-generation options — and the <strong>Contract &amp; Pricing</strong> page for exact costs and payment.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ PART 1 ═ -->
+<div id="tab-website" class="tab-panel active">
+
+  <div class="section-label">Part 1</div>
+  <h2 class="section-title">Website — Pages, Structure &amp; Content</h2>
+  <p class="section-desc">Čisté šachty cleans ventilation and air ducts (vzduchové a odvětrávací šachty) in panel and apartment buildings — not sewage or drainage. The primary buyers are SVJ boards, bytová družstva, and property management firms, not individual homeowners. The site is deliberately a focused, 9-page build rather than a large SEO content site — one clear service, explained well, with dedicated pages for each buyer type. Two conversion features run across the site: an <strong>interactive price calculator</strong> on the homepage and a <strong>best-price guarantee</strong> ("Garance nejlepší ceny") featured on the homepage and the pricing page.</p>
+
+  <div class="note-box">
+    <strong>Domain:</strong> <strong>cistesachty.cz</strong> — short, memorable, matches the brand name exactly, and contains the primary keyword.
+  </div>
+
+  <div class="table-scroll" style="margin-bottom:20px;">
+    <table class="sm-table">
+      <thead><tr><th>#</th><th>Page</th><th>URL</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Domů</strong></td><td>/</td><td>Hub, trust, price calculator, primary conversion path</td></tr>
+        <tr><td>2</td><td><strong>Služby — Čištění vzduchových šachet</strong></td><td>/sluzby</td><td>The one core service, explained in full — no separate services hub</td></tr>
+        <tr><td>3</td><td><strong>Ceník</strong></td><td>/cenik</td><td>What affects price + best-price guarantee — no fixed price list</td></tr>
+        <tr><td>4</td><td><strong>O nás</strong></td><td>/o-nas</td><td>Who's behind the brand, credibility</td></tr>
+        <tr><td>5</td><td><strong>Pro SVJ</strong></td><td>/pro-svj</td><td>Audience page — owners' association boards (also covers bytová družstva)</td></tr>
+        <tr><td>6</td><td><strong>Pro správce</strong></td><td>/pro-spravce</td><td>Audience page — property management firms</td></tr>
+        <tr><td>7</td><td><strong>Kontakt</strong></td><td>/kontakt</td><td>Enquiry form + free-inspection CTA (contact details once confirmed)</td></tr>
+        <tr><td>8–9</td><td><strong>Ochrana soukromí &amp; Cookies</strong></td><td>/ochrana-soukromi, /cookies</td><td>GDPR compliance (footer-only) — currently placeholder pages awaiting final legal text</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-box">Deliberately out of scope for this build: a services "hub" landing page (there's only one core service, so it goes straight to the service page — the old <code>/sluzby/cisteni-vzduchovych-sachet</code> URL now just redirects to <code>/sluzby</code> so any old links still resolve), a blog, and per-town location pages. These can be added later as add-ons if the business expands service lines or wants a heavier local-SEO push.</div>
+
+  <div class="note-box"><strong>Shared shell:</strong> every page uses the same header navigation (Domů · Služby · Pro SVJ · Pro správce · Ceník · O nás · Kontakt), the same dark footer with NAP + legal links, and — on every inner page — a dark hero with three glass "proof" badges plus a closing CTA band. Contact details (phone, email, address, IČO) are intentionally hidden site-wide until confirmed; until then the site shows friendly fallback copy rather than blanks.</div>
+
+  <!-- Home -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>1 &nbsp;Domů (Homepage) <span class="schema-tag tag-page">Core Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">The homepage must immediately tell an SVJ board member or property manager what the service is, who it's for, and how to get a free inspection — within seconds of loading. The sections below are listed in the exact order they appear on the live page.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Hero Section</div>
+          <div class="card-val">Full-viewport photo hero, headline, dual CTA</div>
+          <div class="card-note">"Čisté šachty, klidný dům a jasný protokol pro výbor." Real job photo as background, two CTAs: "Domluvit bezplatnou kontrolu" and "Zjistit orientační cenu". Three floating proof cards: no flat access, photo + protocol, local company.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · Trust Bar</div>
+          <div class="card-val">4 quick facts</div>
+          <div class="card-note">Local company for Hodonín and the surrounding area, no need to enter flats, a best-price guarantee ("porazíme ověřenou nabídku"), and a free no-obligation inspection.</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">3 · Price Calculator ★ NEW</div>
+          <div class="card-val">Interactive "Orientační kalkulačka"</div>
+          <div class="card-note">A live calculator: sliders for number of shafts and floors, a roof-access selector (snadný / běžný / náročný), and add-on toggles (kontrola kamerou, dezinfekce, pěnové čištění). The estimate is computed in the background and <strong>emailed</strong> once the visitor submits name/phone/email — it is never shown on screen, so the free inspection always confirms the real price. Includes a "Garance ceny — porazíme ověřenou nabídku" badge linking to the guarantee on /cenik.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">4 · Why Act Now</div>
+          <div class="card-val">"Proč šachty řešit včas" — 4 cards</div>
+          <div class="card-note">Odour spreading between flats, unclear technical condition, the responsibility and fire/operational risks of neglected upkeep, and sensible planning of future maintenance. Build-up is rarely visible until residents complain.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">5 · Services Overview</div>
+          <div class="card-val">4 service tiles</div>
+          <div class="card-note">Čištění vzduchových šachet, Kontrola kamerou, Dezinfekce šachet, Doporučení další údržby. Tiles link through to the service page and relevant audience/contact pages.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">6 · How It Works</div>
+          <div class="card-val">4-step process strip</div>
+          <div class="card-note">Bezplatná kontrola a úvodní posouzení → Návrh postupu a orientační nacenění → Čištění bez vstupu do bytů → Předání dokumentace.</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">7 · Documentation Handover ★ NEW</div>
+          <div class="card-val">"Co dostane výbor nebo správce po práci"</div>
+          <div class="card-note">A dedicated section (card + checklist) on what's left in the board's or manager's hands after the job: photo documentation, a protocol of work performed, a maintenance recommendation, and a clear write-up they can file with the building's records.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">8 · Who We Help</div>
+          <div class="card-val">SVJ / bytová družstva / správci + service area</div>
+          <div class="card-note">Three audience blocks plus a "Kde působíme" tile listing the towns served. SVJ and manager blocks link to their dedicated pages.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">9 · Before / After Gallery</div>
+          <div class="card-val">Placeholder slots for real photos</div>
+          <div class="card-note">Currently three styled "Před / Po" placeholder pairs, ready to be swapped for genuine before/after job photos from specific buildings.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">10 · Pricing Factors</div>
+          <div class="card-val">What affects cost, linking to /cenik</div>
+          <div class="card-note">Three factors — rozsah objektu, technické podmínky, doplňkové práce. No fixed price list published, deliberately, since cost depends on the building. Explains the logic instead.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">11 · Testimonials</div>
+          <div class="card-val">Sample quotes, clearly labelled</div>
+          <div class="card-note">Currently placeholder quotes marked "Ukázková reference" until real reviews exist — swapped for genuine SVJ/property manager reviews once collected.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">12 · FAQ</div>
+          <div class="card-val">5 Q&amp;As</div>
+          <div class="card-note">How the cleaning works, whether flats need to be entered, what's delivered after the job, who the service is for, what affects price.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">13 · Contact CTA</div>
+          <div class="card-val">Free-inspection form + contact details</div>
+          <div class="card-note">Enquiry form (name, phone, email, town, building type, SVJ/manager name, building address, situation). Contact details (phone, email, address, IČO) only display once confirmed — the site gracefully falls back to friendly copy until then, rather than showing blanks.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">14 · Footer</div>
+          <div class="card-val">Logo, service links, NAP + legal links</div>
+          <div class="card-note">Brand blurb, a "Služby" link column, contact/NAP once confirmed, and links to Ochrana soukromí + Cookies. Consistent footer NAP is a key local SEO signal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Page -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>2 &nbsp;Služby — Čištění vzduchových šachet <span class="schema-tag tag-page">Core Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">This is the highest-value page on the site. Someone searching "čištění vzduchových šachet Hodonín" should land here and immediately understand what the service includes and why to book a free inspection. Sections are in on-page order.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Hero + H1</div>
+          <div class="card-val">"Čištění vzduchových šachet s doložitelným výsledkem"</div>
+          <div class="card-note">Dark hero with the primary keyword in the H1, intro copy, dual CTA (Domluvit bezplatnou kontrolu / Zjistit orientační cenu), and three proof badges: Bez vstupu do bytů, Kontrola kamerou, Součást péče o dům.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · Service Overview</div>
+          <div class="card-val">4 service cards</div>
+          <div class="card-note">Čištění vzduchových šachet (Hlavní služba), Kontrola kamerou (Kontrola), and two add-ons — <strong>Dezinfekce</strong> and <strong>Pěnové čištění</strong> (both tagged "Doplňková služba"). Framed as one specialisation, not a general HVAC catalogue.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · What's Included</div>
+          <div class="card-val">7-point checklist + "Pro koho je služba vhodná" card</div>
+          <div class="card-note">Initial assessment, proposed scope, mechanical cleaning, camera inspection per scope, photo documentation, protocol, maintenance recommendation — alongside a card explaining who the service suits and that work is usually done without entering flats.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">4 · How We Clean</div>
+          <div class="card-val">5-step process strip</div>
+          <div class="card-note">Kontrola stavu → Příprava postupu → Samotné čištění → Kontrola výsledku → Předání dokumentace.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">5 · FAQ</div>
+          <div class="card-val">Same 5 Q&amp;As as the homepage</div>
+          <div class="card-note">Reused site-wide for consistency and to reinforce FAQPage schema eligibility.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">6 · Closing CTA Band</div>
+          <div class="card-val">"Chcete vědět, v jakém stavu jsou šachty ve vašem domě?"</div>
+          <div class="card-note">Dark CTA band with dual buttons back to the inspection form and the price calculator. Present on every inner page.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ceník -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>3 &nbsp;Ceník (Pricing) <span class="schema-tag tag-page">Core Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">No fixed price list — deliberately. Every building is different (number of shafts, height, roof access, condition), so the page builds trust by explaining the logic rather than publishing numbers that don't fit most buildings anyway. Sections are in on-page order.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Hero</div>
+          <div class="card-val">"Přesnou cenu určíme podle konkrétního domu"</div>
+          <div class="card-note">Dark hero, dual CTA (Zjistit orientační cenu / Domluvit bezplatnou kontrolu) and three badges: Kontrola zdarma, Nacenění předem, Nic navíc.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · What Affects Price</div>
+          <div class="card-val">3 factor cards</div>
+          <div class="card-note">Rozsah objektu (shafts, size, height), Technické podmínky (roof access, condition, build-up), Doplňkové práce (documentation scope, camera inspection, disinfection).</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · How We Approach Pricing</div>
+          <div class="card-val">6-point checklist + two cards</div>
+          <div class="card-note">A checklist of what goes into a quote, plus "Na čem si zakládáme" (we don't upsell beyond what the building needs) and "Více objektů najednou" (portfolio pricing for managers).</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">4 · Best-Price Guarantee ★ NEW</div>
+          <div class="card-val">"Garance nejlepší ceny — porazíme každou ověřenou nabídku"</div>
+          <div class="card-note">A dedicated, anchored section (#garance, linked from the homepage calculator). Send a written, verifiable, comparable competitor quote and they'll beat it. Includes a "Jak garance funguje" card with a 4-point conditions checklist (written &amp; verifiable, same scope/type, comparable building, shown at enquiry or inspection).</div>
+        </div>
+        <div class="card">
+          <div class="card-title">5 · Closing CTA Band</div>
+          <div class="card-val">Free inspection + calculator</div>
+          <div class="card-note">"Chcete orientačně vědět, co bude cenu ve vašem domě ovlivňovat?" with dual buttons.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- O nás -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>4 &nbsp;O nás (About Page) <span class="schema-tag tag-page">Trust Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">The About page is often the second most-visited page on a local service website. Boards and managers want to know who they're bringing into a building. A real face builds trust fast. Sections are in on-page order.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Hero + Photo (Filip Tuček)</div>
+          <div class="card-val">"Místní specialista pro bytové domy"</div>
+          <div class="card-note">The supplied portrait photo of Filip Tuček is used in the hero (displayed full, uncropped), alongside dual CTA and three badges: Místní firma, Jedna specializace, Vždy s dokumentací.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · Our Approach</div>
+          <div class="card-val">"Nechceme být další obecná firma" + 4 value cards</div>
+          <div class="card-note">Focused specialist, not a generalist — built entirely around ventilation shafts in panel and apartment buildings. Four cards: specialisation, no flat access, local company, clear process &amp; documentation.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · Who's Behind the Brand</div>
+          <div class="card-val">"Kdo za značkou stojí" + "Proč místní firma" card</div>
+          <div class="card-note">Trust-led section naming Filip Tuček and the Čisté šachty brand, with a card on why a local firm beats an anonymous call centre or distant contractor. Reuses the roof hero photo.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">4 · Service Area</div>
+          <div class="card-val">"Kde působíme" — town chips</div>
+          <div class="card-note">Hodonín, Kyjov, Veselí nad Moravou, Strážnice, Rohatec, Dubňany, Bzenec as chips, with an invitation to ask if a town isn't listed.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">5 · Closing CTA Band</div>
+          <div class="card-val">Free inspection + calculator</div>
+          <div class="card-note">"Chcete probrat konkrétní dům nebo více objektů?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pro SVJ -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>5 &nbsp;Pro SVJ <span class="schema-tag tag-page">Audience Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">For SVJ (owners' association) boards, the job isn't just technical — it also has to be approvable and defensible to other owners. This page speaks directly to that. Sections are in on-page order.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Hero</div>
+          <div class="card-val">"Čištění šachet pro SVJ bez zbytečných starostí"</div>
+          <div class="card-note">Roof photo, dual CTA, three badges: Bez vstupu do bytů, Podklady pro výbor, Klid v domě.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · What Boards Deal With</div>
+          <div class="card-val">4 pain-point cards</div>
+          <div class="card-note">Stížnosti na zápach, Nejasný stav šachet, Obavy z komplikací (not wanting to organise flat access), Obhajoba před vlastníky (justifying the decision and spend).</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · What The Board Receives</div>
+          <div class="card-val">5-point checklist</div>
+          <div class="card-note">Upfront explanation of scope, minimally invasive process, photo documentation, protocol of work performed, maintenance recommendation for planning.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">4 · The SVJ Process</div>
+          <div class="card-val">4 steps</div>
+          <div class="card-note">Domluvíme kontrolu → Vysvětlíme návrh řešení → Provedeme práce → Předáme podklady.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">5 · Responsible Management</div>
+          <div class="card-val">"Přístup ke správě domu" + "Proč je to pro SVJ výhodné" card</div>
+          <div class="card-note">Frames regular shaft checks as part of responsible building management and gives the board a documented record for owners and budgeting.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">6 · Closing CTA Band</div>
+          <div class="card-val">Free inspection + calculator</div>
+          <div class="card-note">"Chcete mít jasno, v jakém stavu jsou šachty ve vašem domě?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pro správce -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>6 &nbsp;Pro správce nemovitostí <span class="schema-tag tag-page">Audience Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">Property managers are the highest-value referral channel: one relationship can cover dozens of buildings. This page is built around that multiplier. Sections are in on-page order.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Hero</div>
+          <div class="card-val">"Partner pro správce, kteří potřebují jasný postup a podklady"</div>
+          <div class="card-note">Roof photo, dual CTA, three badges: Věcná komunikace, Podklady pro klienta, Více objektů.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · What Matters To Managers</div>
+          <div class="card-val">4 cards</div>
+          <div class="card-note">Rychlá a přehledná komunikace (one contact point), Jasný rozsah před realizací, Minimální zatížení provozu, Dokumentace po dokončení they can hand to their client.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · How the Partnership Works</div>
+          <div class="card-val">4-step process</div>
+          <div class="card-note">Úvodní posouzení → Doporučení postupu → Realizace → Podklady pro klienta.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">4 · Portfolio Advantage</div>
+          <div class="card-val">4-point checklist + image</div>
+          <div class="card-note">A repeatable process across buildings: same run and output per building, phased work by priority, unified documentation, service focused purely on residential buildings.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">5 · Closing CTA Band</div>
+          <div class="card-val">Free inspection + calculator</div>
+          <div class="card-note">"Spravujete více bytových domů a potřebujete partnera pro další postup?"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kontakt -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>7 &nbsp;Kontakt (Contact Page) <span class="schema-tag tag-page">Core Page</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">Must make it effortless to get in touch. The page reuses the homepage contact panel and adds the service-area list and FAQ. Phone/email/address only display once confirmed — the enquiry form works regardless. Sections are in on-page order.</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">1 · Contact Panel (shared)</div>
+          <div class="card-val">Enquiry form + contact details</div>
+          <div class="card-note">The same "Poptávka bezplatné kontroly" panel used on the homepage, here as the page hero. Form fields: name, phone, email, town/locality, building type, SVJ/manager name, building address, situation. Phone/email/address appear beside it once confirmed; until then it shows fallback copy ("Veřejné kontaktní údaje doplníme při spuštění webu").</div>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · Service Area</div>
+          <div class="card-val">"Kde působíme" — town chips</div>
+          <div class="card-note">Hodonín, Kyjov, Veselí nad Moravou, Strážnice, Rohatec, Dubňany, Bzenec. A written list, not a dedicated page per town.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · FAQ</div>
+          <div class="card-val">Same 5 Q&amp;As as the homepage</div>
+          <div class="card-note">"Než napíšete — odpovědi na časté dotazy," so common questions are answered before someone fills in the form.</div>
+        </div>
+      </div>
+      <div class="warn-box" style="margin-top:14px;"><strong>Note on NAP:</strong> phone, email, address and IČO are currently empty in the site content, so no public NAP block renders yet anywhere on the site — the footer and contact panel show fallback copy. Once confirmed, the same values must be used consistently across the site, Google Business Profile, and directories.</div>
+    </div>
+  </div>
+
+  <!-- Legal -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>8–9 &nbsp;Ochrana soukromí &amp; Cookies <span class="schema-tag tag-page">Compliance</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">Standard GDPR-required pages, linked from the footer. Low SEO priority, but legally necessary given the site collects enquiry-form data.</p>
+      <div class="warn-box" style="margin-top:0;margin-bottom:14px;"><strong>Current status:</strong> both pages are built as styled placeholders (hero + a card + CTA) with a note that the final wording must be added before launch. The real legal text still needs to be supplied/approved and dropped in.</div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Ochrana soukromí</div>
+          <div class="card-val">Placeholder — final privacy policy to be added</div>
+          <div class="card-note">Will cover what enquiry-form data is collected, why, and for how long, plus any analytics in use. Final wording pending legal sign-off.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Cookies</div>
+          <div class="card-val">Placeholder — final cookie notice to be added</div>
+          <div class="card-note">Final text must match the analytics, measurement and marketing scripts actually deployed on the site.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-website -->
+
+<!-- ═══════════════════════════════════════════════════════════ PART 2 ═ -->
+<div id="tab-gbp" class="tab-panel">
+
+  <div class="section-label">Part 2</div>
+  <h2 class="section-title">Google Business Profile — Full Setup, Done For You</h2>
+  <p class="section-desc">Google Business Profile is how you appear in Google Maps and the local "3-pack" — and for Čisté šachty, the searcher is usually an SVJ board member or property manager on a phone. This part lists exactly what we set up and hand over for you as part of the build. It's a one-time setup, not ongoing management.</p>
+
+  <div class="note-box"><strong>What's included in this build:</strong> everything below is created, optimised, and handed over ready to use as a one-time setup. <strong>Not included here:</strong> recurring Google posts, review management, and monthly photo updates.</div>
+
+  <!-- Setup deliverables -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>1 &nbsp;Profile Created, Optimised &amp; Verified <span class="schema-tag tag-gbp">Setup</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">We create (or claim) your Google Business Profile and set it up correctly, end to end — so it's live, verified, and ready to be found. What you get:</p>
+      <ul class="checklist">
+        <li>
+          <div class="chk-icon chk-nice">✓</div>
+          <div><span class="chk-label">Listing created &amp; verified</span>
+            <span class="chk-sub">Profile created or claimed under your business name (Čisté šachty) and taken through Google's verification so it can rank.</span>
+          </div>
+        </li>
+        <li>
+          <div class="chk-icon chk-nice">✓</div>
+          <div><span class="chk-label">Categories set correctly</span>
+            <span class="chk-sub">Primary "Čisticí služba" (Cleaning service) plus a relevant secondary category — a major ranking factor in Maps.</span>
+          </div>
+        </li>
+        <li>
+          <div class="chk-icon chk-nice">✓</div>
+          <div><span class="chk-label">Service area configured</span>
+            <span class="chk-sub">Set up as a Service Area Business covering Hodonín, Kyjov, Veselí nad Moravou, Strážnice, Rohatec, Dubňany, and Bzenec.</span>
+          </div>
+        </li>
+        <li>
+          <div class="chk-icon chk-nice">✓</div>
+          <div><span class="chk-label">Contact &amp; website linked</span>
+            <span class="chk-sub">Phone and cistesachty.cz added and kept consistent with the website and directories (NAP consistency).</span>
+          </div>
+        </li>
+        <li>
+          <div class="chk-icon chk-nice">✓</div>
+          <div><span class="chk-label">Business description written</span>
+            <span class="chk-sub">A ready-to-publish Czech description covering the service, who it's for, and the free inspection.</span>
+          </div>
+        </li>
+        <li>
+          <div class="chk-icon chk-nice">✓</div>
+          <div><span class="chk-label">Hours &amp; services added</span>
+            <span class="chk-sub">Opening hours set once confirmed, plus your services listed: Čištění vzduchových šachet, Kontrola kamerou, Dezinfekce, Fotodokumentace a protokol.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Photos -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>2 &nbsp;Launch Photo Set Uploaded <span class="schema-tag tag-gbp">Photos</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">We upload a starter set of photos at launch — listings with photos get far more clicks and direction requests — using the real job assets already available:</p>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">Profile Photo</div>
+          <div class="card-val">Your logo, correctly sized</div>
+          <div class="card-note">Appears as the thumbnail next to your listing in search results.</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Cover Photo</div>
+          <div class="card-val">Roof-access hero shot</div>
+          <div class="card-note">The same strong hero image used on the website.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Work Photos</div>
+          <div class="card-val">Camera inspection, cleaning, foam, disinfection</div>
+          <div class="card-note">Real site photos already available, uploaded to the profile.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Team Photo</div>
+          <div class="card-val">Filip Tuček</div>
+          <div class="card-note">The same photo used on the About page — a real face builds trust.</div>
+        </div>
+      </div>
+      <div class="note-box" style="margin-top:12px;margin-bottom:0;">Adding fresh job photos over time is part of the ongoing add-on, not this one-time setup.</div>
+    </div>
+  </div>
+
+  <!-- Q&A -->
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>3 &nbsp;Q&amp;A Pre-Seeded <span class="schema-tag tag-gbp">Q&amp;A</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:12px;">We pre-fill the profile's Questions &amp; Answers with the most common questions, answered clearly, so visitors see good information from day one:</p>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Q: Musíte vstupovat do bytů?</div>
+          <div class="card-val">Ve většině případů ne — pracujeme ze střechy nebo společných prostor.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Q: Jak často je nutné šachty čistit?</div>
+          <div class="card-val">Doporučujeme pravidelnou kontrolu, interval navrhneme po prohlídce podle skutečného stavu.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Q: Kolik to stojí?</div>
+          <div class="card-val">Závisí na počtu šachet a velikosti budovy. Zavolejte nám pro bezplatnou kontrolu.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Q: Dostaneme doklad o provedení?</div>
+          <div class="card-val">Ano — fotodokumentaci a podepsaný protokol po každé zakázce.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div><!-- /tab-gbp -->
+
+<!-- ═══════════════════════════════════════════════════════════ PART 3 ═ -->
+<div id="tab-seo" class="tab-panel">
+
+  <div class="note-box">✅ <strong>Part of your build.</strong> On-page SEO is built into the website itself — the title tags and meta descriptions below are already live in the code, and the schema markup will be added as part of the build before launch. This section documents exactly what's implemented on your site.</div>
+
+  <div class="section-label">Part 3</div>
+  <h2 class="section-title">SEO — On-Page Formulas &amp; Schema Markup</h2>
+  <p class="section-desc">Not proposals — this is the on-page SEO built into your site. Title tags and meta descriptions are already written into the live pages; the structured-data schema is prepared and will be added before launch.</p>
+
+  <div class="subsection"><h3>Title Tags &amp; Meta Descriptions (as implemented)</h3></div>
+
+  <div class="formula-box">
+    <div class="formula-header">Homepage</div>
+    <div class="formula-body">
+      <div class="formula-tag">Čištění vzduchových šachet Hodonín | Čisté šachty</div>
+      <div class="formula-example"><strong>Meta description:</strong> Čištění vzduchových a odvětrávacích šachet pro SVJ, bytová družstva a správce nemovitostí v Hodoníně a okolí. Bez vstupu do bytů, s fotodokumentací a protokolem.</div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-header">Služby (core service page)</div>
+    <div class="formula-body">
+      <div class="formula-tag">Čištění vzduchových šachet | Čisté šachty Hodonín</div>
+      <div class="formula-example"><strong>Meta description:</strong> Profesionální čištění vzduchových a odvětrávacích šachet pro bytové domy, SVJ a správce nemovitostí. Bez vstupu do bytů, s fotodokumentací a protokolem.</div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-header">Ceník</div>
+    <div class="formula-body">
+      <div class="formula-tag">Cena čištění vzduchových šachet | Čisté šachty</div>
+      <div class="formula-example"><strong>Meta description:</strong> Co ovlivňuje cenu čištění vzduchových šachet v bytových domech? Přehled faktorů, orientační vysvětlení a možnost bezplatné kontroly objektu.</div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-header">O nás / Kontakt / Pro SVJ / Pro správce</div>
+    <div class="formula-body">
+      <div class="formula-example"><strong>O nás:</strong> O nás | Čisté šachty Hodonín</div>
+      <div class="formula-example"><strong>Kontakt:</strong> Kontakt | Čisté šachty Hodonín</div>
+      <div class="formula-example"><strong>Pro SVJ:</strong> Čištění šachet pro SVJ | Čisté šachty Hodonín</div>
+      <div class="formula-example"><strong>Pro správce:</strong> Čištění šachet pro správce nemovitostí | Čisté šachty</div>
+      <div class="formula-rule">Formula: [Page purpose] | Čisté šachty [Hodonín where relevant]. Consistent brand name on every page.</div>
+    </div>
+  </div>
+
+  <!-- Schema -->
+  <div class="subsection"><h3>Schema Markup — Structured Data (JSON-LD)</h3></div>
+  <p style="font-size:13px;color:#5a6578;margin-bottom:16px;">Part of the build — to be added before launch (not yet in the live code). Placed inside a <code>&lt;script type="application/ld+json"&gt;</code> tag on the relevant pages.</p>
+
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>1 &nbsp;LocalBusiness Schema (Homepage) <span class="schema-tag tag-local">LocalBusiness</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://cistesachty.cz/#organization",
+  "name": "Čisté šachty",
+  "url": "https://cistesachty.cz",
+  "image": "https://cistesachty.cz/images/final.png",
+  "description": "Čisté šachty nabízí profesionální čištění vzduchových a odvětrávacích šachet v panelových a bytových domech pro SVJ, bytová družstva a správce nemovitostí v Hodoníně a okolí.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hodonín",
+    "addressRegion": "Jihomoravský kraj",
+    "addressCountry": "CZ"
+  },
+  "telephone": "REPLACE_WITH_PHONE",
+  "email": "REPLACE_WITH_EMAIL",
+  "areaServed": [
+    { "@type": "City", "name": "Hodonín" },
+    { "@type": "City", "name": "Kyjov" },
+    { "@type": "City", "name": "Veselí nad Moravou" },
+    { "@type": "City", "name": "Strážnice" },
+    { "@type": "City", "name": "Rohatec" },
+    { "@type": "City", "name": "Dubňany" },
+    { "@type": "City", "name": "Bzenec" },
+    { "@type": "AdministrativeArea", "name": "Jihomoravský kraj" }
+  ],
+  "serviceType": [
+    "Čištění vzduchových šachet",
+    "Kontrola kamerou",
+    "Dezinfekce",
+    "Fotodokumentace a protokol"
+  ]
+}</pre>
+      </div>
+      <div class="note-box" style="margin-top:12px;"><strong>Replace:</strong> phone, email, legal entity name once confirmed. No personal "founder" name is included in schema — the site presents the brand, with Filip Tuček's photo/name appearing as page content (About page), not as structured-data ownership.</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>2 &nbsp;FAQPage Schema <span class="schema-tag tag-faq">FAQPage</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <p style="font-size:12.5px;color:#5a6578;margin-bottom:10px;">Matches the 5 FAQ Q&amp;As already written into the homepage and service page content exactly — schema text must match visible page text.</p>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Jak probíhá čištění šachet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nejprve provedeme kontrolu stavu, navrhneme postup a po odsouhlasení zakázky provedeme čištění. Práce probíhá tak, aby byl zásah do provozu domu co nejmenší. Po dokončení předáváme dokumentaci a doporučení další údržby."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Musíte vstupovat do bytů?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ve většině případů ne. Pracujeme ze střechy nebo ze společných prostor, takže není nutné organizovat vstupy do jednotlivých bytů."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co dostaneme po dokončení?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fotodokumentaci, protokol o provedených pracích a doporučení další údržby podle rozsahu zakázky a skutečného stavu šachet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pro koho je služba určena?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nejčastěji pro SVJ, bytová družstva a správce nemovitostí, kteří řeší bytové nebo panelové domy s centrálním odvětráním."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Co ovlivňuje cenu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hlavně počet šachet, velikost a výška objektu, přístup na střechu, míra zanesení a případné doplňkové práce, například kontrola kamerou nebo dezinfekce."
+      }
+    }
+  ]
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="acc-header" onclick="toggleAcc(this)">
+      <span>3 &nbsp;Service Schema — Čištění vzduchových šachet <span class="schema-tag tag-service">Service</span></span>
+      <span class="acc-icon">+</span>
+    </button>
+    <div class="acc-body">
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://cistesachty.cz/sluzby/#service",
+  "serviceType": "Čištění vzduchových a odvětrávacích šachet",
+  "name": "Čištění vzduchových šachet Hodonín",
+  "description": "Profesionální čištění vzduchových a odvětrávacích šachet v bytových a panelových domech pro SVJ, bytová družstva a správce nemovitostí. Bez vstupu do bytů, s fotodokumentací a protokolem.",
+  "url": "https://cistesachty.cz/sluzby",
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": "https://cistesachty.cz/#organization",
+    "name": "Čisté šachty"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Hodonín" },
+    { "@type": "City", "name": "Kyjov" },
+    { "@type": "City", "name": "Veselí nad Moravou" },
+    { "@type": "AdministrativeArea", "name": "Jihomoravský kraj" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Služby čištění vzduchových šachet",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Čištění vzduchových šachet" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Kontrola kamerou" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dezinfekce" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pěnové čištění" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fotodokumentace a protokol" } }
+    ]
+  }
+}</pre>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-seo -->
+
+<!-- ═══════════════════════════════════════════════════════════ PART 5 ═ -->
+<div id="tab-checklist" class="tab-panel">
+
+  <div class="section-label">Part 4</div>
+  <h2 class="section-title">Complete Launch Checklist</h2>
+  <p class="section-desc">Priority legend: &nbsp;<span style="background:#fde8e8;color:#c0392b;font-weight:700;padding:2px 6px;border-radius:3px;font-size:11px;">!</span> = must-have before launch &nbsp; <span style="background:#e8f4ff;color:#1a6dcc;font-weight:700;padding:2px 6px;border-radius:3px;font-size:11px;">B</span> = best practice (within 30 days) &nbsp; <span style="background:#edf7ed;color:#217a36;font-weight:700;padding:2px 6px;border-radius:3px;font-size:11px;">+</span> = ongoing / growth</p>
+
+  <!-- Website -->
+  <div class="subsection"><h3>Website — Technical</h3></div>
+  <ul class="checklist">
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">SSL certificate — HTTPS on all pages</span>
+        <span class="chk-sub">cistesachty.cz must load as https://.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Mobile-responsive — already built and tested</span>
+        <span class="chk-sub">Google indexes the mobile version first.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Phone number clickable on every page (tap-to-call)</span>
+        <span class="chk-sub">Pending: real phone number to be confirmed before this can go live.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Cookie notice / GDPR compliance</span>
+        <span class="chk-sub">Privacy Policy + Cookies pages already scaffolded.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Enquiry form tested and delivering to a real inbox</span>
+        <span class="chk-sub">Form built; needs a real destination email + form-handling service wired up for the standalone build.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">NAP consistent across site, Google, Facebook, directories</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-good">B</div>
+      <div><span class="chk-label">Google Analytics 4 installed</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-good">B</div>
+      <div><span class="chk-label">Google Search Console set up + sitemap submitted</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-good">B</div>
+      <div><span class="chk-label">Open Graph meta tags for correct link previews</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- SEO -->
+  <div class="subsection"><h3>SEO — Content &amp; On-Page</h3></div>
+  <ul class="checklist">
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Unique title tag + meta description on every page</span>
+        <span class="chk-sub">Already implemented — see Part 3.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">One H1 per page containing the primary keyword</span>
+        <span class="chk-sub">Already implemented across all 9 pages.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Descriptive alt text on all images</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-good">B</div>
+      <div><span class="chk-label">LocalBusiness + FAQPage + Service schema added</span>
+        <span class="chk-sub">Not yet in the live code — planned for the standalone build, JSON ready in Part 3.</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-good">B</div>
+      <div><span class="chk-label">Internal links between related pages</span>
+        <span class="chk-sub">Already implemented — service ↔ pricing ↔ contact ↔ audience pages.</span>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Google Business Profile -->
+  <div class="subsection"><h3>Google Business Profile</h3></div>
+  <ul class="checklist">
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Profile created, verified, fully completed</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">Profile photo, cover photo, 5+ additional photos uploaded</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-must">!</div>
+      <div><span class="chk-label">First 3+ reviews gathered before launch</span>
+      </div>
+    </li>
+    <li>
+      <div class="chk-icon chk-nice">+</div>
+      <div><span class="chk-label">Ongoing: respond to every review within 48 hours, 2+ posts/month</span>
+      </div>
+    </li>
+  </ul>
+
+</div><!-- /tab-checklist -->
+
+</div><!-- /content -->
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLb()">
+  <span class="lb-close">×</span>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+function toggleAcc(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+function openLb(img) {
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb').classList.add('open');
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = pre.innerText;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
