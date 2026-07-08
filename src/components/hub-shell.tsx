@@ -45,7 +45,7 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
   return (
     <div style={{ minHeight: "100vh", background: "#F2F5FA", color: "#1A1A1A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <header className="hub-shell-header" style={{ background: "#1A1A1A", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="hub-shell-header-inner" style={{ maxWidth: 1180, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 18, flexWrap: "nowrap", overflowX: "auto", scrollbarWidth: "none" }}>
+        <div className="hub-shell-header-inner" style={{ width: "100%", margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 18, flexWrap: "nowrap", overflowX: "auto", scrollbarWidth: "none" }}>
           <Link className="hub-shell-logo" to="/hub" activeOptions={{ exact: true }} style={{ display: "flex", alignItems: "center", gap: 10, flex: "0 0 auto" }}>
             {HUL_LOGO}
           </Link>
@@ -155,6 +155,25 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
             >
               <Printer size={15} strokeWidth={2.2} />
             </button>
+            <a
+              className="hub-shell-annotate-link"
+              href="https://usepastel.com/link/o8m7rg13/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "rgba(255,255,255,0.86)",
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.14)",
+                fontSize: 13,
+                fontWeight: 700,
+                padding: "8px 14px",
+                borderRadius: 999,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <HubText cs="📍 Okomentovat ↗" en="📍 Annotate ↗" />
+            </a>
             <a
               className="hub-shell-live-link"
               href="https://cistesachty-website-one.vercel.app/"

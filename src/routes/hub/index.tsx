@@ -201,13 +201,13 @@ function HubIndex() {
       </h1>
       <p style={{ fontSize: 15, color: "#5a6b80", maxWidth: 640, lineHeight: 1.7, marginBottom: 36 }}>
         <span className="cs">
-          Ahoj Pavle — tady najdete všechno, co jsme zatím připravili: tržní průzkum,
+          Tady najdete všechno, co jsme zatím připravili: tržní průzkum,
           právní podklady, rozsah webu, směr designu i podklady pro další postup. Níže
           otevřete libovolnou část a pomocí tlačítka <strong>📍 Zanechat komentář</strong>
           můžete na kterékoliv stránce, včetně živého webu, přímo označit, co chcete změnit.
         </span>
         <span className="en">
-          Hi Pavel — this page brings together everything we've prepared so far: the market
+          This page brings together everything we've prepared so far: the market
           research, the legal background, what's included in the build, the design direction,
           and the paperwork to move forward. Click into anything below, and use the{" "}
           <strong>📍 Leave feedback</strong> button on any page (including the live site) to
@@ -215,36 +215,35 @@ function HubIndex() {
         </span>
       </p>
 
-      <a
-        href="https://cistesachty-website-one.vercel.app/"
-        target="_blank"
-        rel="noreferrer"
-        style={{ textDecoration: "none", display: "block", marginBottom: 40 }}
+      <div
+        style={{
+          background: "linear-gradient(135deg, #1A1A1A 0%, #334A73 100%)",
+          borderRadius: 16,
+          padding: "28px 32px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 24,
+          flexWrap: "wrap",
+          marginBottom: 40,
+        }}
       >
-        <div
-          style={{
-            background: "linear-gradient(135deg, #1A1A1A 0%, #334A73 100%)",
-            borderRadius: 16,
-            padding: "28px 32px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 24,
-            flexWrap: "wrap",
-          }}
-        >
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: "#00C9A7", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-              <HubText cs="Živý web" en="Live Site" />
-            </div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: "white", marginBottom: 6 }}>
-              <HubText cs="Podívejte se na aktuální verzi webu" en="See the actual website as it stands today" />
-            </div>
-            <div style={{ fontSize: 13.5, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
-              <HubText cs="Pomocí tlačítka 📍 v rohu můžete okomentovat cokoliv, co chcete upravit." en="Use the 📍 feedback button in the corner to comment on anything you'd like changed." />
-            </div>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 800, color: "#00C9A7", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
+            <HubText cs="Živý web" en="Live Site" />
           </div>
-          <div
+          <div style={{ fontSize: 20, fontWeight: 800, color: "white", marginBottom: 6 }}>
+            <HubText cs="Podívejte se na aktuální verzi webu" en="See the actual website as it stands today" />
+          </div>
+          <div style={{ fontSize: 13.5, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
+            <HubText cs="Otevřete si web a nechte poznámky přímo na stránce přes Pastel." en="Open the site and leave notes directly on the page via Pastel." />
+          </div>
+        </div>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <a
+            href="https://cistesachty-website-one.vercel.app/"
+            target="_blank"
+            rel="noreferrer"
             style={{
               flexShrink: 0,
               fontSize: 14,
@@ -254,12 +253,32 @@ function HubIndex() {
               padding: "12px 22px",
               borderRadius: 999,
               whiteSpace: "nowrap",
+              textDecoration: "none",
             }}
           >
             <HubText cs="Otevřít živý web →" en="Visit live site →" />
-          </div>
+          </a>
+          <a
+            href="https://usepastel.com/link/o8m7rg13/"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              flexShrink: 0,
+              fontSize: 14,
+              fontWeight: 700,
+              color: "white",
+              background: "rgba(255,255,255,0.12)",
+              border: "1px solid rgba(255,255,255,0.24)",
+              padding: "12px 22px",
+              borderRadius: 999,
+              whiteSpace: "nowrap",
+              textDecoration: "none",
+            }}
+          >
+            <HubText cs="📍 Okomentovat →" en="📍 Annotate →" />
+          </a>
         </div>
-      </a>
+      </div>
 
       <Section title={<HubText cs="Průzkum" en="Research" />} description={<HubText cs="Podklady pro strategii — situace na trhu a právní kontext." en="Background that informs the strategy — market landscape and legal context." />}>
         <Card
@@ -285,6 +304,13 @@ function HubIndex() {
           body={<HubText cs="Přesný rozsah webu a jednorázového nastavení Google firemního profilu — jen to, co je skutečně zahrnuté." en="The exact scope of the website and one-time Google Business Profile setup you're getting — trimmed to what's actually included." />}
           cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/docs/offer-scope" }}
+        />
+        <Card
+          n="04"
+          title={<HubText cs="Okomentovat web" en="Annotate The Website" />}
+          body={<HubText cs="Otevřete živý web v nástroji Pastel a nechte poznámky přímo na stránce — klikněte kamkoli, napište komentář a my to uvidíme." en="Open the live site in Pastel and leave notes directly on the page — click anywhere, add a comment, and we'll see it." />}
+          cta={<HubText cs="Otevřít Pastel" en="Open Pastel" />}
+          link={{ to: "https://usepastel.com/link/o8m7rg13/", external: true }}
         />
         <Card
           n="05"
