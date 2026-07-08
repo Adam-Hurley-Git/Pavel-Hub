@@ -163,9 +163,10 @@
     order: 1;
   }
 
-  .hub-shell-live-link {
+  .hub-shell-actions {
     order: 2;
     margin-left: auto;
+    justify-content: flex-end;
   }
 
   .hub-shell-nav {
@@ -182,5 +183,12 @@
 
   .hub-shell-nav a {
     flex: 0 0 auto;
+  }
+}
+
+@media print {
+  .hub-shell-header,
+  .hub-shell-footer {
+    display: none !important;
   }
 }

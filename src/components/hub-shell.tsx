@@ -1,4 +1,6 @@
 import { Link } from "@tanstack/react-router";
+import { Printer } from "lucide-react";
+import { useEffect, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 
 const HUL_LOGO = (
@@ -37,10 +39,23 @@ type HubShellProps = {
 
 export function HubShell({ children, content = "contained", mainStyle }: HubShellProps) {
   const isFullWidth = content === "full";
+  const [language, setLanguage] = useState<"cs" | "en">("cs");
+  const [isLanguageReady, setIsLanguageReady] = useState(false);
+
+  useEffect(() => {
+    setLanguage(window.localStorage.getItem("hub-language") === "en" ? "en" : "cs");
+    setIsLanguageReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isLanguageReady) return;
+    document.body.classList.toggle("lang-en", language === "en");
+    window.localStorage.setItem("hub-language", language);
+  }, [isLanguageReady, language]);
 
   return (
     <div style={{ minHeight: "100vh", background: "#F2F5FA", color: "#1A1A1A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-      <header style={{ background: "#1A1A1A", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <header className="hub-shell-header" style={{ background: "#1A1A1A", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="hub-shell-header-inner" style={{ maxWidth: 1180, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
           <Link className="hub-shell-logo" to="/hub" activeOptions={{ exact: true }} style={{ display: "flex", alignItems: "center", gap: 10 }}>
             {HUL_LOGO}
@@ -84,23 +99,87 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
               </Link>
             ))}
           </nav>
-          <a
-            className="hub-shell-live-link"
-            href="https://cistesachty-website-one.vercel.app/"
-            target="_blank"
-            rel="noreferrer"
+          <div
+            className="hub-shell-actions"
             style={{
-              color: "#334A73",
-              background: "white",
-              fontSize: 13,
-              fontWeight: 700,
-              padding: "8px 14px",
-              borderRadius: 999,
-              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginLeft: "auto",
+              flexWrap: "wrap",
             }}
           >
-            View live site ↗
-          </a>
+            <div
+              aria-label="Language"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: 2,
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.14)",
+                background: "rgba(255,255,255,0.08)",
+              }}
+            >
+              {(["cs", "en"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setLanguage(lang)}
+                  aria-pressed={language === lang}
+                  style={{
+                    border: 0,
+                    cursor: "pointer",
+                    color: language === lang ? "#1A1A1A" : "rgba(255,255,255,0.76)",
+                    background: language === lang ? "#00C9A7" : "transparent",
+                    fontSize: 12,
+                    fontWeight: 800,
+                    padding: "7px 10px",
+                    borderRadius: 999,
+                    lineHeight: 1,
+                  }}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() => window.print()}
+              title="Print current page"
+              aria-label="Print current page"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 34,
+                height: 34,
+                border: "1px solid rgba(255,255,255,0.14)",
+                borderRadius: 999,
+                color: "rgba(255,255,255,0.86)",
+                background: "rgba(255,255,255,0.08)",
+                cursor: "pointer",
+              }}
+            >
+              <Printer size={15} strokeWidth={2.2} />
+            </button>
+            <a
+              className="hub-shell-live-link"
+              href="https://cistesachty-website-one.vercel.app/"
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "#334A73",
+                background: "white",
+                fontSize: 13,
+                fontWeight: 700,
+                padding: "8px 14px",
+                borderRadius: 999,
+                textDecoration: "none",
+              }}
+            >
+              View live site ↗
+            </a>
+          </div>
         </div>
       </header>
 
@@ -116,7 +195,7 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
         {children}
       </main>
 
-      <footer style={{ borderTop: "1px solid #E7E9ED", padding: "24px", textAlign: "center", fontSize: 12, color: "#76787B" }}>
+      <footer className="hub-shell-footer" style={{ borderTop: "1px solid #E7E9ED", padding: "24px", textAlign: "center", fontSize: 12, color: "#76787B" }}>
         Prepared by Help Us Launch for Čisté šachty · Client review hub
       </footer>
     </div>

@@ -241,6 +241,12 @@ body:has(.hub-doc-theme) > div > footer {
   color: #FFFFFF !important;
 }
 
+.hub-doc-market-report .lang-group,
+.hub-doc-market-report .btnPrint,
+.hub-doc-legal-requirements .nav-actions {
+  display: none !important;
+}
+
 .hub-doc-theme :is(.card, .comp-card, .icp-card, .opp-card, .accordion, .acc-header, .acc-body, .step, .stat-box, .fine-box, .meta-box, .progress-summary, .section, .formula-box, .inspo-card, .swatch, .check-card, .hero-card) {
   border-radius: 16px !important;
   border-color: var(--hub-line) !important;
