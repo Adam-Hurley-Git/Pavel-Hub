@@ -157,21 +157,12 @@
 @media (max-width: 760px) {
   .hub-shell-header-inner {
     gap: 12px !important;
-  }
-
-  .hub-shell-logo {
-    order: 1;
-  }
-
-  .hub-shell-actions {
-    order: 2;
-    margin-left: auto;
-    justify-content: flex-end;
+    padding-inline: 16px !important;
   }
 
   .hub-shell-nav {
-    order: 3;
-    width: 100%;
+    flex: 0 0 auto !important;
+    min-width: auto !important;
     flex-wrap: nowrap !important;
     overflow-x: auto !important;
     scrollbar-width: none;
@@ -184,6 +175,11 @@
   .hub-shell-nav a {
     flex: 0 0 auto;
   }
+}
+
+.hub-shell-header-inner::-webkit-scrollbar,
+.hub-shell-nav::-webkit-scrollbar {
+  display: none;
 }
 
 @media print {

@@ -56,8 +56,8 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
   return (
     <div style={{ minHeight: "100vh", background: "#F2F5FA", color: "#1A1A1A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <header className="hub-shell-header" style={{ background: "#1A1A1A", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="hub-shell-header-inner" style={{ maxWidth: 1180, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-          <Link className="hub-shell-logo" to="/hub" activeOptions={{ exact: true }} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div className="hub-shell-header-inner" style={{ maxWidth: 1180, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 18, flexWrap: "nowrap", overflowX: "auto", scrollbarWidth: "none" }}>
+          <Link className="hub-shell-logo" to="/hub" activeOptions={{ exact: true }} style={{ display: "flex", alignItems: "center", gap: 10, flex: "0 0 auto" }}>
             {HUL_LOGO}
           </Link>
           <nav
@@ -66,7 +66,9 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
               display: "flex",
               alignItems: "center",
               gap: 4,
-              flexWrap: "wrap",
+              flex: "1 1 auto",
+              flexWrap: "nowrap",
+              minWidth: 0,
               position: "static",
               top: "auto",
               zIndex: "auto",
@@ -74,8 +76,9 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
               padding: 0,
               background: "transparent",
               borderBottom: "none",
-              overflow: "visible",
-              whiteSpace: "normal",
+              overflowX: "auto",
+              whiteSpace: "nowrap",
+              scrollbarWidth: "none",
               backdropFilter: "none",
             }}
           >
@@ -106,7 +109,8 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
               alignItems: "center",
               gap: 8,
               marginLeft: "auto",
-              flexWrap: "wrap",
+              flex: "0 0 auto",
+              flexWrap: "nowrap",
             }}
           >
             <div
@@ -175,6 +179,7 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
                 padding: "8px 14px",
                 borderRadius: 999,
                 textDecoration: "none",
+                whiteSpace: "nowrap",
               }}
             >
               View live site ↗
