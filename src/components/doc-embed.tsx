@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 // with inline <script> setup code) directly into the current page instead of
 // an <iframe> — so it's a real part of this document and the site-wide
 // FeedbackWidget overlay can anchor comments to its actual elements.
-export function DocEmbed({ html }: { html: string }) {
+export function DocEmbed({ html, className, styleOverride }: { html: string; className?: string; styleOverride?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -17,7 +17,9 @@ export function DocEmbed({ html }: { html: string }) {
       return "";
     });
 
-    container.innerHTML = markup;
+    container.innerHTML = styleOverride
+      ? `${markup}<style data-hub-doc-theme>${styleOverride}</style>`
+      : markup;
 
     const injected = scripts.map((code) => {
       const script = document.createElement("script");
@@ -30,7 +32,7 @@ export function DocEmbed({ html }: { html: string }) {
       injected.forEach((s) => s.remove());
       container.innerHTML = "";
     };
-  }, [html]);
+  }, [html, styleOverride]);
 
-  return <div ref={containerRef} />;
+  return <div className={className} ref={containerRef} />;
 }

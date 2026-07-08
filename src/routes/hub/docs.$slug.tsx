@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { DocEmbed } from "@/components/doc-embed";
+import { HUB_DOC_THEME_CSS } from "@/components/doc-embed-theme";
 import { HubShell } from "@/components/hub-shell";
 
 import marketReportHtml from "@/content/docs/market-report.html?raw";
@@ -7,18 +8,20 @@ import legalRequirementsHtml from "@/content/docs/legal-requirements.html?raw";
 import offerScopeHtml from "@/content/docs/offer-scope.html?raw";
 import intakeFormHtml from "@/content/docs/intake-form.html?raw";
 
-const DOCS: Record<string, { title: string; html: string; background: string; color: string }> = {
+const DOCS: Record<string, { title: string; html: string; background: string; color: string; hubTheme?: boolean }> = {
   "market-report": {
     title: "Market & Competitor Report",
     html: marketReportHtml,
-    background: "#f4f8fb",
-    color: "#16202e",
+    background: "#F2F5FA",
+    color: "#1A1A1A",
+    hubTheme: true,
   },
   "legal-requirements": {
     title: "Legal Requirements",
     html: legalRequirementsHtml,
-    background: "#0f1117",
-    color: "#e2e6f0",
+    background: "#F2F5FA",
+    color: "#1A1A1A",
+    hubTheme: true,
   },
   "offer-scope": {
     title: "What's In The Build",
@@ -29,8 +32,9 @@ const DOCS: Record<string, { title: string; html: string; background: string; co
   "intake-form": {
     title: "Intake Form",
     html: intakeFormHtml,
-    background: "linear-gradient(180deg, #f9f5ef 0%, #f6f0e6 100%)",
-    color: "#0f2b1f",
+    background: "#F2F5FA",
+    color: "#1A1A1A",
+    hubTheme: true,
   },
 };
 
@@ -52,7 +56,11 @@ function DocViewer() {
 
   return (
     <HubShell content="full" mainStyle={{ background: doc.background, color: doc.color }}>
-      <DocEmbed html={doc.html} />
+      <DocEmbed
+        className={doc.hubTheme ? `hub-doc-theme hub-doc-${slug}` : undefined}
+        html={doc.html}
+        styleOverride={doc.hubTheme ? HUB_DOC_THEME_CSS : undefined}
+      />
     </HubShell>
   );
 }
