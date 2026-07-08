@@ -154,6 +154,18 @@
   box-shadow: var(--shadow-soft);
 }
 
+.en {
+  display: none !important;
+}
+
+body.lang-en .cs {
+  display: none !important;
+}
+
+body.lang-en .en {
+  display: revert !important;
+}
+
 @media (max-width: 760px) {
   .hub-shell-header-inner {
     gap: 12px !important;

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Printer } from "lucide-react";
-import { useEffect, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
+import { useHubLanguage } from "@/lib/language";
 
 const HUL_LOGO = (
   <svg width="130" height="22" viewBox="0 0 338 57" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Help Us Launch">
@@ -21,14 +21,14 @@ const HUL_LOGO = (
 );
 
 const NAV_ITEMS = [
-  { to: "/hub", label: "Overview" },
-  { to: "/hub/docs/market-report", label: "Market Report" },
-  { to: "/hub/docs/legal-requirements", label: "Legal" },
-  { to: "/hub/docs/offer-scope", label: "Build Scope" },
-  { to: "/hub/docs/intake-form", label: "Intake" },
-  { to: "/hub/direction", label: "Design Direction" },
-  { to: "/hub/services", label: "Other Services" },
-  { to: "/hub/contract", label: "Contract & Pricing" },
+  { to: "/hub", label: { cs: "Přehled", en: "Overview" } },
+  { to: "/hub/docs/market-report", label: { cs: "Tržní report", en: "Market Report" } },
+  { to: "/hub/docs/legal-requirements", label: { cs: "Právní", en: "Legal" } },
+  { to: "/hub/docs/offer-scope", label: { cs: "Rozsah webu", en: "Build Scope" } },
+  { to: "/hub/docs/intake-form", label: { cs: "Podklady", en: "Intake" } },
+  { to: "/hub/direction", label: { cs: "Design", en: "Design Direction" } },
+  { to: "/hub/services", label: { cs: "Další služby", en: "Other Services" } },
+  { to: "/hub/contract", label: { cs: "Cena & smlouva", en: "Contract & Pricing" } },
 ];
 
 type HubShellProps = {
@@ -39,19 +39,8 @@ type HubShellProps = {
 
 export function HubShell({ children, content = "contained", mainStyle }: HubShellProps) {
   const isFullWidth = content === "full";
-  const [language, setLanguage] = useState<"cs" | "en">("cs");
-  const [isLanguageReady, setIsLanguageReady] = useState(false);
-
-  useEffect(() => {
-    setLanguage(window.localStorage.getItem("hub-language") === "en" ? "en" : "cs");
-    setIsLanguageReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isLanguageReady) return;
-    document.body.classList.toggle("lang-en", language === "en");
-    window.localStorage.setItem("hub-language", language);
-  }, [isLanguageReady, language]);
+  const [language, setLanguage] = useHubLanguage();
+  const printLabel = language === "en" ? "Print current page" : "Vytisknout aktuální stránku";
 
   return (
     <div style={{ minHeight: "100vh", background: "#F2F5FA", color: "#1A1A1A", fontFamily: "system-ui, -apple-system, sans-serif" }}>
@@ -98,7 +87,7 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
                 }}
                 activeProps={{ style: { color: "#1A1A1A", background: "#00C9A7" } }}
               >
-                {item.label}
+                <HubText cs={item.label.cs} en={item.label.en} />
               </Link>
             ))}
           </nav>
@@ -149,8 +138,8 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
             <button
               type="button"
               onClick={() => window.print()}
-              title="Print current page"
-              aria-label="Print current page"
+              title={printLabel}
+              aria-label={printLabel}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -182,7 +171,7 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
                 whiteSpace: "nowrap",
               }}
             >
-              View live site ↗
+              <HubText cs="Zobrazit web ↗" en="View live site ↗" />
             </a>
           </div>
         </div>
@@ -201,9 +190,18 @@ export function HubShell({ children, content = "contained", mainStyle }: HubShel
       </main>
 
       <footer className="hub-shell-footer" style={{ borderTop: "1px solid #E7E9ED", padding: "24px", textAlign: "center", fontSize: 12, color: "#76787B" }}>
-        Prepared by Help Us Launch for Čisté šachty · Client review hub
+        <HubText cs="Připravil Help Us Launch pro Čisté šachty · Klientský kontrolní hub" en="Prepared by Help Us Launch for Čisté šachty · Client review hub" />
       </footer>
     </div>
+  );
+}
+
+export function HubText({ cs, en }: { cs: ReactNode; en: ReactNode }) {
+  return (
+    <>
+      <span className="cs">{cs}</span>
+      <span className="en">{en}</span>
+    </>
   );
 }
 

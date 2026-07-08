@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { HubKicker, HubShell } from "@/components/hub-shell";
+import { HubKicker, HubShell, HubText } from "@/components/hub-shell";
 
 export const Route = createFileRoute("/hub/")({
   head: () => ({
@@ -19,10 +19,10 @@ function Card({
   cta = "Open",
 }: {
   n: string;
-  title: string;
-  body: string;
+  title: ReactNode;
+  body: ReactNode;
   link: CardLink;
-  cta?: string;
+  cta?: ReactNode;
 }) {
   const inner = (
     <div
@@ -63,10 +63,10 @@ function Card({
 
 function IntakeFormCard() {
   const missing = [
-    "Phone & public email",
-    "IČO / DIČ & billing address",
-    "Real pricing",
-    "At least one real reference",
+    { cs: "Telefon a veřejný e-mail", en: "Phone & public email" },
+    { cs: "IČO / DIČ a fakturační adresa", en: "IČO / DIČ & billing address" },
+    { cs: "Reálné ceny", en: "Real pricing" },
+    { cs: "Alespoň jedna skutečná reference", en: "At least one real reference" },
   ];
   return (
     <Link to="/hub/docs/intake-form" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
@@ -88,23 +88,27 @@ function IntakeFormCard() {
           </div>
           <div>
             <div style={{ fontSize: 11, fontWeight: 800, color: "#9A6A00", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-              Action needed from you
+              <HubText cs="Potřebujeme od vás" en="Action needed from you" />
             </div>
-            <div style={{ fontSize: 17, fontWeight: 700, color: "#334A73" }}>Intake Form</div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: "#334A73" }}>
+              <HubText cs="Formulář s podklady" en="Intake Form" />
+            </div>
           </div>
         </div>
         <p style={{ fontSize: 13.5, color: "#76787B", lineHeight: 1.6, margin: 0 }}>
-          Most of the site copy is already drafted. A handful of hard facts still need to come directly from you:
+          <HubText cs="Většina textů webu je už připravená. Pár tvrdých faktů ale musí přijít přímo od vás:" en="Most of the site copy is already drafted. A handful of hard facts still need to come directly from you:" />
         </p>
         <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "grid", gap: 7, flex: 1 }}>
           {missing.map((m) => (
-            <li key={m} style={{ display: "flex", gap: 8, fontSize: 13, color: "#7a5a10", alignItems: "flex-start" }}>
+            <li key={m.en} style={{ display: "flex", gap: 8, fontSize: 13, color: "#7a5a10", alignItems: "flex-start" }}>
               <span style={{ color: "#D99A2B", fontWeight: 700 }}>○</span>
-              {m}
+              <HubText cs={m.cs} en={m.en} />
             </li>
           ))}
         </ul>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "#B8720A", marginTop: 4 }}>Fill in the form →</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#B8720A", marginTop: 4 }}>
+          <HubText cs="Vyplnit formulář →" en="Fill in the form →" />
+        </div>
       </div>
     </Link>
   );
@@ -112,12 +116,12 @@ function IntakeFormCard() {
 
 function OtherServicesCard() {
   const services = [
-    "Hosting & Maintenance",
-    "SEO Content",
-    "Regional Pages",
-    "Photo Enhancement",
-    "Lead-Gen Pipeline",
-    "Protocol Templates",
+    { cs: "Hosting & údržba", en: "Hosting & Maintenance" },
+    { cs: "SEO obsah", en: "SEO Content" },
+    { cs: "Regionální stránky", en: "Regional Pages" },
+    { cs: "Úprava fotek", en: "Photo Enhancement" },
+    { cs: "Lead-gen pipeline", en: "Lead-Gen Pipeline" },
+    { cs: "Šablony protokolů", en: "Protocol Templates" },
   ];
   return (
     <Link to="/hub/services" style={{ textDecoration: "none", color: "inherit", display: "block", height: "100%" }}>
@@ -134,25 +138,29 @@ function OtherServicesCard() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-          <div style={{ fontSize: 17, fontWeight: 700, color: "#334A73" }}>Other Services</div>
+          <div style={{ fontSize: 17, fontWeight: 700, color: "#334A73" }}>
+            <HubText cs="Další služby" en="Other Services" />
+          </div>
           <span style={{ fontSize: 10.5, fontWeight: 700, color: "#00806c", background: "rgba(0,201,167,0.12)", padding: "3px 10px", borderRadius: 999, whiteSpace: "nowrap" }}>
-            Optional add-ons
+            <HubText cs="Volitelné doplňky" en="Optional add-ons" />
           </span>
         </div>
         <p style={{ fontSize: 13.5, color: "#76787B", lineHeight: 1.6, margin: 0 }}>
-          Extra things we could add beyond the current build — pick and choose, now, later, or not at all:
+          <HubText cs="Věci navíc, které můžeme přidat nad rámec současného webu — můžete si vybrat teď, později, nebo vůbec:" en="Extra things we could add beyond the current build — pick and choose, now, later, or not at all:" />
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, flex: 1, alignContent: "flex-start" }}>
           {services.map((s) => (
             <span
-              key={s}
+              key={s.en}
               style={{ fontSize: 12, fontWeight: 600, color: "#334A73", background: "#F2F5FA", border: "1px solid #DEE8F7", padding: "5px 12px", borderRadius: 999 }}
             >
-              {s}
+              <HubText cs={s.cs} en={s.en} />
             </span>
           ))}
         </div>
-        <div style={{ fontSize: 13, fontWeight: 700, color: "#EA3959", marginTop: 4 }}>Browse add-ons →</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "#EA3959", marginTop: 4 }}>
+          <HubText cs="Prohlédnout doplňky →" en="Browse add-ons →" />
+        </div>
       </div>
     </Link>
   );
@@ -163,8 +171,8 @@ function Section({
   description,
   children,
 }: {
-  title: string;
-  description?: string;
+  title: ReactNode;
+  description?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -187,16 +195,24 @@ function Section({
 function HubIndex() {
   return (
     <HubShell>
-      <HubKicker>Client Review Hub</HubKicker>
+      <HubKicker><HubText cs="Klientský kontrolní hub" en="Client Review Hub" /></HubKicker>
       <h1 style={{ fontSize: 34, fontWeight: 800, color: "#1A1A1A", marginBottom: 10, letterSpacing: "-0.02em" }}>
-        Čisté šachty — everything in one place
+        <HubText cs="Čisté šachty — vše na jednom místě" en="Čisté šachty — everything in one place" />
       </h1>
       <p style={{ fontSize: 15, color: "#5a6b80", maxWidth: 640, lineHeight: 1.7, marginBottom: 36 }}>
-        Hi Pavel — this page brings together everything we've prepared so far: the market
-        research, the legal background, what's included in the build, the design direction,
-        and the paperwork to move forward. Click into anything below, and use the{" "}
-        <strong>📍 Leave feedback</strong> button on any page (including the live site) to
-        comment directly on what you'd like changed.
+        <span className="cs">
+          Ahoj Pavle — tady najdete všechno, co jsme zatím připravili: tržní průzkum,
+          právní podklady, rozsah webu, směr designu i podklady pro další postup. Níže
+          otevřete libovolnou část a pomocí tlačítka <strong>📍 Zanechat komentář</strong>
+          můžete na kterékoliv stránce, včetně živého webu, přímo označit, co chcete změnit.
+        </span>
+        <span className="en">
+          Hi Pavel — this page brings together everything we've prepared so far: the market
+          research, the legal background, what's included in the build, the design direction,
+          and the paperwork to move forward. Click into anything below, and use the{" "}
+          <strong>📍 Leave feedback</strong> button on any page (including the live site) to
+          comment directly on what you'd like changed.
+        </span>
       </p>
 
       <a
@@ -219,13 +235,13 @@ function HubIndex() {
         >
           <div>
             <div style={{ fontSize: 11, fontWeight: 800, color: "#00C9A7", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-              Live Site
+              <HubText cs="Živý web" en="Live Site" />
             </div>
             <div style={{ fontSize: 20, fontWeight: 800, color: "white", marginBottom: 6 }}>
-              See the actual website as it stands today
+              <HubText cs="Podívejte se na aktuální verzi webu" en="See the actual website as it stands today" />
             </div>
             <div style={{ fontSize: 13.5, color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}>
-              Use the 📍 feedback button in the corner to comment on anything you'd like changed.
+              <HubText cs="Pomocí tlačítka 📍 v rohu můžete okomentovat cokoliv, co chcete upravit." en="Use the 📍 feedback button in the corner to comment on anything you'd like changed." />
             </div>
           </div>
           <div
@@ -240,43 +256,48 @@ function HubIndex() {
               whiteSpace: "nowrap",
             }}
           >
-            Visit live site →
+            <HubText cs="Otevřít živý web →" en="Visit live site →" />
           </div>
         </div>
       </a>
 
-      <Section title="Research" description="Background that informs the strategy — market landscape and legal context.">
+      <Section title={<HubText cs="Průzkum" en="Research" />} description={<HubText cs="Podklady pro strategii — situace na trhu a právní kontext." en="Background that informs the strategy — market landscape and legal context." />}>
         <Card
           n="01"
-          title="Market & Competitor Report"
-          body="A full breakdown of your local market, competitors, their ads and SEO, and where the opportunities are."
+          title={<HubText cs="Tržní a konkurenční report" en="Market & Competitor Report" />}
+          body={<HubText cs="Kompletní rozbor lokálního trhu, konkurentů, jejich reklam a SEO, včetně hlavních příležitostí." en="A full breakdown of your local market, competitors, their ads and SEO, and where the opportunities are." />}
+          cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/docs/market-report" }}
         />
         <Card
           n="02"
-          title="Legal Requirements"
-          body="What SVJ/BD boards are legally required to do around shaft cleaning, and how that plays into your marketing."
+          title={<HubText cs="Právní požadavky" en="Legal Requirements" />}
+          body={<HubText cs="Co musí výbory SVJ/BD právně řešit kolem čištění šachet a jak se to propisuje do marketingu." en="What SVJ/BD boards are legally required to do around shaft cleaning, and how that plays into your marketing." />}
+          cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/docs/legal-requirements" }}
         />
       </Section>
 
-      <Section title="Website & Service" description="What's actually being built and delivered for you.">
+      <Section title={<HubText cs="Web & služba" en="Website & Service" />} description={<HubText cs="Co se pro vás konkrétně staví a dodává." en="What's actually being built and delivered for you." />}>
         <Card
           n="03"
-          title="What's In The Build"
-          body="The exact scope of the website and one-time Google Business Profile setup you're getting — trimmed to what's actually included."
+          title={<HubText cs="Co je v rozsahu" en="What's In The Build" />}
+          body={<HubText cs="Přesný rozsah webu a jednorázového nastavení Google firemního profilu — jen to, co je skutečně zahrnuté." en="The exact scope of the website and one-time Google Business Profile setup you're getting — trimmed to what's actually included." />}
+          cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/docs/offer-scope" }}
         />
         <Card
           n="05"
-          title="Design Direction"
-          body="The colours, fonts and logo direction we've chosen so far, plus a link to review the live site and leave comments."
+          title={<HubText cs="Směr designu" en="Design Direction" />}
+          body={<HubText cs="Barvy, písma a směr loga, které jsme zatím zvolili, plus odkaz na živý web pro komentáře." en="The colours, fonts and logo direction we've chosen so far, plus a link to review the live site and leave comments." />}
+          cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/direction" }}
         />
         <Card
           n="07"
-          title="Contract & Pricing"
-          body="The one-off build price and a clear overview of what is included. Invoice and payment details will be confirmed in person."
+          title={<HubText cs="Cena & smlouva" en="Contract & Pricing" />}
+          body={<HubText cs="Jednorázová cena za web a jasný přehled toho, co je zahrnuté. Fakturu a platbu potvrdíme osobně." en="The one-off build price and a clear overview of what is included. Invoice and payment details will be confirmed in person." />}
+          cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/contract" }}
         />
       </Section>

@@ -247,6 +247,28 @@ body:has(.hub-doc-theme) > div > footer {
   display: none !important;
 }
 
+.hub-doc-theme .en {
+  display: none !important;
+}
+
+body.lang-en .hub-doc-theme .cs {
+  display: none !important;
+}
+
+body.lang-en .hub-doc-theme .en {
+  display: revert !important;
+}
+
+body.lang-en .hub-doc-legal-requirements li.en,
+body.lang-en .hub-doc-legal-requirements a.en {
+  display: flex !important;
+}
+
+body.lang-en .hub-doc-market-report nav.toc a.en,
+body.lang-en .hub-doc-theme :is(.badge.en, .pill.en, .chip.en) {
+  display: inline-flex !important;
+}
+
 .hub-doc-theme :is(.card, .comp-card, .icp-card, .opp-card, .accordion, .acc-header, .acc-body, .step, .stat-box, .fine-box, .meta-box, .progress-summary, .section, .formula-box, .inspo-card, .swatch, .check-card, .hero-card) {
   border-radius: 16px !important;
   border-color: var(--hub-line) !important;

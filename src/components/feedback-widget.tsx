@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { supabase, type Annotation } from "../lib/supabase";
+import { useHubLanguage } from "../lib/language";
 
 const NAME_KEY = "hub_feedback_author";
 
@@ -102,6 +103,7 @@ function resolvePinPosition(pin: Annotation): { x: number; y: number } {
 
 export function FeedbackWidget() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [language] = useHubLanguage();
   const [active, setActive] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [pins, setPins] = useState<Annotation[]>([]);
@@ -216,6 +218,26 @@ export function FeedbackWidget() {
   }
 
   const openCount = pins.filter((p) => p.status === "open").length;
+  const copy = {
+    commentTitle: language === "en" ? "Leave a comment" : "Zanechat komentář",
+    namePlaceholder: language === "en" ? "Your name" : "Vaše jméno",
+    textareaPlaceholder: language === "en" ? "What would you like changed here?" : "Co byste zde chtěli změnit?",
+    cancel: language === "en" ? "Cancel" : "Zrušit",
+    post: language === "en" ? "Post" : "Odeslat",
+    anonymous: language === "en" ? "Anonymous" : "Anonym",
+    close: language === "en" ? "Close" : "Zavřít",
+    markResolved: language === "en" ? "Mark resolved" : "Označit jako vyřešené",
+    commentsTitle: language === "en" ? "Comments on this page" : "Komentáře na této stránce",
+    noComments:
+      language === "en"
+        ? "No comments yet. Turn on feedback mode and click anywhere to leave one."
+        : "Zatím žádné komentáře. Zapněte režim zpětné vazby a klikněte kamkoli do stránky.",
+    open: language === "en" ? "open" : "otevřené",
+    comments: language === "en" ? "Comments" : "Komentáře",
+    resolved: language === "en" ? "resolved" : "vyřešeno",
+    done: language === "en" ? "✕ Done marking" : "✕ Hotovo",
+    leave: language === "en" ? "📍 Leave feedback" : "📍 Zanechat komentář",
+  };
 
   if (!supabase) return null;
 
@@ -289,12 +311,12 @@ export function FeedbackWidget() {
               }}
             >
               <div style={{ fontSize: 12, fontWeight: 700, color: "#334A73", marginBottom: 6 }}>
-                Leave a comment
+                {copy.commentTitle}
               </div>
               <input
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
-                placeholder="Your name"
+                placeholder={copy.namePlaceholder}
                 style={{
                   width: "100%",
                   fontSize: 13,
@@ -308,7 +330,7 @@ export function FeedbackWidget() {
                 autoFocus
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                placeholder="What would you like changed here?"
+                placeholder={copy.textareaPlaceholder}
                 rows={3}
                 style={{
                   width: "100%",
@@ -332,7 +354,7 @@ export function FeedbackWidget() {
                     cursor: "pointer",
                   }}
                 >
-                  Cancel
+                  {copy.cancel}
                 </button>
                 <button
                   onClick={submitDraft}
@@ -348,7 +370,7 @@ export function FeedbackWidget() {
                     cursor: "pointer",
                   }}
                 >
-                  Post
+                  {copy.post}
                 </button>
               </div>
             </div>
@@ -378,7 +400,7 @@ export function FeedbackWidget() {
                   }}
                 >
                   <div style={{ fontWeight: 700, color: "#334A73", marginBottom: 4 }}>
-                    {pin.author_name || "Anonymous"}
+                    {pin.author_name || copy.anonymous}
                   </div>
                   <div style={{ color: "#1A1A1A", marginBottom: 10 }}>{pin.comment}</div>
                   <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
@@ -393,7 +415,7 @@ export function FeedbackWidget() {
                         cursor: "pointer",
                       }}
                     >
-                      Close
+                      {copy.close}
                     </button>
                     {pin.status === "open" && (
                       <button
@@ -409,7 +431,7 @@ export function FeedbackWidget() {
                           cursor: "pointer",
                         }}
                       >
-                        Mark resolved
+                        {copy.markResolved}
                       </button>
                     )}
                   </div>
@@ -445,11 +467,11 @@ export function FeedbackWidget() {
             }}
           >
             <div style={{ fontWeight: 700, fontSize: 13, color: "#334A73", marginBottom: 8 }}>
-              Comments on this page
+              {copy.commentsTitle}
             </div>
             {pins.length === 0 && (
               <div style={{ fontSize: 12, color: "#76787B" }}>
-                No comments yet. Turn on feedback mode and click anywhere to leave one.
+                {copy.noComments}
               </div>
             )}
             {pins.map((pin, i) => (
@@ -463,8 +485,8 @@ export function FeedbackWidget() {
                 }}
               >
                 <strong style={{ color: "#EA3959" }}>#{i + 1}</strong>{" "}
-                <strong>{pin.author_name || "Anonymous"}</strong>: {pin.comment}
-                {pin.status === "resolved" && <span> · resolved</span>}
+                <strong>{pin.author_name || copy.anonymous}</strong>: {pin.comment}
+                {pin.status === "resolved" && <span> · {copy.resolved}</span>}
               </div>
             ))}
           </div>
@@ -485,7 +507,7 @@ export function FeedbackWidget() {
               boxShadow: "0 4px 14px rgba(13,30,55,.15)",
             }}
           >
-            💬 {pins.length > 0 ? `${openCount} open` : "Comments"}
+            💬 {pins.length > 0 ? `${openCount} ${copy.open}` : copy.comments}
           </button>
           <button
             onClick={() => {
@@ -506,7 +528,7 @@ export function FeedbackWidget() {
               boxShadow: "0 4px 14px rgba(13,30,55,.25)",
             }}
           >
-            {active ? "✕ Done marking" : "📍 Leave feedback"}
+            {active ? copy.done : copy.leave}
           </button>
         </div>
       </div>
