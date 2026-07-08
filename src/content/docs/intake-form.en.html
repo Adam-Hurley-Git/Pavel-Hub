@@ -1,0 +1,376 @@
+<style>
+  :root {
+    --forest: #22563d;
+    --forest-light: #4a9b70;
+    --cream: #f6f0e6;
+    --ink: #0f2b1f;
+    --muted: #5c6d63;
+    --card: rgba(255,255,255,.94);
+    --border: rgba(34,86,61,.14);
+    --hero: radial-gradient(circle at top left, #427a5d 0%, #163327 45%, #0f2b1f 100%);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Inter", system-ui, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f9f5ef 0%, var(--cream) 100%); }
+  .page { max-width: 1100px; margin: 0 auto; padding: clamp(18px, 3vw, 34px) clamp(16px, 2.4vw, 24px) 100px; display: grid; gap: 18px; }
+  .hero { border-radius: 28px; padding: clamp(28px, 4vw, 42px); color: var(--cream); background: var(--hero); display: grid; gap: 20px; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.18fr) minmax(280px, .72fr); gap: 28px; align-items: start; }
+  .eyebrow, .section-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #4a9b70; }
+  .hero .eyebrow { color: #9bd0b3; }
+  h1, h2, h3 { margin: 0; font-family: "Fraunces", Georgia, serif; font-weight: 500; }
+  h1 { font-size: clamp(2.4rem, 4.6vw, 4.5rem); line-height: 1; max-width: 10ch; }
+  h2 { font-size: 1.75rem; color: var(--forest); }
+  h3 { font-size: 1.2rem; color: var(--forest); }
+  p { line-height: 1.7; }
+  .hero p { color: rgba(246,240,230,.82); max-width: 62ch; }
+  .hero-card, .section, .progress-summary, .meta-box { border: 1px solid var(--border); border-radius: 20px; background: var(--card); padding: 22px; box-shadow: 0 10px 30px rgba(15,43,31,.08); }
+  .hero-card { color: rgba(246,240,230,.82); background: rgba(246,240,230,.08); border-color: rgba(246,240,230,.12); box-shadow: none; }
+  .hero-card h2 { color: var(--cream); font-size: 1.35rem; }
+  .hero-card ul, .progress-summary ul { margin: 10px 0 0; padding-left: 18px; }
+  .meta-bar, .progress-grid, .subgrid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .toolbar { position: sticky; top: 14px; z-index: 20; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; padding: 16px; border-radius: 20px; background: rgba(246,240,230,.94); border: 1px solid var(--border); backdrop-filter: blur(10px); }
+  .toolbar-links, .toolbar-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .toolbar a, .chip { text-decoration: none; padding: 8px 12px; border-radius: 999px; font-size: .84rem; font-weight: 700; color: var(--forest); background: rgba(74,155,112,.08); border: 1px solid rgba(74,155,112,.14); }
+  .btn { border: 0; border-radius: 999px; padding: 9px 14px; font-weight: 800; cursor: pointer; }
+  .btn-secondary { background: var(--forest); color: var(--cream); }
+  .btn-ghost { background: transparent; color: var(--forest); border: 1px solid var(--border); }
+  .section { display: grid; gap: 18px; }
+  .section-head { display: grid; gap: 8px; }
+  .status-badge { display: inline-flex; align-items: center; margin-left: 8px; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-family: Inter, system-ui, sans-serif; font-weight: 800; letter-spacing: 0; text-transform: none; }
+  .status-need { background: #fde8e8; color: #b7322c; }
+  .status-have { background: #e8f6ee; color: #217a36; }
+  .status-partial { background: #fff5d8; color: #9a6a00; }
+  .field { display: grid; gap: 7px; }
+  label { font-weight: 800; color: var(--forest); }
+  input, textarea, select { width: 100%; border: 1px solid var(--border); border-radius: 12px; padding: 11px 12px; font: inherit; background: white; color: var(--ink); }
+  textarea { min-height: 92px; resize: vertical; }
+  .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .check-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 14px; background: white; font-weight: 700; }
+  .check-card input { width: auto; }
+  .callout { border-left: 4px solid var(--forest-light); background: rgba(74,155,112,.08); border-radius: 0 14px 14px 0; padding: 14px 16px; }
+  .footer-note { color: var(--muted); text-align: center; font-size: 13px; }
+  @media (max-width: 760px) { .hero-grid, .meta-bar, .progress-grid, .subgrid-2 { grid-template-columns: 1fr; } .toolbar { position: static; } }
+  @media print { .toolbar, .footer-note { display: none; } body { background: white; } .page { padding: 0; } }
+</style>
+
+<div class="page">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Čisté šachty · website inputs</div>
+        <h1>Fill in what is still missing</h1>
+        <p>The website for <strong>Čisté šachty</strong> is built and running as a test version. Copy, structure, pricing logic, service positioning and the legal pages are ready enough to review. This form only asks for facts we cannot safely invent.</p>
+      </div>
+      <div class="hero-card">
+        <h2>How to read this form</h2>
+        <ul>
+          <li><strong>Green items</strong> mean we already have a draft; please check and correct it.</li>
+          <li><strong>Red items</strong> must come from you before launch.</li>
+          <li><strong>Yellow items</strong> are decisions, access, or details to confirm.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="progress-summary">
+    <h2>What we have vs. what we still need</h2>
+    <p>Short overview before the detailed form below.</p>
+    <div class="progress-grid">
+      <div>
+        <h3>✅ Already prepared</h3>
+        <ul>
+          <li>Website structure, page copy and conversion flow</li>
+          <li>Service positioning for SVJ, BD and property managers</li>
+          <li>Pricing page and estimate calculator structure</li>
+          <li>Draft Google Business Profile setup plan</li>
+        </ul>
+      </div>
+      <div>
+        <h3>🔴 Needed from you</h3>
+        <ul>
+          <li>Public phone number and e-mail</li>
+          <li>IČO, legal form and registered / operating address</li>
+          <li>Real references and permission to publish photos</li>
+          <li>Google Business Profile access or confirmation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="meta-bar">
+    <div class="meta-box field">
+      <label for="client-name">Company / project</label>
+      <input id="client-name" name="Firma / projekt" type="text" value="Čisté šachty" />
+    </div>
+    <div class="meta-box field">
+      <label for="contact-name">Person shown on the website</label>
+      <input id="contact-name" name="Osoba na webu" type="text" value="Filip Tuček" />
+    </div>
+    <div class="meta-box field">
+      <label for="fill-date">Date filled in</label>
+      <input id="fill-date" name="Datum vyplnění" type="date" />
+    </div>
+    <div class="meta-box field">
+      <label for="filled-by">Filled in by</label>
+      <input id="filled-by" name="Vyplnil" type="text" placeholder="Filip / Pavel" />
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-links">
+      <a href="#contact-company">Contact & company</a>
+      <a href="#about-filip">About Filip</a>
+      <a href="#services">Services</a>
+      <a href="#forms">Forms</a>
+      <a href="#guarantee">Guarantee</a>
+      <a href="#references">Proof</a>
+      <a href="#gbp">Google Profile</a>
+      <a href="#legal">Legal</a>
+      <a href="#area">Area & notes</a>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-secondary" type="button" onclick="downloadSummary()">Download answers</button>
+      <button class="btn btn-secondary" type="button" onclick="window.print()">Print / PDF</button>
+      <button class="btn btn-ghost" type="button" onclick="clearForm()">Clear</button>
+    </div>
+  </div>
+
+  <form id="intake-form">
+    <section class="section" id="contact-company">
+      <div class="section-head">
+        <div class="section-kicker">01 · Contact and company details <span class="status-badge status-need">🔴 Needed from you</span></div>
+        <h2>Hard facts we cannot invent</h2>
+        <p>These details are needed for the footer, contact page, legal pages and consistent NAP across the website, Google Business Profile and directories.</p>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="phone">Public phone <span class="status-badge status-need">missing</span></label><input id="phone" name="Telefon" type="tel" placeholder="+420 ..." /></div>
+        <div class="field"><label for="email">Public e-mail <span class="status-badge status-have">✅ draft</span></label><input id="email" name="Veřejný e-mail" type="email" value="info@cistesachty.cz" /></div>
+        <div class="field"><label for="hours">Availability <span class="status-badge status-need">missing</span></label><input id="hours" name="Dostupnost" type="text" placeholder="e.g. Mon-Fri 8:00-17:00" /></div>
+        <div class="field"><label for="ico">IČO <span class="status-badge status-have">✅ we have it</span></label><input id="ico" name="IČO" type="text" /></div>
+        <div class="field"><label for="legal-form">Legal form <span class="status-badge status-have">✅ draft</span></label><input id="legal-form" name="Právní forma" type="text" placeholder="OSVČ / s.r.o. / other" /></div>
+        <div class="field"><label for="address">Registered / operating address <span class="status-badge status-need">missing</span></label><input id="address" name="Adresa" type="text" /></div>
+      </div>
+    </section>
+
+    <section class="section" id="about-filip">
+      <div class="section-head">
+        <div class="section-kicker">02 · About Filip <span class="status-badge status-partial">🟡 Details missing</span></div>
+        <h2>A few details for the About page</h2>
+        <p>SVJ boards and property managers need to know who will arrive at the building and why they can trust him.</p>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="years">How long have you been doing this service? <span class="status-badge status-need">missing</span></label><input id="years" name="Roky praxe" type="text" placeholder="e.g. 1 year" /></div>
+        <div class="field"><label for="photo-ok">Is the portrait photo on the site OK? <span class="status-badge status-have">✅ photo exists</span></label><select id="photo-ok" name="Fotka OK"><option>Yes, use it</option><option>Use a different photo</option><option>Do not show a portrait</option></select></div>
+      </div>
+      <div class="field"><label for="bio">Short personal introduction <span class="status-badge status-need">missing</span></label><textarea id="bio" name="Krátké představení" placeholder="A few sentences in your own words. We will polish the wording; we only need the substance."></textarea></div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-head">
+        <div class="section-kicker">03 · Services and process <span class="status-badge status-have">✅ Draft ready</span></div>
+        <h2>Does the website describe your services correctly?</h2>
+        <p>This is already live in draft form. Please only correct what is inaccurate, misleading, or too strong.</p>
+      </div>
+      <div class="check-grid">
+        <label class="check-card"><input type="checkbox" name="Služba: čištění šachet" checked /><span>Ventilation shaft cleaning (main service)</span></label>
+        <label class="check-card"><input type="checkbox" name="Služba: kontrola kamerou" checked /><span>Camera inspection</span></label>
+        <label class="check-card"><input type="checkbox" name="Služba: dezinfekce" checked /><span>Disinfection</span></label>
+        <label class="check-card"><input type="checkbox" name="Služba: pěnové čištění" checked /><span>Foam cleaning</span></label>
+        <label class="check-card"><input type="checkbox" name="Služba: fotodokumentace a protokol" checked /><span>Photo documentation and protocol</span></label>
+        <label class="check-card"><input type="checkbox" name="Služba: doporučení údržby" checked /><span>Maintenance recommendation</span></label>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="services-add">Do you offer anything not listed? <span class="status-badge status-need">optional</span></label><textarea id="services-add" name="Další služby" placeholder="Anything extra we should add to the website."></textarea></div>
+        <div class="field"><label for="not-provided">What do you not do or not want to promise? <span class="status-badge status-need">missing</span></label><textarea id="not-provided" name="Co neděláme" placeholder="e.g. damper inspections without certification, family houses, standard apartment ductwork."></textarea></div>
+      </div>
+      <div class="field"><label for="process-during">How does the work actually happen on site? <span class="status-badge status-have">✅ draft</span></label><textarea id="process-during" name="Postup prací"></textarea></div>
+      <div class="field"><label for="protocol-emphasis">Should the website put less emphasis on documentation/protocols for SVJ and managers? <span class="status-badge status-partial">🟡 your decision</span></label><select id="protocol-emphasis" name="Důraz na protokol"><option>No, keep the documentation angle strong</option><option>Use it, but less prominently</option><option>Remove most of this angle</option></select></div>
+      <div class="field"><label for="process-after">What exactly should the client receive after completion? <span class="status-badge status-partial">🟡 clarify</span></label><textarea id="process-after" name="Výstup pro klienta" placeholder="Possible draft: photo documentation, protocol of completed work, and maintenance recommendation."></textarea></div>
+    </section>
+
+    <section class="section" id="forms">
+      <div class="section-head">
+        <div class="section-kicker">04 · Website forms <span class="status-badge status-partial">🟡 Confirm fields</span></div>
+        <h2>What should the calculator and enquiry form ask?</h2>
+      </div>
+      <div class="check-grid">
+        <label class="check-card"><input type="checkbox" name="Kalkulačka: počet šachet" checked /><span>Number of shafts</span></label>
+        <label class="check-card"><input type="checkbox" name="Kalkulačka: počet podlaží" checked /><span>Number of floors</span></label>
+        <label class="check-card"><input type="checkbox" name="Kalkulačka: přístup na střechu" checked /><span>Roof access</span></label>
+        <label class="check-card"><input type="checkbox" name="Kalkulačka: kontrola kamerou" checked /><span>Camera inspection add-on</span></label>
+        <label class="check-card"><input type="checkbox" name="Kalkulačka: dezinfekce" checked /><span>Disinfection add-on</span></label>
+        <label class="check-card"><input type="checkbox" name="Poptávka: typ objektu" checked /><span>Building type (SVJ / BD / manager)</span></label>
+        <label class="check-card"><input type="checkbox" name="Poptávka: název SVJ" checked /><span>SVJ / manager name</span></label>
+        <label class="check-card"><input type="checkbox" name="Poptávka: adresa domu" checked /><span>Building address</span></label>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="calc-changes">Calculator changes <span class="status-badge status-need">optional</span></label><textarea id="calc-changes" name="Změny kalkulačky" placeholder="Add/remove/rename any calculator fields."></textarea></div>
+        <div class="field"><label for="form-changes">Enquiry form changes <span class="status-badge status-need">optional</span></label><textarea id="form-changes" name="Změny poptávky" placeholder="Add/remove/rename any enquiry fields."></textarea></div>
+      </div>
+    </section>
+
+    <section class="section" id="guarantee">
+      <div class="section-head">
+        <div class="section-kicker">05 · Best-price guarantee <span class="status-badge status-need">🔴 Confirm</span></div>
+        <h2>Do you want to publicly promise that you will beat any verified quote?</h2>
+        <p>The draft website includes a best-price guarantee. This should only stay if you are comfortable with the commercial promise and conditions.</p>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="guarantee">Keep the guarantee on the website? <span class="status-badge status-need">missing</span></label><select id="guarantee" name="Garance nejlepší ceny"><option>Yes, keep it</option><option>Maybe, with limits</option><option>No, remove it</option></select></div>
+        <div class="field"><label for="guarantee-note">Conditions or limits <span class="status-badge status-need">optional</span></label><textarea id="guarantee-note" name="Podmínky garance" placeholder="e.g. comparable building and scope, only within a service radius, written offer required."></textarea></div>
+      </div>
+    </section>
+
+    <section class="section" id="references">
+      <div class="section-head">
+        <div class="section-kicker">06 · References and photos <span class="status-badge status-need">🔴 Replace samples</span></div>
+        <h2>This is where real proof belongs</h2>
+        <p>Current testimonials and before/after sections are sample placeholders. They must be replaced with real references, approved names, and real photos before final launch.</p>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="ref1">Reference 1 <span class="status-badge status-need">to fill</span></label><textarea id="ref1" name="Reference 1" placeholder="Building / SVJ / location · who gives it · what you solved · permission to publish"></textarea></div>
+        <div class="field"><label for="ref2">Reference 2 <span class="status-badge status-need">to fill</span></label><textarea id="ref2" name="Reference 2"></textarea></div>
+        <div class="field"><label for="ref3">Reference 3 <span class="status-badge status-need">to fill</span></label><textarea id="ref3" name="Reference 3"></textarea></div>
+        <div class="field"><label for="beforeafter">Can you provide before/after photos from a real job? <span class="status-badge status-need">missing</span></label><textarea id="beforeafter" name="Fotky před a po"></textarea></div>
+      </div>
+      <div class="field"><label for="trust-claims">What can you truthfully prove about experience? <span class="status-badge status-need">missing</span></label><textarea id="trust-claims" name="Doložitelné zkušenosti" placeholder="e.g. number of completed jobs, years in region, types of buildings."></textarea></div>
+    </section>
+
+    <section class="section" id="gbp">
+      <div class="section-head">
+        <div class="section-kicker">07 · Google Business Profile <span class="status-badge status-partial">🟡 Access needed</span></div>
+        <h2>Profile setup in Google Maps and local search</h2>
+        <p>The build includes one-time setup and optimisation of your Google Business Profile. We need to know whether one already exists and how access/verification should be handled.</p>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="gbp-exists">Do you already have a company profile on Google / Maps? <span class="status-badge status-need">missing</span></label><select id="gbp-exists" name="Google profil existuje"><option>I do not know</option><option>Yes</option><option>No</option></select></div>
+        <div class="field"><label for="gbp-access">Can you give us access for setup / verification? <span class="status-badge status-need">missing</span></label><select id="gbp-access" name="Přístup ke Google profilu"><option>Yes</option><option>Need help with access</option><option>Not yet</option></select></div>
+      </div>
+    </section>
+
+    <section class="section" id="legal">
+      <div class="section-head">
+        <div class="section-kicker">08 · Legal pages <span class="status-badge status-need">🔴 Needed from you</span></div>
+        <h2>Privacy policy and cookies</h2>
+        <p>The website collects form data, so it needs privacy and cookies pages. The wording depends on the confirmed company details and data controller.</p>
+      </div>
+      <div class="subgrid-2">
+        <div class="field"><label for="privacy-same">Who is the data controller? <span class="status-badge status-need">missing</span></label><select id="privacy-same" name="Správce osobních údajů"><option>Same as company details above</option><option>Different controller</option></select></div>
+        <div class="field"><label for="privacy-contact">Privacy contact if different from public e-mail <span class="status-badge status-need">optional</span></label><input id="privacy-contact" name="Kontakt pro ochranu údajů" type="email" /></div>
+      </div>
+      <div class="field"><label for="legal-note">Should we prepare the legal text for you, or will you provide it? <span class="status-badge status-need">missing</span></label><textarea id="legal-note" name="Právní poznámka"></textarea></div>
+    </section>
+
+    <section class="section" id="area">
+      <div class="section-head">
+        <div class="section-kicker">09 · Service area and notes <span class="status-badge status-have">✅ Draft</span></div>
+        <h2>Where you operate and anything else the website should reflect</h2>
+      </div>
+      <div class="field"><label for="service-area">Where do you realistically serve jobs? <span class="status-badge status-have">✅ draft</span></label><textarea id="service-area" name="Oblast působení">Hodonín, Kyjov, Veselí nad Moravou, Strážnice, Rohatec, Dubňany, Bzenec — potentially the whole Hodonín district and South Moravian Region.</textarea></div>
+      <div class="subgrid-2">
+        <div class="field"><label for="phrases-avoid">Words or promises to avoid <span class="status-badge status-need">optional</span></label><textarea id="phrases-avoid" name="Čemu se vyhnout" placeholder="Terms you do not want to use, promises you do not want to make."></textarea></div>
+        <div class="field"><label for="notes">Other notes for the final website <span class="status-badge status-need">optional</span></label><textarea id="notes" name="Další poznámky" placeholder="Anything else that should be mentioned or avoided."></textarea></div>
+      </div>
+      <div class="callout"><strong>When you are done</strong><p>Click <em>Download answers</em> or <em>Print / PDF</em>. This creates a clear handover document we can use to finish the website without more guessing.</p></div>
+    </section>
+  </form>
+
+  <p class="footer-note">The form saves continuously in this browser on this device. Use export or PDF to hand it over.</p>
+</div>
+
+<script>
+  const form = document.getElementById("intake-form");
+  const storageKey = "ciste-sachty-client-intake-v2-en";
+
+  function setToday() {
+    const dateInput = document.getElementById("fill-date");
+    if (dateInput && !dateInput.value) dateInput.value = new Date().toISOString().split("T")[0];
+  }
+
+  function getFields() {
+    return Array.from(document.querySelectorAll("input, textarea, select"));
+  }
+
+  function saveDraft() {
+    const data = {};
+    getFields().forEach((field) => {
+      if (!field.name) return;
+      if (field.type === "checkbox") {
+        data[field.name] = field.checked;
+        return;
+      }
+      data[field.name] = field.value;
+    });
+    localStorage.setItem(storageKey, JSON.stringify(data));
+  }
+
+  function restoreDraft() {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      getFields().forEach((field) => {
+        if (!field.name || !(field.name in data)) return;
+        if (field.type === "checkbox") {
+          field.checked = Boolean(data[field.name]);
+          return;
+        }
+        field.value = data[field.name];
+      });
+    } catch (error) {
+      console.error("Could not restore the saved form.", error);
+    }
+  }
+
+  function buildSummary() {
+    const lines = ["Input questionnaire - Čisté šachty", ""];
+    document.querySelectorAll(".section").forEach((section) => {
+      const title = section.querySelector("h2")?.textContent?.trim();
+      if (title) {
+        lines.push(title);
+        lines.push("-".repeat(title.length));
+      }
+      section.querySelectorAll("input, textarea, select").forEach((field) => {
+        if (!field.name) return;
+        if (field.type === "checkbox" && !field.checked) return;
+        const value = field.type === "checkbox" ? "Yes" : field.value.trim();
+        if (!value) return;
+        lines.push(field.name + ": " + value);
+      });
+      lines.push("");
+    });
+    return lines.join("\n");
+  }
+
+  function downloadSummary() {
+    const content = buildSummary();
+    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "ciste-sachty-inputs-en.txt";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function clearForm() {
+    const confirmed = window.confirm("Clear all answers in this form?");
+    if (!confirmed) return;
+    getFields().forEach((field) => {
+      if (field.type === "checkbox") {
+        field.checked = false;
+        return;
+      }
+      field.value = "";
+    });
+    localStorage.removeItem(storageKey);
+    setToday();
+  }
+
+  setToday();
+  restoreDraft();
+  form.addEventListener("input", saveDraft);
+  window.downloadSummary = downloadSummary;
+  window.clearForm = clearForm;
+</script>

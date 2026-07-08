@@ -1,0 +1,213 @@
+<style>
+  :root { color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8f9fb; color: #1a1d23; font-size: 14px; line-height: 1.6; }
+  .site-header { background: #1a3a2a; color: #fff; padding: 20px 28px 16px; border-bottom: 3px solid #4caf7d; }
+  .site-header h1 { font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+  .site-header p { font-size: 12px; color: #a0c4b0; margin-top: 3px; }
+  .tab-nav { display: flex; overflow-x: auto; background: #214835; padding: 0 28px; scrollbar-width: none; }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-btn { background: none; border: none; color: #82b89a; font-size: 12.5px; font-weight: 600; letter-spacing: .3px; padding: 11px 16px; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; }
+  .tab-btn:hover { color: #e0f0e8; }
+  .tab-btn.active { color: #fff; border-bottom-color: #4caf7d; }
+  .content { padding: 24px 28px; max-width: 1100px; margin-inline: auto; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #4caf7d; margin-bottom: 6px; }
+  h2.section-title { font-size: 17px; font-weight: 700; color: #1a3a2a; margin-bottom: 4px; }
+  .section-desc { font-size: 13px; color: #5a6578; margin-bottom: 20px; }
+  .accordion { margin-bottom: 10px; border: 1px solid #dde3ed; border-radius: 8px; overflow: hidden; background: #fff; }
+  .acc-header { background: #fff; padding: 13px 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-weight: 600; font-size: 13.5px; color: #1a3a2a; border: none; width: 100%; text-align: left; }
+  .acc-header.open { background: #f0f7f3; border-bottom: 1px solid #dde3ed; }
+  .acc-icon { font-size: 16px; color: #4caf7d; flex-shrink: 0; }
+  .acc-body { display: none; background: #fff; padding: 16px; }
+  .acc-body.open { display: block; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .card { background: #fff; border: 1px solid #dde3ed; border-radius: 8px; padding: 14px 16px; }
+  .card-title { font-size: 12px; font-weight: 700; color: #1a3a2a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
+  .card-val { font-size: 13px; color: #3a4f70; }
+  .card-note, .chk-sub { font-size: 11.5px; color: #6a7485; margin-top: 4px; display: block; }
+  .note-box { border-left: 3px solid #4caf7d; background: #f0faf4; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12.5px; color: #1a3a2a; margin-bottom: 14px; }
+  .warn-box { border-left: 3px solid #e67e22; background: #fef9ee; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12.5px; color: #5a3800; margin-bottom: 14px; }
+  .sm-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .sm-table th { background: #1a3a2a; color: #e0f0e8; font-weight: 600; padding: 9px 12px; text-align: left; }
+  .sm-table td { padding: 8px 12px; border-bottom: 1px solid #eef1f7; vertical-align: top; }
+  .subsection { margin-top: 22px; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 2px solid #eef1f7; }
+  .subsection h3 { font-size: 14px; font-weight: 700; color: #1a3a2a; }
+  .checklist { list-style: none; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f2f7; font-size: 13px; }
+  .chk-icon { flex-shrink: 0; width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px; background: #fde8e8; color: #c0392b; }
+  .chk-good { background: #e8f4ff; color: #1a6dcc; }
+  .chk-nice { background: #edf7ed; color: #217a36; }
+  .chk-label { font-weight: 600; color: #1a3a2a; }
+  @media (max-width: 640px) { .content { padding-inline: 16px; } .site-header, .tab-nav { padding-inline: 16px; } }
+</style>
+
+<div class="site-header">
+  <h1>Čisté šachty — nabídka webu a Google Business Profile</h1>
+  <p>Hodonín, Česká republika · Čištění vzduchových šachet pro SVJ, BD a správce nemovitostí · cistesachty.cz</p>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" data-tab="website">Část 1 — Web ✅ v rozsahu</button>
+  <button class="tab-btn" data-tab="gbp">Část 2 — Google Business Profile ✅ v rozsahu</button>
+  <button class="tab-btn" data-tab="seo">Část 3 — SEO ✅ v rozsahu</button>
+  <button class="tab-btn" data-tab="checklist">Část 4 — Checklist</button>
+</div>
+
+<div class="content">
+  <div style="margin-bottom:28px;padding:20px 22px;background:#fff;border:1px solid #dde3ed;border-radius:10px;">
+    <div class="section-label">Potvrzený rozsah</div>
+    <h2 class="section-title" style="margin-bottom:10px">Co skutečně dostáváte</h2>
+    <p class="section-desc" style="margin-bottom:16px">Tento dokument popisuje celý rozsah dodávky. Hlavními výstupy jsou nový web pro Čisté šachty a jednorázové založení nebo převzetí Google Business Profile. On-page SEO je součástí webu. Pravidelné příspěvky, správa recenzí, hostingový retainer nebo další obsah jsou samostatné doplňky mimo tuto cenu.</p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">✅ 1. Web</div>
+        <div class="card-val">Kompletní web na míru podle devítistránkové struktury: homepage, hlavní služba, ceník, stránky pro SVJ a správce, O nás, kontakt a právní stránky. Součástí je orientační kalkulačka ceny a komunikace garance nejlepší ceny.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">✅ 2. Google Business Profile</div>
+        <div class="card-val">Jednorázové nastavení profilu: založení nebo převzetí, ověření, kategorie, oblast působení, kontakty, popis, služby, úvodní fotografie, Q&amp;A a konzistence s katalogy. Pravidelná správa není součástí této dodávky.</div>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:#8a96a8;margin-top:14px;margin-bottom:0">Další možnosti najdete na stránce <strong>Další služby</strong>; přesnou cenu a platební rámec najdete na stránce <strong>Cena &amp; smlouva</strong>.</p>
+  </div>
+
+  <div class="tab-panel active" id="tab-website">
+    <div class="section-label">Část 1</div>
+    <h2 class="section-title">Web — stránky, struktura a obsah</h2>
+    <p class="section-desc">Čisté šachty čistí vzduchové a odvětrávací šachty v bytových a panelových domech. Nejde o kanalizaci ani odpady. Hlavními kupujícími jsou výbory SVJ, BD a správcovské firmy, ne jednotliví majitelé rodinných domů. Web je záměrně úzký: jedna jasná služba, vysvětlená srozumitelně, s oddělenými stránkami pro jednotlivé rozhodovatele.</p>
+
+    <table class="sm-table" style="margin-bottom:20px">
+      <thead><tr><th>#</th><th>Stránka</th><th>URL</th><th>Účel</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Domů</strong></td><td>/</td><td>Rychlé vysvětlení služby, důvěra, kalkulačka, hlavní konverze</td></tr>
+        <tr><td>2</td><td><strong>Čištění šachet</strong></td><td>/cisteni-sachet</td><td>Detail hlavní služby a postupu</td></tr>
+        <tr><td>3</td><td><strong>Ceník</strong></td><td>/cenik</td><td>Faktory ceny, orientační odhad, garance nejlepší ceny</td></tr>
+        <tr><td>4</td><td><strong>O nás</strong></td><td>/o-nas</td><td>Lokální důvěra, Filip Tuček, proč vybrat místní firmu</td></tr>
+        <tr><td>5</td><td><strong>Pro SVJ</strong></td><td>/pro-svj</td><td>Argumenty pro výbor SVJ a BD</td></tr>
+        <tr><td>6</td><td><strong>Pro správce</strong></td><td>/pro-spravce</td><td>Argumenty pro správce více objektů</td></tr>
+        <tr><td>7</td><td><strong>Kontakt</strong></td><td>/kontakt</td><td>Poptávka bezplatné kontroly, kontaktní údaje, oblast působení</td></tr>
+        <tr><td>8</td><td><strong>Ochrana soukromí</strong></td><td>/ochrana-soukromi</td><td>GDPR text po doplnění firemních údajů</td></tr>
+        <tr><td>9</td><td><strong>Cookies</strong></td><td>/cookies</td><td>Informace o cookies a měření</td></tr>
+      </tbody>
+    </table>
+
+    <div class="accordion">
+      <button class="acc-header open" onclick="toggleAcc(this)"><span>1 · Homepage</span><span class="acc-icon">+</span></button>
+      <div class="acc-body open">
+        <div class="card-grid">
+          <div class="card"><div class="card-title">Hero sekce</div><div class="card-val">„Čisté šachty, klidný dům a jasný protokol pro výbor.“ Reálná fotka ze zakázky, CTA „Domluvit bezplatnou kontrolu“ a „Zjistit orientační cenu“.</div></div>
+          <div class="card"><div class="card-title">Kalkulačka ceny</div><div class="card-val">Orientační odhad pro počet šachet, podlaží, přístup na střechu a doplňky. Výsledek je prezentovaný jako rozsah, ne závazná nabídka.</div></div>
+          <div class="card"><div class="card-title">Důvěra a dokumentace</div><div class="card-val">Bez vstupu do bytů, fotodokumentace a protokol, lokální firma. Reference jsou zatím placeholdery a musí se nahradit skutečnými souhlasy.</div></div>
+          <div class="card"><div class="card-title">Kontakt</div><div class="card-val">Poptávkový formulář sbírá jméno, telefon, e-mail, město, typ objektu, název SVJ/správce, adresu domu a popis situace.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>2 · Hlavní služba</span><span class="acc-icon">+</span></button>
+      <div class="acc-body">
+        <div class="card-grid">
+          <div class="card"><div class="card-title">Co je zahrnuté</div><div class="card-val">Vyčištění vzduchových šachet, kontrola kamerou podle potřeby, dezinfekce/pěnové čištění jako doplňky a předání jasných podkladů.</div></div>
+          <div class="card"><div class="card-title">Postup</div><div class="card-val">Domluva kontroly → posouzení domu → čištění → fotodokumentace a doporučení další údržby.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>3 · Ceník</span><span class="acc-icon">+</span></button>
+      <div class="acc-body">
+        <div class="card-grid">
+          <div class="card"><div class="card-title">Co ovlivňuje cenu</div><div class="card-val">Počet šachet, počet podlaží, přístup na střechu, míra znečištění, kamera, dezinfekce a pěnové čištění.</div></div>
+          <div class="card"><div class="card-title">Garance nejlepší ceny</div><div class="card-val">Text je připravený, ale před spuštěním je potřeba potvrdit, zda ji chcete veřejně slíbit a za jakých podmínek.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>4 · O nás, Pro SVJ, Pro správce, Kontakt a právní stránky</span><span class="acc-icon">+</span></button>
+      <div class="acc-body">
+        <div class="card-grid">
+          <div class="card"><div class="card-title">O nás</div><div class="card-val">Lokální značka Čisté šachty, Filip Tuček, férová komunikace a praktický přístup k bytovým domům.</div></div>
+          <div class="card"><div class="card-title">Pro SVJ</div><div class="card-val">Důraz na schvalitelnost pro výbor, dokumentaci, klid v domě a postup bez zbytečných starostí.</div></div>
+          <div class="card"><div class="card-title">Pro správce</div><div class="card-val">Více objektů, věcná komunikace, podklady pro klienta a plánovatelný servis.</div></div>
+          <div class="card"><div class="card-title">Kontakt a právní stránky</div><div class="card-val">Kontaktní údaje, IČO, sídlo, GDPR správce a cookies se doplní po potvrzení klientem.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="warn-box"><strong>Poznámka k NAP:</strong> telefon, e-mail, adresa a IČO musí být po potvrzení stejné na webu, v Google Business Profile i v katalozích.</div>
+  </div>
+
+  <div class="tab-panel" id="tab-gbp">
+    <div class="section-label">Část 2</div>
+    <h2 class="section-title">Google Business Profile — jednorázové nastavení</h2>
+    <p class="section-desc">Google Business Profile rozhoduje o viditelnosti v Google Maps a lokálním „3-packu“. Pro Čisté šachty bude hledající často člen výboru SVJ nebo správce na telefonu, proto musí být profil kompletní, konzistentní a důvěryhodný.</p>
+    <div class="note-box"><strong>V rozsahu:</strong> profil založíme nebo převezmeme, nastavíme, ověříme a předáme. <strong>Mimo rozsah:</strong> opakované příspěvky, průběžné odpovědi na recenze a měsíční doplňování fotek.</div>
+    <ul class="checklist">
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Profil založen nebo převzat pod názvem Čisté šachty</span><span class="chk-sub">Včetně ověření podle procesu Google.</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Kategorie a oblast působení</span><span class="chk-sub">Servisní oblast: Hodonín, Kyjov, Veselí nad Moravou, Strážnice, Rohatec, Dubňany, Bzenec a okolí.</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Kontakty, web, služby a otevírací doba</span><span class="chk-sub">Doplní se po potvrzení veřejného telefonu, e-mailu a adresy.</span></div></li>
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">Fotky a Q&amp;A</span><span class="chk-sub">Profilová fotka, cover, fotky ze zakázek a základní otázky/odpovědi.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="tab-panel" id="tab-seo">
+    <div class="section-label">Část 3</div>
+    <h2 class="section-title">SEO — on-page vzorce a strukturovaná data</h2>
+    <p class="section-desc">SEO je součástí webu. Nejde o samostatný měsíční obsahový balíček. Každá stránka má jasný H1, title tag, meta description, interní odkazy a lokální záměr.</p>
+    <div class="subsection"><h3>Termíny, které nepřekládáme</h3></div>
+    <p class="section-desc">Čisté šachty, SVJ, BD, IČO, DIČ, Google Business Profile, NAP, GA4, Google Search Console, LocalBusiness, FAQPage, Service schema, ČSN EN 15780, Firmy.cz a URL adresy zůstávají jako přesné značky nebo odborné zkratky podle kontextu.</p>
+    <div class="subsection"><h3>Title tag vzorce</h3></div>
+    <div class="card-grid">
+      <div class="card"><div class="card-title">Homepage</div><div class="card-val">Čištění vzduchových šachet Hodonín | Čisté šachty</div></div>
+      <div class="card"><div class="card-title">Služba</div><div class="card-val">Čištění vzduchových šachet | Čisté šachty Hodonín</div></div>
+      <div class="card"><div class="card-title">Ceník</div><div class="card-val">Cena čištění vzduchových šachet | Čisté šachty</div></div>
+      <div class="card"><div class="card-title">Pro SVJ</div><div class="card-val">Čištění šachet pro SVJ | Čisté šachty Hodonín</div></div>
+    </div>
+    <div class="note-box">JSON-LD připravujeme pro LocalBusiness, Service a FAQPage. Finální hodnoty závisí na potvrzeném NAP, IČO, telefonním čísle, e-mailu, adrese a URL.</div>
+  </div>
+
+  <div class="tab-panel" id="tab-checklist">
+    <div class="section-label">Část 4</div>
+    <h2 class="section-title">Kompletní launch checklist</h2>
+    <div class="subsection"><h3>Web — technicky</h3></div>
+    <ul class="checklist">
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">HTTPS na všech stránkách</span></div></li>
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">Responzivní mobilní zobrazení</span><span class="chk-sub">Google indexuje primárně mobilní verzi.</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Klikatelné telefonní číslo na každé stránce</span><span class="chk-sub">Čeká na potvrzení veřejného telefonu.</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Cookie/GDPR texty a kontakty</span><span class="chk-sub">Čeká na finální firemní údaje.</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Poptávkový formulář otestovaný a doručující na reálný e-mail</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">NAP konzistentní na webu, Google, Facebooku a katalozích</span></div></li>
+    </ul>
+    <div class="subsection"><h3>SEO a Google Business Profile</h3></div>
+    <ul class="checklist">
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">Unikátní title tag a meta description na každé stránce</span></div></li>
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">Jeden H1 s primárním klíčovým slovem na každé stránce</span></div></li>
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">Google Analytics 4 a Google Search Console</span></div></li>
+      <li><div class="chk-icon chk-good">B</div><div><span class="chk-label">LocalBusiness + FAQPage + Service schema</span></div></li>
+      <li><div class="chk-icon">!</div><div><span class="chk-label">Google Business Profile vytvořený, ověřený a kompletní</span></div></li>
+      <li><div class="chk-icon chk-nice">+</div><div><span class="chk-label">Průběžně: odpovídat na recenze do 48 hodin a publikovat 2+ příspěvky měsíčně</span><span class="chk-sub">Toto je doporučený add-on, ne součást základní dodávky.</span></div></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+function toggleAcc(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+</script>

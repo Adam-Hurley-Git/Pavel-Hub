@@ -1707,10 +1707,7 @@ function setLang(lang) {
   document.body.classList.toggle('lang-en', lang === 'en');
   document.getElementById('btn-cs').classList.toggle('active', lang === 'cs');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  localStorage.setItem('lang', lang);
 }
-var savedLang = localStorage.getItem('lang');
-if (savedLang === 'en') setLang('en');
 
 function toggleCard(card) {
   card.classList.toggle('open');
