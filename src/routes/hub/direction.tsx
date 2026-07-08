@@ -69,18 +69,18 @@ function DirectionPage() {
         <div style={{ display: "grid", gap: 16 }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#00C9A7", marginBottom: 6 }}>
-              <HubText cs="Nadpisy — Fraunces" en="Display — Fraunces" />
+              <HubText cs="Nadpisy — Inter (medium)" en="Headings — Inter (medium)" />
             </div>
-            <div style={{ fontFamily: "Fraunces, Georgia, serif", fontSize: 34, color: "#22563d", lineHeight: 1.1 }}>
+            <div style={{ fontFamily: "Inter, system-ui, sans-serif", fontWeight: 500, letterSpacing: "-0.02em", fontSize: 34, color: "#22563d", lineHeight: 1.1 }}>
               Čištění šachet pro SVJ a bytové domy
             </div>
             <p style={{ fontSize: 12.5, color: "#76787B", marginTop: 6 }}>
-              <HubText cs="Teplé patkové písmo pro nadpisy — působí důvěryhodněji a zavedeněji než běžný sans-serif." en="A warm serif for headlines — gives the brand a more established, trustworthy feel than a generic sans-serif." />
+              <HubText cs="Stejné písmo jako text, jen v medium řezu a s mírně staženým prostrkáním — drží nadpisy čisté a moderní." en="Same typeface as the body copy, just medium weight with slightly tightened letter-spacing — keeps headlines clean and modern." />
             </p>
           </div>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#00C9A7", marginBottom: 6 }}>
-              <HubText cs="Text — Inter" en="Body — Inter" />
+              <HubText cs="Text — Inter (regular)" en="Body — Inter (regular)" />
             </div>
             <div style={{ fontFamily: "Inter, system-ui, sans-serif", fontSize: 15, color: "#1A1A1A", maxWidth: 560, lineHeight: 1.7 }}>
               Profesionální čištění vzduchových šachet pro SVJ, bytová družstva a správce. Bez vstupu do bytů, s fotodokumentací a přehledným protokolem pro výbor.
