@@ -295,6 +295,13 @@ function HubIndex() {
           cta={<HubText cs="Otevřít" en="Open" />}
           link={{ to: "/hub/docs/legal-requirements" }}
         />
+        <Card
+          n="06"
+          title={<HubText cs="Datové schránky & oslovování" en="Data Box Outreach" />}
+          body={<HubText cs="Co je a není legální při oslovování SVJ/BD přes datovou schránku — závěrečné právní stanovisko s citacemi zákonů a pokutami." en="What is and isn't legal when contacting SVJ/BD via data box — a conclusive legal position with statute citations and penalties." />}
+          cta={<HubText cs="Otevřít" en="Open" />}
+          link={{ to: "/hub/docs/databox-outreach" }}
+        />
       </Section>
 
       <Section title={<HubText cs="Web & služba" en="Website & Service" />} description={<HubText cs="Co se pro vás konkrétně staví a dodává." en="What's actually being built and delivered for you." />}>
