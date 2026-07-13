@@ -371,4 +371,70 @@ body.lang-en .hub-doc-theme :is(.badge.en, .pill.en, .chip.en) {
     padding-block: 30px !important;
   }
 }
+
+.hub-doc-databox-outreach {
+  --bg: var(--hub-page);
+  --surface: var(--hub-card);
+  --surface2: var(--hub-soft);
+  --border: var(--hub-line);
+  --accent: #008F7C;
+  --text: var(--hub-ink);
+  --muted: var(--hub-muted);
+  --green: #1F9D6B;
+  --red: #D6483B;
+  --orange: #D99A2B;
+  --accent3: #B8720A;
+  --purple: #7C58B3;
+  display: flex;
+  flex-direction: column;
+}
+
+.hub-doc-databox-outreach .hero { order: 1; }
+.hub-doc-databox-outreach > nav { order: 2; }
+.hub-doc-databox-outreach > .container { order: 3; }
+
+.hub-doc-databox-outreach .hero {
+  padding-block: 44px 42px !important;
+  text-align: left !important;
+}
+
+.hub-doc-databox-outreach .hero .container {
+  max-width: 1180px !important;
+  padding-inline: 24px !important;
+}
+
+.hub-doc-databox-outreach .hero h1 {
+  max-width: 760px !important;
+  margin: 0 0 10px !important;
+  font-size: clamp(2rem, 4vw, 2.8rem) !important;
+  line-height: 1.12 !important;
+}
+
+.hub-doc-databox-outreach .hero .sub {
+  max-width: 760px !important;
+  margin: 0 0 22px !important;
+}
+
+.hub-doc-databox-outreach .hero-meta {
+  justify-content: flex-start !important;
+  gap: 10px !important;
+}
+
+.hub-doc-databox-outreach .section {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--hub-line) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.hub-doc-databox-outreach .section:last-child {
+  border-bottom: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .hub-doc-databox-outreach .hero .container {
+    padding-inline: 16px !important;
+  }
+}
 `;
