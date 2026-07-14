@@ -10,6 +10,7 @@ import offerScopeHtml from "@/content/docs/offer-scope.html?raw";
 import offerScopeCsHtml from "@/content/docs/offer-scope.cs.html?raw";
 import intakeFormHtml from "@/content/docs/intake-form.html?raw";
 import intakeFormEnHtml from "@/content/docs/intake-form.en.html?raw";
+import databoxOutreachHtml from "@/content/docs/databox-outreach.html?raw";
 
 const DOCS: Record<string, { title: string; html: string | Record<HubLanguage, string>; background: string; color: string; hubTheme?: boolean }> = {
   "market-report": {
@@ -35,6 +36,13 @@ const DOCS: Record<string, { title: string; html: string | Record<HubLanguage, s
   "intake-form": {
     title: "Intake Form",
     html: { cs: intakeFormHtml, en: intakeFormEnHtml },
+    background: "#F2F5FA",
+    color: "#1A1A1A",
+    hubTheme: true,
+  },
+  "databox-outreach": {
+    title: "Data Box Outreach — Legal Limits",
+    html: databoxOutreachHtml,
     background: "#F2F5FA",
     color: "#1A1A1A",
     hubTheme: true,

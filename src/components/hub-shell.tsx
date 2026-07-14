@@ -24,6 +24,7 @@ const NAV_ITEMS = [
   { to: "/hub", label: { cs: "Přehled", en: "Overview" } },
   { to: "/hub/docs/market-report", label: { cs: "Tržní report", en: "Market Report" } },
   { to: "/hub/docs/legal-requirements", label: { cs: "Právní", en: "Legal" } },
+  { to: "/hub/docs/databox-outreach", label: { cs: "Datovky", en: "Data Box" } },
   { to: "/hub/docs/offer-scope", label: { cs: "Rozsah webu", en: "Build Scope" } },
   { to: "/hub/docs/intake-form", label: { cs: "Podklady", en: "Intake" } },
   { to: "/hub/direction", label: { cs: "Design", en: "Design Direction" } },

@@ -1,0 +1,620 @@
+<style>
+
+  :root {
+    /* Light hub palette so callouts / badges / fine-boxes match legal-requirements
+       under hubTheme (semantic vars aren't set by the generic .hub-doc-theme). */
+    --bg: #F2F5FA;
+    --surface: #FFFFFF;
+    --surface2: #F7FAFE;
+    --border: #DEE8F7;
+    --accent: #008F7C;
+    --accent3: #B8720A;
+    --red: #D6483B;
+    --orange: #D99A2B;
+    --text: #1A1A1A;
+    --muted: #5A6B80;
+    --green: #1F9D6B;
+    --purple: #7C58B3;
+    --nav-h: 52px;
+  }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6; font-size: 15px;
+  }
+
+  /* ── LANGUAGE SWITCHING ── */
+  .en { display: none !important; }
+  body.lang-en .cs { display: none !important; }
+  body.lang-en div.en  { display: block !important; }
+  body.lang-en span.en { display: inline !important; }
+  body.lang-en li.en   { display: flex !important; }
+  body.lang-en a.en    { display: flex !important; }
+  body.lang-en td.en   { display: table-cell !important; }
+  body.lang-en th.en   { display: table-cell !important; }
+  body.lang-en h4.en   { display: block !important; }
+  body.lang-en p.en    { display: block !important; }
+  body.lang-en h3.en   { display: block !important; }
+
+  /* ── NAV ── */
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  nav.toc {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e3e9f2;
+    box-shadow: 0 2px 10px rgba(13,30,55,.05);
+  }
+  nav.toc .wrap {
+    display: flex; gap: 2px; overflow-x: auto;
+    padding: 8px 0; scrollbar-width: none;
+  }
+  nav.toc .wrap::-webkit-scrollbar { display: none; }
+  nav.toc a {
+    flex: 0 0 auto; color: var(--muted); text-decoration: none;
+    font-size: .78rem; font-weight: 600; padding: 7px 11px;
+    border-radius: 7px; white-space: nowrap;
+    transition: background .12s, color .12s;
+  }
+  nav.toc a:hover,
+  nav.toc a.active { background: #eef4f9; color: #0e7c86; }
+  nav.toc a.en { display: none; }
+  body.lang-en nav.toc a.en { display: inline-flex !important; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #131827 0%, #1a2640 50%, #131827 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 2rem 50px; text-align: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(79,142,247,.15); border: 1px solid rgba(79,142,247,.3);
+    color: var(--accent); font-size: 12px; padding: 4px 14px;
+    border-radius: 100px; margin-bottom: 20px; letter-spacing: .5px;
+    text-transform: uppercase; font-weight: 600;
+  }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 12px; }
+  .hero h1 span { color: var(--accent); }
+  .hero .sub { color: var(--muted); font-size: 15px; max-width: 660px; margin: 0 auto 28px; }
+  .hero-meta { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+  .section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 32px; }
+  .section-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .icon-blue   { background: rgba(79,142,247,.15); }
+  .icon-green  { background: rgba(56,217,169,.15); }
+  .icon-orange { background: rgba(247,148,74,.15); }
+  .icon-yellow { background: rgba(247,201,72,.15); }
+  .icon-red    { background: rgba(247,96,96,.15); }
+  .icon-purple { background: rgba(167,119,247,.15); }
+  .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+  .section-desc { color: var(--muted); font-size: 14px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; margin-bottom: 16px;
+  }
+  .card-title { font-weight: 700; font-size: 15px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .card p { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .card-red { border-color: rgba(247,96,96,.35); background: rgba(247,96,96,.04); }
+  .card-orange { border-color: rgba(247,148,74,.35); background: rgba(247,148,74,.04); }
+  .card-green { border-color: rgba(56,217,169,.35); background: rgba(56,217,169,.04); }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-flex; align-items: center; padding: 3px 10px;
+    border-radius: 100px; font-size: 11px; font-weight: 700; white-space: nowrap;
+  }
+  .badge-required    { background: rgba(247,96,96,.15);  color: var(--red);    border: 1px solid rgba(247,96,96,.25); }
+  .badge-recommended { background: rgba(247,201,72,.15); color: var(--accent3); border: 1px solid rgba(247,201,72,.25); }
+  .badge-optional    { background: rgba(56,217,169,.15); color: var(--green);  border: 1px solid rgba(56,217,169,.25); }
+  .badge-info        { background: rgba(79,142,247,.15); color: var(--accent);  border: 1px solid rgba(79,142,247,.25); }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 20px; }
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: var(--surface2); padding: 11px 16px; text-align: left;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--muted); border-bottom: 1px solid var(--border);
+  }
+  td { padding: 13px 16px; font-size: 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  /* ── CALLOUTS ── */
+  .callout {
+    border-radius: 10px; padding: 16px 20px; margin: 20px 0;
+    display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.65;
+  }
+  .callout-blue   { background: rgba(79,142,247,.08);  border: 1px solid rgba(79,142,247,.2); }
+  .callout-green  { background: rgba(56,217,169,.08);  border: 1px solid rgba(56,217,169,.2); }
+  .callout-orange { background: rgba(247,148,74,.08);  border: 1px solid rgba(247,148,74,.2); }
+  .callout-red    { background: rgba(247,96,96,.08);   border: 1px solid rgba(247,96,96,.2); }
+  .callout-purple { background: rgba(167,119,247,.08); border: 1px solid rgba(167,119,247,.2); }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .callout strong { color: var(--text); }
+  .callout p { margin-bottom: 8px; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ── VERDICT ── */
+  .verdict {
+    border-radius: 14px; padding: 26px 28px; margin: 8px 0 4px;
+    background: rgba(247,96,96,.07); border: 1px solid rgba(247,96,96,.3);
+  }
+  .verdict .v-label { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; font-weight: 700; color: var(--red); margin-bottom: 10px; }
+  .verdict h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 10px; line-height: 1.25; }
+  .verdict p { color: var(--muted); font-size: 14.5px; line-height: 1.7; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; }
+  .checklist li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .chk  { color: var(--green); font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .crs  { color: var(--red);   font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── FINE BOX ── */
+  .fine-box {
+    background: rgba(247,96,96,.06); border: 1px solid rgba(247,96,96,.25);
+    border-radius: 12px; padding: 20px 24px; margin: 16px 0;
+  }
+  .fine-box h4 { color: var(--red); font-size: 13px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; font-weight: 700; }
+  .fine-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(247,96,96,.12); font-size: 14px; }
+  .fine-row:last-child { border-bottom: none; }
+  .fine-amount { font-weight: 700; color: var(--red); font-size: 15px; white-space: nowrap; }
+
+  /* ── LAW REF ── */
+  .lawref {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 2px 8px; color: var(--accent); white-space: nowrap;
+  }
+  .quote {
+    border-left: 3px solid var(--accent); background: var(--surface2);
+    padding: 12px 16px; margin: 12px 0; border-radius: 0 8px 8px 0;
+    font-size: 13.5px; color: var(--text); font-style: italic; line-height: 1.65;
+  }
+
+  /* ── MISC ── */
+  ul.plain { list-style: none; margin-top: 4px; }
+  ul.plain li { padding: 5px 0; color: var(--muted); font-size: 14px; }
+  ul.plain li::before { content: "→ "; color: var(--accent); }
+  .highlight { color: var(--accent); font-weight: 600; }
+  .highlight-red { color: var(--red); font-weight: 600; }
+  .highlight-green { color: var(--green); font-weight: 600; }
+  .subhead { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 14px; font-weight: 700; }
+  h3.subsec { font-size: 1rem; font-weight: 700; margin: 28px 0 14px; border-left: 3px solid var(--accent); padding-left: 12px; }
+  h3.subsec-red { border-left-color: var(--red); }
+  h3.subsec-green { border-left-color: var(--green); }
+  h3.subsec-orange { border-left-color: var(--orange); }
+  .src-list { list-style: none; }
+  .src-list li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+  .src-list li:last-child { border-bottom: none; }
+  .src-list a { color: var(--accent); text-decoration: none; word-break: break-all; }
+  .src-list a:hover { text-decoration: underline; }
+
+  @media print {
+    nav { display: none; }
+    .hero { background: #f0f4ff; padding: 30px; }
+  }
+
+</style>
+
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">
+      <span class="cs">Právní stanovisko — datové schránky</span>
+      <span class="en">Legal Position — Data Boxes</span>
+    </div>
+    <h1>
+      <span class="cs">Oslovování klientů přes <span>datovou schránku</span><br>co smíte a co ne</span>
+      <span class="en">Reaching clients via the <span>data box</span><br>what is and isn't allowed</span>
+    </h1>
+    <p class="sub">
+      <span class="cs">Závěrečné a doložené stanovisko výhradně k datovým schránkám (ISDS): lze automaticky rozesílat nabídku čištění šachet SVJ a bytovým družstvům, která jsme dosud neoslovili? Krátká odpověď: ne.</span>
+      <span class="en">A conclusive, source-backed position exclusively on data boxes (ISDS): can we auto-send our shaft-cleaning offer to SVJ and housing co-ops we have no relationship with? Short answer: no.</span>
+    </p>
+    <div class="hero-meta">
+      <span>📅 <span class="cs">Stav k červenci 2026</span><span class="en">Current: July 2026</span></span>
+      <span>🇨🇿 <span class="cs">Česká republika</span><span class="en">Czech Republic</span></span>
+      <span>📮 <span class="cs">Pouze datové schránky</span><span class="en">Data boxes only</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="toc" id="main-nav">
+  <div class="wrap">
+    <a class="cs" href="#zaver">Závěr</a><a class="en" href="#zaver">Verdict</a>
+    <a class="cs" href="#zakon">Zákon 300/2008</a><a class="en" href="#zakon">Act 300/2008</a>
+    <a class="cs" href="#sdeleni">Obchodní sdělení</a><a class="en" href="#sdeleni">Commercial message</a>
+    <a class="cs" href="#mytus">Mýtus „jen informace"</a><a class="en" href="#mytus">The "info" myth</a>
+    <a class="cs" href="#pokuty">Pokuty</a><a class="en" href="#pokuty">Penalties</a>
+    <a class="cs" href="#legalni">Co JE legální</a><a class="en" href="#legalni">What IS legal</a>
+    <a class="cs" href="#postup">Doporučený postup</a><a class="en" href="#postup">Recommended path</a>
+    <a class="cs" href="#zdroje">Zdroje</a><a class="en" href="#zdroje">Sources</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════ 0. VERDICT ═══════════ -->
+<section class="section" id="zaver">
+  <div class="section-header">
+    <div class="section-icon icon-red">⚖️</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Závěr na jeden řádek</span>
+        <span class="en">The bottom line</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Ověřeno proti zákonům a stanoviskům úřadů — červenec 2026</span>
+        <span class="en">Verified against statutes and regulator guidance — July 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="v-label">
+      <span class="cs">Nelegální jako marketingový nástroj</span>
+      <span class="en">Illegal as a marketing tool</span>
+    </div>
+    <h2>
+      <span class="cs">Hromadné „studené" rozesílání obchodní nabídky do datových schránek SVJ a družstev je přestupek — s pokutou pro firmu až 10 000 000 Kč.</span>
+      <span class="en">Mass cold-sending of a commercial offer into the data boxes of SVJ and co-ops is an offence — with a fine of up to CZK 10,000,000 for a company.</span>
+    </h2>
+    <p>
+      <span class="cs"><strong>Technicky</strong> to jde (schránky firem musí zprávy přijímat, API ISDS umí odesílat). <strong>Právně</strong> to nejde. A žádný „trik" — přeznačit reklamu na „informaci", požádat nejdřív o souhlas, tvářit se neutrálně — na tom nic nemění. Datová schránka je legální jen tam, kde kontakt <strong>není nevyžádaný</strong>: klient se ozval první, je to váš zákazník, nebo jde o běžnou individuální korespondenci.</span>
+      <span class="en"><strong>Technically</strong> it works (companies' boxes must receive messages, the ISDS API can send). <strong>Legally</strong> it doesn't. And no "trick" — relabelling an ad as "information", asking for consent first, sounding neutral — changes that. A data box is legal only where the contact is <strong>not unsolicited</strong>: the client reached out first, is already your customer, or it's ordinary one-to-one correspondence.</span>
+    </p>
+  </div>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">🔎</div>
+    <div>
+      <div class="cs"><p><strong>Oprava z minulé porady.</strong> Zákaz jsme si dříve spojovali s „§14/§14a" zákona č. 300/2008. To je nesprávné — §14a upravuje něco jiného. Skutečný zákaz i pokuta jsou v <strong>§ 26a, § 26b a § 26c</strong> (přestupková ustanovení). Podstata závěru se nemění, ale citace teď sedí.</p></div>
+      <div class="en"><p><strong>Correction from our earlier chat.</strong> We previously tied the ban to "§14/§14a" of Act 300/2008. That's wrong — §14a covers something else. The actual prohibition and fine sit in <strong>§ 26a, § 26b and § 26c</strong> (the offence provisions). The conclusion is unchanged, but the citation is now correct.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 1. ACT 300/2008 ═══════════ -->
+<section class="section" id="zakon">
+  <div class="section-header">
+    <div class="section-icon icon-blue">📜</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Co přesně říká zákon o datových schránkách</span>
+        <span class="en">What the data box act actually says</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Zákon č. 300/2008 Sb., o elektronických úkonech a autorizované konverzi dokumentů</span>
+        <span class="en">Act No. 300/2008 Sb., on electronic acts and authorised document conversion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏢 <span class="cs">§ 26b — firma / právnická osoba</span><span class="en">§ 26b — company / legal entity</span> <span class="badge badge-required">CZK 10M</span></div>
+    <div class="cs"><p>Přestupku se dopustí podnikající fyzická nebo právnická osoba tím, že užije datovou schránku k šíření <strong>„nevyžádaných obchodních či jiných obtěžujících sdělení"</strong>. Za to lze uložit pokutu <strong>až 10 000 000 Kč</strong> (§ 26b odst. 2 písm. a).</p></div>
+    <div class="en"><p>A business (natural person or legal entity) commits an offence by using a data box to spread <strong>"unsolicited commercial or other annoying messages"</strong>. The fine is <strong>up to CZK 10,000,000</strong> (§ 26b(2)(a)).</p></div>
+    <div class="quote">
+      <span class="cs">„…užije datovou schránku k šíření nevyžádaných obchodních či jiných obtěžujících sdělení…"</span>
+      <span class="en">"…uses a data box to spread unsolicited commercial or other annoying messages…"</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">👤 <span class="cs">§ 26a — fyzická osoba</span><span class="en">§ 26a — natural person</span></div>
+      <div class="cs"><p>Stejné jednání u nepodnikající fyzické osoby: pokuta až <strong>10 000 Kč</strong>. Pro váš záměr (firma oslovuje firmy) je ale rozhodující § 26b.</p></div>
+      <div class="en"><p>The same conduct by a private individual: fine up to <strong>CZK 10,000</strong>. But for your plan (a company contacting companies) § 26b is what governs.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏛️ <span class="cs">§ 26c — kdo to řeší</span><span class="en">§ 26c — who enforces</span></div>
+      <div class="cs"><p>Přestupky projednává <strong>Digitální a informační agentura (DIA)</strong> — správce ISDS od dubna 2023. <strong>ÚOOÚ se výslovně prohlásil za nepříslušný</strong>; stížnosti míří na DIA.</p></div>
+      <div class="en"><p>Offences are handled by the <strong>Digital and Information Agency (DIA)</strong> — the ISDS administrator since April 2023. <strong>ÚOOÚ has expressly disclaimed competence</strong>; complaints go to DIA.</p></div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">💡</div>
+    <div>
+      <div class="cs"><p>Všimněte si slov <strong>„či jiných obtěžujících sdělení"</strong>. I kdybyste dokázali, že vaše zpráva <em>není</em> obchodní sdělení, hromadné nevyžádané rozesílání spadne pod tento druhý, záměrně vágní pojem. Jsou to <strong>dvoje dveře</strong> a musíte projít oběma.</p></div>
+      <div class="en"><p>Note the words <strong>"or other annoying messages"</strong>. Even if you proved your message is <em>not</em> a commercial communication, mass unsolicited sending falls under this second, deliberately vague catch-all. There are <strong>two doors</strong> and you have to get through both.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 2. OBCHODNÍ SDĚLENÍ ═══════════ -->
+<section class="section" id="sdeleni">
+  <div class="section-header">
+    <div class="section-icon icon-purple">📣</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">„Obchodní sdělení" je definováno velmi široce</span>
+        <span class="en">"Commercial communication" is defined very broadly</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Zákon č. 480/2004 Sb. — a proč se týká i oslovování firem</span>
+        <span class="en">Act No. 480/2004 Sb. — and why it covers B2B too</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📖 <span class="cs">Definice (§ 2 písm. f)</span><span class="en">Definition (§ 2(f))</span></div>
+    <div class="quote">
+      <span class="cs">„…všechny formy sdělení … určeného k <strong>přímé či nepřímé podpoře</strong> zboží či služeb nebo image podniku…"</span>
+      <span class="en">"…all forms of communication … aimed at the <strong>direct or indirect promotion</strong> of goods, services or the image of a business…"</span>
+    </div>
+    <div class="cs"><p>Klíčové slovo je <strong>nepřímé</strong>. „Máte zákonnou povinnost šachty čistit" poslané firmou, která to čištění prodává, je učebnicový příklad nepřímé podpory — je to obchodní sdělení bez ohledu na formulaci.</p></div>
+    <div class="en"><p>The key word is <strong>indirect</strong>. "You have a legal duty to clean the shafts", sent by the very firm that sells that cleaning, is a textbook case of indirect promotion — it's a commercial communication regardless of wording.</p></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🏢 <span class="cs">„B2B nepotřebuje souhlas" je mýtus</span><span class="en">"B2B needs no consent" is a myth</span></div>
+      <div class="cs"><p>ÚOOÚ výslovně (FAQ ot. 25): <em>zákon nerozlišuje, zda je adresátem fyzická nebo právnická osoba</em>. Oslovení SVJ či družstva tedy stejná pravidla jako u občana. Volně dostupné e-maily ani koupené databáze pro nabídky použít nelze.</p></div>
+      <div class="en"><p>ÚOOÚ is explicit (FAQ Q25): <em>the act does not distinguish whether the recipient is a natural or legal person</em>. Contacting an SVJ or co-op is under the same rules as a citizen. Freely available emails and purchased databases can't be used for offers either.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏷️ <span class="cs">Musí být jasně označeno (§ 7 odst. 4)</span><span class="en">Must be clearly marked (§ 7(4))</span></div>
+      <div class="cs"><p>Obchodní sdělení musí být <strong>zřetelně označeno</strong> jako obchodní sdělení a nesmí skrývat totožnost odesílatele. Reklama převlečená za „informaci" je <strong>skryté obchodní sdělení</strong> — samostatný přestupek navíc.</p></div>
+      <div class="en"><p>A commercial message must be <strong>clearly marked</strong> as such and must not hide the sender's identity. An ad dressed as "information" is a <strong>hidden commercial message</strong> — a separate, additional offence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 3. THE "INFO" MYTH ═══════════ -->
+<section class="section" id="mytus">
+  <div class="section-header">
+    <div class="section-icon icon-orange">🎭</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">„Pošlu to jako informaci, ne reklamu" — proč to neprojde</span>
+        <span class="en">"I'll send it as information, not an ad" — why it fails</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Nejčastější únikový plán — a hned dvě nezávislé překážky</span>
+        <span class="en">The most common escape plan — and two independent walls</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">⛔</div>
+    <div>
+      <div class="cs"><p><strong>Nejde to a je to jedna z rizikovějších variant.</strong> Aby byla legální, musela byste porazit <strong>dva</strong> nezávislé zákony najednou. Neporazíte ani jeden.</p></div>
+      <div class="en"><p><strong>It doesn't work, and it's one of the riskier versions.</strong> To be legal you'd have to beat <strong>two</strong> independent laws at once. You beat neither.</p></div>
+    </div>
+  </div>
+
+  <h3 class="subsec subsec-red">
+    <span class="cs">Překážka 1 — definice zahrnuje i nepřímou podporu</span>
+    <span class="en">Wall 1 — the definition includes indirect promotion</span>
+  </h3>
+  <div class="cs"><p>ÚOOÚ (FAQ ot. 6) říká, že i zdánlivě neutrální zpráva zaslaná někomu, kdo <strong>není váš zákazník</strong> ani nedal souhlas, se považuje za obchodní sdělení sloužící k <strong>nepřímé podpoře</strong>. Dokonce i pouhá žádost o souhlas se zasíláním (FAQ ot. 13) je sama obchodním sdělením — takže „nejdřív si vyžádám souhlas přes datovku" je logická smyčka, která už sama porušuje zákon.</p></div>
+  <div class="en"><p>ÚOOÚ (FAQ Q6) states that even a seemingly neutral message sent to someone who is <strong>not your customer</strong> and gave no consent is treated as a commercial communication serving <strong>indirect promotion</strong>. Even a mere request for consent to send (FAQ Q13) is itself a commercial message — so "I'll first ask for consent via data box" is a loop that already breaks the law by itself.</p></div>
+
+  <h3 class="subsec subsec-red">
+    <span class="cs">Překážka 2 — přestupek u datovky je širší než „obchodní"</span>
+    <span class="en">Wall 2 — the data box offence is broader than "commercial"</span>
+  </h3>
+  <div class="cs"><p>I kdybyste zázrakem obhájili, že vaše zpráva není obchodní sdělení, § 26b zakazuje šíření „nevyžádaných obchodních <strong>či jiných obtěžujících</strong> sdělení". Hromadné nevyžádané rozesílání je terč bez ohledu na to, zda je to technicky reklama. Stejný úřad (DIA), stejný strop 10 mil. Kč.</p></div>
+  <div class="en"><p>Even if you miraculously argued your message isn't a commercial communication, § 26b bans spreading "unsolicited commercial <strong>or other annoying</strong> messages". Mass unsolicited sending is a target regardless of whether it's technically an ad. Same authority (DIA), same CZK 10M ceiling.</p></div>
+
+  <div class="callout callout-orange">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <div class="cs"><p>Opřít nabídku o „<em>máte zákonnou povinnost</em>", abyste tlačili na prodej, navíc hrozí i <strong>klamavou obchodní praktikou</strong> podle zákona o ochraně spotřebitele. Přestrojení tedy nejen nepomůže — přidává rizika.</p></div>
+      <div class="en"><p>Leaning on "<em>you're legally obliged</em>" to drive the sale also risks a <strong>misleading commercial practice</strong> under consumer-protection law. So the disguise doesn't just fail — it adds risk.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 4. PENALTIES ═══════════ -->
+<section class="section" id="pokuty">
+  <div class="section-header">
+    <div class="section-icon icon-red">💸</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Co hrozí</span>
+        <span class="en">What's at stake</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Dva zákony, oba se stropem 10 milionů pro firmu</span>
+        <span class="en">Two laws, both capping at 10 million for a company</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fine-box">
+    <h4><span class="cs">Maximální pokuty</span><span class="en">Maximum fines</span></h4>
+    <div class="fine-row">
+      <span><span class="cs">Zneužití datové schránky k nevyžádaným sdělením — firma</span><span class="en">Data-box misuse for unsolicited messages — company</span> <span class="lawref">§ 26b/300/2008</span></span>
+      <span class="fine-amount">10 000 000 Kč</span>
+    </div>
+    <div class="fine-row">
+      <span><span class="cs">Rozesílání obchodních sdělení bez souhlasu — firma</span><span class="en">Sending commercial messages without consent — company</span> <span class="lawref">§ 11/480/2004</span></span>
+      <span class="fine-amount">10 000 000 Kč</span>
+    </div>
+    <div class="fine-row">
+      <span><span class="cs">Totéž — nepodnikající fyzická osoba (dle zákona)</span><span class="en">Same — private individual (per statute)</span></span>
+      <span class="fine-amount">10 000 – 100 000 Kč</span>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">🏛️</div>
+    <div>
+      <div class="cs"><p><strong>Dozor je rozdělený:</strong> datovou schránku hlídá <strong>DIA</strong> (300/2008), e-mail/SMS marketing hlídá <strong>ÚOOÚ</strong> (480/2004). Jeden záměr tak může narazit na dva úřady současně.</p></div>
+      <div class="en"><p><strong>Supervision is split:</strong> the data box is policed by <strong>DIA</strong> (300/2008), email/SMS marketing by <strong>ÚOOÚ</strong> (480/2004). One campaign can therefore hit two authorities at once.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 5. WHAT IS LEGAL ═══════════ -->
+<section class="section" id="legalni">
+  <div class="section-header">
+    <div class="section-icon icon-green">✅</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Kdy datová schránka legální JE</span>
+        <span class="en">When the data box IS legal</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Ne slepá ulička — jen ne pro studené oslovování</span>
+        <span class="en">Not a dead end — just not for cold prospecting</span>
+      </div>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li><span class="chk">✓</span><div>
+      <span class="cs"><strong>Vyžádaný / příchozí kontakt.</strong> SVJ či družstvo se ozvalo první (formulář na webu, telefon, QR na letáku, konkrétní poptávka). Odpověď na konkrétní dotaz není obchodní sdělení (ÚOOÚ FAQ ot. 2) — musíte ale umět doložit, že šlo o reakci na poptávku.</span>
+      <span class="en"><strong>Solicited / inbound contact.</strong> The SVJ or co-op reached out first (web form, phone, QR on a leaflet, a specific enquiry). A reply to a specific request isn't a commercial message (ÚOOÚ FAQ Q2) — but you must be able to prove it was a reaction to that request.</span>
+    </div></li>
+    <li><span class="chk">✓</span><div>
+      <span class="cs"><strong>Stávající zákazník.</strong> Komu už sloužíte, tomu smíte psát o vlastní podobné službě (§ 7 odst. 3), vždy s možností odhlášení. „Potenciální zákazník" sem <strong>nepatří</strong>.</span>
+      <span class="en"><strong>Existing customer.</strong> Someone you already serve can be messaged about your own similar service (§ 7(3)), always with an opt-out. A "potential customer" does <strong>not</strong> qualify.</span>
+    </div></li>
+    <li><span class="chk">✓</span><div>
+      <span class="cs"><strong>Individuální obchodní korespondence.</strong> Faktury, smlouvy, objednávky, upomínky, potvrzení — přesně k tomu jsou Poštovní datové zprávy určeny. Není to „šíření nevyžádaných sdělení".</span>
+      <span class="en"><strong>Individual business correspondence.</strong> Invoices, contracts, orders, reminders, confirmations — exactly what Postal Data Messages are for. This is not "spreading unsolicited messages".</span>
+    </div></li>
+    <li><span class="crs">✕</span><div>
+      <span class="cs"><strong>Hromadná studená nabídka</strong> komukoli, koho jste neoslovili a kdo není zákazník — <strong>zakázáno</strong>, ať ji zabalíte jakkoli.</span>
+      <span class="en"><strong>Mass cold offer</strong> to anyone you haven't been contacted by and who isn't a customer — <strong>prohibited</strong>, however you package it.</span>
+    </div></li>
+  </ul>
+
+  <div class="card">
+    <div class="card-title">📮 <span class="cs">Technická poznámka — PDZ</span><span class="en">Technical note — PDZ</span></div>
+    <div class="cs"><p>Schránky firem (PO a PFO) musí od 1. 1. 2022 <strong>přijímat</strong> Poštovní datové zprávy a nemohou je odmítnout — vypnout příjem smí jen soukromé osoby (FO). Pozor: „musí přijmout" je o doručení, ne o povinnosti cokoli akceptovat, a rozhodně to <strong>neopravňuje odesílatele ke spamu</strong>. Cena je na straně odesílatele, aktuálně ~<strong>10 Kč vč. DPH</strong> za standardní zprávu (do 20 MB); cena se v čase mění — před nasazením ověřte v ceníku České pošty.</p></div>
+    <div class="en"><p>Company boxes (PO and PFO) must <strong>receive</strong> Postal Data Messages since 1 Jan 2022 and can't refuse them — only private individuals (FO) can turn receipt off. Note: "must receive" is about delivery, not a duty to accept anything, and it certainly <strong>does not license the sender to spam</strong>. Cost falls on the sender, currently ~<strong>CZK 10 incl. VAT</strong> per standard message (up to 20 MB); the price changes over time — verify against Česká pošta's price list before deploying.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════ 6. RECOMMENDED PATH ═══════════ -->
+<section class="section" id="postup">
+  <div class="section-header">
+    <div class="section-icon icon-blue">🧭</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Jak datovku využít legálně — otočit ji na příchozí</span>
+        <span class="en">How to use the data box legally — flip it to inbound</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Datovka jako kanál pro reálný rozhovor, ne pro první studený dotek</span>
+        <span class="en">The data box as the channel for a real conversation, not the first cold touch</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">🔁</div>
+    <div>
+      <div class="cs"><p>První dotek udělejte <strong>legálními kanály</strong> — adresný dopis výboru SVJ (mimo zákon 480/2004, přípustný na základě oprávněného zájmu s možností odhlášení), telefon, web, komunity a fóra. Jakmile výbor „zvedne ruku", je datová schránka <strong>skvělý</strong>, průkazně doručovaný kanál pro nabídku, smlouvu i protokol. Nesmí jen být tím prvním studeným krokem — v žádném převleku.</p></div>
+      <div class="en"><p>Make the first touch via <strong>legal channels</strong> — an addressed letter to the SVJ board (outside Act 480/2004, permissible on legitimate interest with an opt-out), phone, web, communities and forums. Once the board "raises its hand", the data box is a <strong>great</strong>, provably delivered channel for the offer, contract and protocol. It just can't be the first cold step — in any costume.</p></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th><span class="cs">Kanál</span><span class="en">Channel</span></th>
+          <th><span class="cs">Studené oslovení?</span><span class="en">Cold outreach?</span></th>
+          <th><span class="cs">Poznámka</span><span class="en">Note</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><span class="cs">Datová schránka</span><span class="en">Data box</span></strong></td>
+          <td><span class="highlight-red"><span class="cs">Ne — zakázáno</span><span class="en">No — prohibited</span></span></td>
+          <td><span class="cs">Jen vyžádané / zákazník / individuální korespondence</span><span class="en">Only solicited / customer / individual correspondence</span></td>
+        </tr>
+        <tr>
+          <td><strong><span class="cs">Adresný dopis (pošta)</span><span class="en">Addressed letter (post)</span></strong></td>
+          <td><span class="highlight-green"><span class="cs">Ano</span><span class="en">Yes</span></span></td>
+          <td><span class="cs">Mimo 480/2004; oprávněný zájem, uveďte zdroj adresy + opt-out</span><span class="en">Outside 480/2004; legitimate interest, disclose source + opt-out</span></td>
+        </tr>
+        <tr>
+          <td><strong><span class="cs">Telefon</span><span class="en">Phone</span></strong></td>
+          <td><span class="highlight-green"><span class="cs">Zpravidla ano</span><span class="en">Generally yes</span></span></td>
+          <td><span class="cs">Respektujte Robinsonův seznam / námitky</span><span class="en">Respect the do-not-call register / objections</span></td>
+        </tr>
+        <tr>
+          <td><strong><span class="cs">Studený e-mail</span><span class="en">Cold email</span></strong></td>
+          <td><span class="highlight-red"><span class="cs">Ne (bez souhlasu)</span><span class="en">No (without consent)</span></span></td>
+          <td><span class="cs">Stejný problém dle 480/2004 — i vůči firmám</span><span class="en">Same 480/2004 problem — even towards companies</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-purple">
+    <div class="callout-icon">📌</div>
+    <div>
+      <div class="cs"><p><strong>Upozornění.</strong> Nejsem advokát a pojem „jiná obtěžující sdělení" je záměrně vágní. U rizika se stropem 10 mil. Kč je krátké posouzení šablony zprávy českým advokátem levná pojistka. Směr je ale jasný.</p></div>
+      <div class="en"><p><strong>Caveat.</strong> I'm not a lawyer, and the term "other annoying messages" is deliberately vague. For a risk capped at CZK 10M, a short review of your message template by a Czech attorney is cheap insurance. But the direction is clear.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 7. SOURCES ═══════════ -->
+<section class="section" id="zdroje">
+  <div class="section-header">
+    <div class="section-icon icon-yellow">🔗</div>
+    <div>
+      <div class="section-title">
+        <span class="cs">Zdroje</span>
+        <span class="en">Sources</span>
+      </div>
+      <div class="section-desc">
+        <span class="cs">Primární právní texty a stanoviska úřadů — ověřeno červenec 2026</span>
+        <span class="en">Primary statutes and regulator guidance — verified July 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <ul class="src-list">
+    <li>Zákon č. 300/2008 Sb. (§ 26a, 26b, 26c) — <a href="https://www.zakonyprolidi.cz/cs/2008-300" target="_blank" rel="noopener">zakonyprolidi.cz/cs/2008-300</a></li>
+    <li>Zákon č. 480/2004 Sb. (§ 2 f, § 7, § 11) — <a href="https://www.zakonyprolidi.cz/cs/2004-480" target="_blank" rel="noopener">zakonyprolidi.cz/cs/2004-480</a></li>
+    <li>ÚOOÚ — nepříslušnost pro datové schránky (DIA je příslušná) — <a href="https://uoou.gov.cz/stiznosti-na-obchodni-sdeleni-zasilana-prostrednictvim-datove-schranky" target="_blank" rel="noopener">uoou.gov.cz</a></li>
+    <li>ÚOOÚ — Časté otázky k zákonu č. 480/2004 (definice, B2B ot. 25, „informace" ot. 6, souhlas ot. 13, poptávka ot. 2) — <a href="https://uoou.gov.cz/cinnost/obchodni-sdeleni/casto-kladene-otazky-k-zakonu-c-4802004-sb" target="_blank" rel="noopener">uoou.gov.cz — FAQ 480/2004</a></li>
+    <li>DIA / mojedatovaschranka.cz — Poštovní datové zprávy, povinný příjem PO/PFO od 1. 1. 2022 — <a href="https://info.mojedatovaschranka.cz/info/cs/help/8.6.text.html" target="_blank" rel="noopener">info.mojedatovaschranka.cz</a></li>
+    <li>Česká pošta — ceník Poštovní datové zprávy — <a href="https://www.ceskaposta.cz/sluzby/egovernment/doplnkove-sluzby-k-datovym-schrankam/postovni-datova-zprava" target="_blank" rel="noopener">ceskaposta.cz</a></li>
+    <li>DPO PRO — pokuty až 10 mil. Kč za nevyžádaná sdělení v datových schránkách — <a href="https://dpopro.cz/za-nevyzadana-obchodni-sdeleni-v-datovych-schrankach-hrozi-pokuta-az-10-milionu-korun-dozor-je-roztristeny/" target="_blank" rel="noopener">dpopro.cz</a></li>
+  </ul>
+
+  <div class="callout callout-orange" style="margin-top:24px">
+    <div class="callout-icon">📝</div>
+    <div>
+      <div class="cs"><p>Dvě věci k ověření před finalizací: (1) neexistuje jediná oficiální věta „datové schránky nejsou pro marketing" — závěr je poskládán ze znění § 26b a pokynů DIA/ÚOOÚ (je to správná dedukce, ne přímý citát); (2) cena PDZ je aktuální k datu rešerše a mění se — ověřte živý ceník.</p></div>
+      <div class="en"><p>Two items to verify before finalising: (1) there is no single official sentence "data boxes are not for marketing" — the conclusion is assembled from § 26b wording plus DIA/ÚOOÚ guidance (a sound inference, not a direct quote); (2) the PDZ price is current as of research and changes — check the live price list.</p></div>
+    </div>
+  </div>
+</section>
+
+</div>
